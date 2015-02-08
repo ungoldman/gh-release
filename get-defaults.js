@@ -21,6 +21,8 @@ module.exports = function getDefaults () {
     target_commitish: 'master',
     name: 'v' + pkg.version,
     body: log.split('## ')[1].split('\n').slice(1).join('\n'),
+    owner: owner,
+    repo: repo,
     draft: false,
     prerelease: false
   }

@@ -40,11 +40,16 @@ $ gh-release --help
 Usage: gh-release [options]
 
 Options:
-  -h, --help        Show help
-  -v, --version     Show version number
-  -d, --draft                            [default: false]
-  -p, --prerelease                       [default: false]
-  -r, --repo                             [default: false]
+  -h, --help              Show help
+  -v, --version           Show version number
+  -t, --tag_name                               [default: "v1.0.0"]
+  -c, --target_commitish                       [default: "master"]
+  -n, --name                                   [default: "v1.0.0"]
+  -b, --body                                   [default: "* create working prototype\n* define basic node interface\n* define basic cli interface\n"]
+  -o, --owner                                  [default: "ngoldman"]
+  -r, --repo                                   [default: "gh-release"]
+  -d, --draft                                  [default: false]
+  -p, --prerelease                             [default: false]
 ```
 
 ### Options
@@ -60,9 +65,9 @@ Defaults:
 Optional:
 
 * in `package.json`:
-  * `files` array containing files to zip & upload w/ release
+  * (not yet implemented) `files` array containing files to zip & upload w/ release
 
-Override defaults with flags (cli) or options object (node). Interface tbd.
+Override defaults with flags (cli) or options object (node).
 
 ## Reference
 

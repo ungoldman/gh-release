@@ -1,6 +1,5 @@
 var defaults = require('./get-defaults')()
 var extend = require('util')._extend
-var path = require('path')
 var GHAPI = require('github')
 var client = new GHAPI({
   version: '3.0.0',

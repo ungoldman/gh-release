@@ -2,7 +2,6 @@
 
 var ghRelease = require('..')
 var defaults = require('../get-defaults')()
-var path = require('path')
 var argv = require('yargs')
   .usage('Usage: $0 [options]')
   .options({
@@ -21,6 +20,14 @@ var argv = require('yargs')
     'b': {
       alias: 'body',
       default: defaults.body
+    },
+    'o': {
+      alias: 'owner',
+      default: defaults.owner
+    },
+    'r': {
+      alias: 'repo',
+      default: defaults.repo
     },
     'd': {
       alias: 'draft',
@@ -64,6 +71,8 @@ var options = {
   target_commitish: argv.c,
   name: argv.n,
   body: argv.b,
+  owner: argv.o,
+  repo: argv.r,
   draft: argv.d,
   prerelease: argv.p
 }
