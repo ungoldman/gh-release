@@ -27,5 +27,8 @@
   },
   "scripts": {
     "test": "standard"
+  },
+  "dependencies": {
+    "request": "^2.53.0"
   }
 }
