@@ -10,6 +10,8 @@ module.exports = function getDefaults () {
   var log = fs.readFileSync(logPath, { encoding: 'utf-8' })
   var logVersion = log.split('## ')[1].split('\n')[0].split(' ')[0]
 
+  if (logVersion.indexOf('v') === 0) logVersion = logVersion.slice(1)
+
   if (logVersion !== pkg.version) {
     var err = 'CHANGELOG.md out of sync with package.json'
     err += '(' + logVersion + ' !== ' + pkg.version + ')'
