@@ -4,6 +4,8 @@ Create a release for a node package on github.
 
 [![](https://nodei.co/npm/gh-release.png)](https://www.npmjs.com/package/gh-release)
 
+Uses the [Github Releases API](https://developer.github.com/v3/repos/releases/) to create a new release using information from your `package.json` and `CHANGELOG.md`. Has strong defaults, relies on standards.
+
 ## Usage
 
 ### Node
@@ -18,7 +20,7 @@ var options = {
   tag_name: 'v1.0.0',
   target_commitish: 'master',
   name: 'v1.0.0',
-  body: '* create working prototype\n* define basic node interface\n* define basic cli interface\n',
+  body: '* init\n',
   draft: false,
   prerelease: false,
   repo: 'gh-release',
@@ -34,6 +36,10 @@ ghRelease(options, auth, function (err, result) {
   console.log('Release URL: ' + result)
 })
 ```
+
+All settings in `options` are optional (see [options](#options) for defaults).
+
+`username` and `password` in `auth` are required. Ideally this will support a token in the future as well -- storing these things in plaintext as env vars or anything else is obviously a bad idea. Right now user & pass are mainly there to support the CLI prompt use case.
 
 ### CLI
 
@@ -79,10 +85,6 @@ Override defaults with flags ([cli](#cli)) or the `options` object ([node](#node
 ## Example
 
 All [releases](https://github.com/ngoldman/gh-release/releases) of `gh-release` were created with `gh-release`.
-
-## Reference
-
-* [github release api docs](https://developer.github.com/v3/repos/releases/)
 
 ## Motivation
 
