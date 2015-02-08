@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-var ghRelease = require('..')
-var defaults = require('../get-defaults')()
+var ghRelease = require(__dirname + '/../')
+var defaults = require(__dirname + '/../get-defaults')()
 var argv = require('yargs')
   .usage('Usage: $0 [options]')
   .options({
