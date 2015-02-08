@@ -6,6 +6,10 @@ Create a release for a node package on github.
 
 ### Node
 
+```
+$ npm install gh-release --save-dev
+```
+
 ```js
 var ghRelease = require('gh-release')
 var options = {
@@ -32,6 +36,7 @@ ghRelease(options, auth, function (err, result) {
 ### CLI
 
 ```
+$ npm install -g gh-release
 $ gh-release --help
 Usage: gh-release [options]
 
