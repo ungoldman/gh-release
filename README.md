@@ -61,8 +61,6 @@ Options:
 
 ### Options
 
-Defaults:
-
 All default values taken from `package.json` unless specified otherwise.
 
 | name | description | default |
@@ -76,7 +74,7 @@ All default values taken from `package.json` unless specified otherwise.
 | `draft` | publish as draft | false |
 | `prerelease` | publish as prerelease | false |
 
-Override defaults with flags (cli) or the `options` object (node).
+Override defaults with flags ([cli](#cli)) or the `options` object ([node](#node)).
 
 ## Example
 
