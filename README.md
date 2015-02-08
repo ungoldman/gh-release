@@ -78,7 +78,7 @@ Override defaults with flags (cli) or the `options` object (node).
 
 ## Example
 
-The first release of this module was created using this module: https://github.com/ngoldman/gh-release/releases/tag/v1.0.0
+[All releases](https://github.com/ngoldman/gh-release/releases) of `gh-release` were created with `gh-release`.
 
 ## Reference
 
