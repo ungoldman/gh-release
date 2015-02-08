@@ -1,28 +1,43 @@
 var fs = require('fs')
 var path = require('path')
-var pkg = require(path.resolve(process.cwd(), 'package.json'))
+var pkg = { version: null }
+var log = {
+  version: null,
+  body: null
+}
+var owner = null
+var repo = null
+var version = null
 
 module.exports = function getDefaults () {
-  var repoPath = pkg.repository.url.split('github.com/')[1].split('/')
-  var owner = repoPath[0]
-  var repo = repoPath[1].split('.git')[0]
-  var logPath = path.resolve(process.cwd(), 'CHANGELOG.md')
-  var log = fs.readFileSync(logPath, { encoding: 'utf-8' })
-  var logVersion = log.split('## ')[1].split('\n')[0].split(' ')[0]
+  try {
+    pkg = require(path.resolve(process.cwd(), 'package.json'))
+    var repoPath = pkg.repository.url.split('github.com/')[1].split('/')
+    owner = repoPath[0]
+    repo = repoPath[1].split('.git')[0]
+  } catch (e) {}
 
-  if (logVersion.indexOf('v') === 0) logVersion = logVersion.slice(1)
+  try {
+    var logPath = path.resolve(process.cwd(), 'CHANGELOG.md')
+    log.src = fs.readFileSync(logPath, { encoding: 'utf-8' })
+    log.version = log.src.split('## ')[1].split('\n')[0].split(' ')[0]
+    if (log.version.indexOf('v') === 0) log.version = log.version.slice(1)
+    log.body = log.src.split('## ')[1].split('\n').slice(1).join('\n')
+  } catch (e) {}
 
-  if (logVersion !== pkg.version) {
+  if (log.version !== pkg.version) {
     var err = 'CHANGELOG.md out of sync with package.json'
-    err += '(' + logVersion + ' !== ' + pkg.version + ')'
+    err += '(' + log.version + ' !== ' + pkg.version + ')'
     throw new Error(err)
   }
 
+  version = pkg.version ? 'v' + pkg.version : null
+
   return {
-    tag_name: 'v' + pkg.version,
+    tag_name: version,
     target_commitish: 'master',
-    name: 'v' + pkg.version,
-    body: log.split('## ')[1].split('\n').slice(1).join('\n'),
+    name: version,
+    body: log.body,
     owner: owner,
     repo: repo,
     draft: false,

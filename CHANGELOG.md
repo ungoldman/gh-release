@@ -1,5 +1,8 @@
 # gh-release changelog
 
+## 1.0.5 - 2015-02-08
+* hotfix for help/usage in dir w/o `package.json` or `CHANGELOG.md`
+
 ## 1.0.4 - 2015-02-07
 * remove `files` from `package.json` to fix cli again
 
