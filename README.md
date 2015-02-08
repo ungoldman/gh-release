@@ -42,6 +42,10 @@ Override defaults with flags (cli) or options object (node). Interface tbd.
 
 * [github release api docs](https://developer.github.com/v3/repos/releases/)
 
+## Motivation
+
+There are packages that already do something like this, and they're great, but I want something that does this one thing really well and nothing else, leans heavily on standard keys in `package.json`, and can work both as a cli tool and programmatically in node. Mostly I want this to work well as a dependency in [versioneer](https://github.com/ngoldman/versioneer).
+
 ## License
 
-ISC
+[ISC](LICENSE.md)
