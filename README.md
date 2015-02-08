@@ -43,29 +43,31 @@ All settings in `options` are optional (see [options](#options) for defaults).
 
 ### CLI
 
-Should be run at the root of the project to be released.
-
-Expects a `package.json` and `CHANGELOG.md`.
-
 ```
 $ npm install -g gh-release
 $ gh-release --help
-Usage: gh-release [options]
+Usage: gh-release -t [tag_name] -c [commit] -n [name] -b [body] -o [owner] -r [repo] -d -p
 
 Options:
+  -t, --tag_name          tag for this release
+  -c, --target_commitish  commitish value for tag
+  -n, --name              text of release title
+  -b, --body              text of release body
+  -o, --owner             repo owner
+  -r, --repo              repo name
+  -d, --draft             publish as draft         [default: false]
+  -p, --prerelease        publish as prerelease    [default: false]
   -h, --help              Show help
   -v, --version           Show version number
-  -t, --tag_name                               [default: "v1.0.0"]
-  -c, --target_commitish                       [default: "master"]
-  -n, --name                                   [default: "v1.0.0"]
-  -b, --body                                   [default: "* create working prototype\n* define basic node interface\n* define basic cli interface\n"]
-  -o, --owner                                  [default: "ngoldman"]
-  -r, --repo                                   [default: "gh-release"]
-  -d, --draft                                  [default: false]
-  -p, --prerelease                             [default: false]
 ```
 
-### Options
+Should be run at the root of the project to be released.
+
+Expects a `package.json` and `CHANGELOG.md` in the working directory.
+
+Prints release URL to terminal on success.
+
+## Options
 
 All default values taken from `package.json` unless specified otherwise.
 
