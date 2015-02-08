@@ -2,6 +2,8 @@
 
 Create a release for a node package on github.
 
+[![](https://nodei.co/npm/gh-release.png)](https://www.npmjs.com/package/gh-release)
+
 ## Usage
 
 ### Node
@@ -61,14 +63,16 @@ Options:
 
 Defaults:
 
-| name | desc | default |
-| ---- | ---- | ------- |
-| `tag_name` | release tag | 'v' + `version` from `package.json` |
+All default values taken from `package.json` unless specified otherwise.
+
+| name | description | default |
+| ---: | ----------- | ------- |
+| `tag_name` | release tag | 'v' + `version` |
 | `target_commitish` | commitish value to tag | HEAD of current branch |
-| `name` | release title | 'v' + `version` from `package.json` |
-| `body` | release text | section from `CHANGELOG.md` matching `version` from `package.json` |
-| `owner` | repo owner | repo owner parsed out of `repository.url` from `package.json` |
-| `repo` | repo name | repo name parsed out of `repository.url` from `package.json` |
+| `name` | release title | 'v' + `version` |
+| `body` | release text | `CHANGELOG.md` section matching `version` |
+| `owner` | repo owner | repo owner parsed out of `repository.url` |
+| `repo` | repo name | repo name parsed out of `repository.url` |
 | `draft` | publish as draft | false |
 | `prerelease` | publish as prerelease | false |
 
