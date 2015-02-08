@@ -86,7 +86,7 @@ The first release of this module was created using this module: https://github.c
 
 ## Motivation
 
-There are packages that already do something like this, and they're great, but I want something that does this one thing really well and nothing else, leans heavily on standard keys in `package.json`, and can work both as a cli tool and programmatically in node. Mostly I want this to work well as a dependency in [versioneer](https://github.com/ngoldman/versioneer).
+There are packages that already do something like this, and they're great, but I want something that does this one thing really well and nothing else, leans heavily on standards in `package.json` and `CHANGELOG.md`, and can work both as a cli tool and programmatically in node. Mostly I want this to work well as a dependency in [versioneer](https://github.com/ngoldman/versioneer).
 
 ## License
 
