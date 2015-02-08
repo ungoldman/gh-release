@@ -4,11 +4,23 @@ Create a release for a node package on github (wip).
 
 ## Usage
 
-```
-gh-release
+### Node
+
+```js
+var ghRelease = require('gh-release')
+
+ghRelease(options, function (err, results) {})
 ```
 
-Required:
+### CLI
+
+```shell
+$ gh-release [options]
+```
+
+### Options
+
+Defaults:
 
 * in `package.json`:
   * `name`
@@ -23,6 +35,8 @@ Optional:
   * `files` array containing files to zip & upload w/ release
   * `scripts.pre-gh-release` to run before release
   * `scripts.post-gh-release` to run after release
+
+Override defaults with flags (cli) or options object (node). Interface tbd.
 
 ## Reference
 
