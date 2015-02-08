@@ -1,5 +1,9 @@
 # gh-release changelog
 
+## 1.0.3 - 2015-02-07
+* actual fix for cli.. should work fine now
+* allow `v` prefix for changelog version names
+
 ## 1.0.2 - 2015-02-07
 * hotfix for local requires in cli
 
