@@ -25,7 +25,7 @@
     "url": "https://github.com/ngoldman/gh-release.git"
   },
   "scripts": {
-    "release": "node ./bin/cli.js",
+    "gh-release": "node ./bin/cli.js",
     "test": "standard"
   },
   "dependencies": {
