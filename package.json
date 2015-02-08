@@ -29,6 +29,8 @@
     "test": "standard"
   },
   "dependencies": {
-    "request": "^2.53.0"
+    "github": "^0.2.3",
+    "inquirer": "^0.8.0",
+    "yargs": "^2.1.1"
   }
 }

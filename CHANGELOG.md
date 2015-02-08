@@ -1,6 +1,6 @@
 # gh-release changelog
 
-## unreleased
-* create super basic working version using only package.json for options
-* define node interface
-* define cli interface
+## 1.0.0 - 2015-02-07
+* create working prototype
+* define basic node interface
+* define basic cli interface

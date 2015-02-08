@@ -12,14 +12,39 @@ Create a release for a node package on github (wip).
 
 ```js
 var ghRelease = require('gh-release')
+var options = {
+  tag_name: 'v1.0.0',
+  target_commitish: 'master',
+  name: 'v1.0.0',
+  body: '* create working prototype\n* define basic node interface\n* define basic cli interface\n',
+  draft: false,
+  prerelease: false,
+  repo: 'gh-release',
+  owner: 'ngoldman'
+}
+var auth = {
+  username: 'ngoldman',
+  password: 'XXXXXXXX'
+}
 
-ghRelease(options, function (err, results) {})
+ghRelease(options, auth, function (err, result) {
+  if (err) throw err
+  console.log('Release URL: ' + result)
+})
 ```
 
 ### CLI
 
-```shell
-$ gh-release [options]
+```
+$ gh-release --help
+Usage: gh-release [options]
+
+Options:
+  -h, --help        Show help
+  -v, --version     Show version number
+  -d, --draft                            [default: false]
+  -p, --prerelease                       [default: false]
+  -r, --repo                             [default: false]
 ```
 
 ### Options
@@ -27,7 +52,6 @@ $ gh-release [options]
 Defaults:
 
 * in `package.json`:
-  * `name`
   * `version`
   * `repository.url`
 * in `CHANGELOG.md`:
@@ -37,8 +61,6 @@ Optional:
 
 * in `package.json`:
   * `files` array containing files to zip & upload w/ release
-  * `scripts.pre-gh-release` to run before release
-  * `scripts.post-gh-release` to run after release
 
 Override defaults with flags (cli) or options object (node). Interface tbd.
 
