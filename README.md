@@ -61,24 +61,22 @@ Options:
 
 Defaults:
 
-* `tag_name`: `v` + `version` from `package.json`
-* `target_commitish`: `master` for now
-* `name`: `v` + `version` from `package.json`
-* `body`: section from `CHANGELOG.md` matching `version` from `package.json`
-* `owner`: repo owner parsed out of `repository.url` from `package.json`
-* `repo`: repo name parsed out of `repository.url` from `package.json`
-* `draft`: false
-* `prerelease`: false
-
-Not yet implemented:
-
-* zip and upload dist using `files` array from `package.json`
+| name | desc | default |
+| ---- | ---- | ------- |
+| `tag_name` | release tag | 'v' + `version` from `package.json` |
+| `target_commitish` | commitish value to tag | HEAD of current branch |
+| `name` | release title | 'v' + `version` from `package.json` |
+| `body` | release text | section from `CHANGELOG.md` matching `version` from `package.json` |
+| `owner` | repo owner | repo owner parsed out of `repository.url` from `package.json` |
+| `repo` | repo name | repo name parsed out of `repository.url` from `package.json` |
+| `draft` | publish as draft | false |
+| `prerelease` | publish as prerelease | false |
 
 Override defaults with flags (cli) or the `options` object (node).
 
 ## Example
 
-[All releases](https://github.com/ngoldman/gh-release/releases) of `gh-release` were created with `gh-release`.
+All [releases](https://github.com/ngoldman/gh-release/releases) of `gh-release` were created with `gh-release`.
 
 ## Reference
 
