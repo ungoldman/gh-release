@@ -35,6 +35,10 @@ ghRelease(options, auth, function (err, result) {
 
 ### CLI
 
+Should be run at the root of the project to be released.
+
+Expects a `package.json` and `CHANGELOG.md`.
+
 ```
 $ npm install -g gh-release
 $ gh-release --help
@@ -57,18 +61,24 @@ Options:
 
 Defaults:
 
-* in `package.json`:
-  * `version`
-  * `repository.url`
-* in `CHANGELOG.md`:
-  * changes section matching `version` in `package.json`
+* `tag_name`: `v` + `version` from `package.json`
+* `target_commitish`: `master` for now
+* `name`: `v` + `version` from `package.json`
+* `body`: section from `CHANGELOG.md` matching `version` from `package.json`
+* `owner`: repo owner parsed out of `repository.url` from `package.json`
+* `repo`: repo name parsed out of `repository.url` from `package.json`
+* `draft`: false
+* `prerelease`: false
 
-Optional:
+Not yet implemented:
 
-* in `package.json`:
-  * (not yet implemented) `files` array containing files to zip & upload w/ release
+* zip and upload dist using `files` array from `package.json`
 
-Override defaults with flags (cli) or options object (node).
+Override defaults with flags (cli) or the `options` object (node).
+
+## Example
+
+The first release of this module was created using this module: https://github.com/ngoldman/gh-release/releases/tag/v1.0.0
 
 ## Reference
 
