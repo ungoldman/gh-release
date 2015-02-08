@@ -1,5 +1,8 @@
 # gh-release changelog
 
+## 1.0.4 - 2015-02-07
+* remove `files` from `package.json` to fix cli again
+
 ## 1.0.3 - 2015-02-07
 * actual fix for cli.. should work fine now
 * allow `v` prefix for changelog version names
