@@ -1,5 +1,11 @@
 # gh-release changelog
 
+## 1.0.6 - 2015-02-08
+* move `get-defaults.js` to `lib`
+* improve usage info for cli
+* improve defaults management in cli
+* add proper target_commitish default
+
 ## 1.0.5 - 2015-02-08
 * hotfix for help/usage in dir w/o `package.json` or `CHANGELOG.md`
 

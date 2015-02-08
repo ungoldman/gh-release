@@ -1,46 +1,55 @@
 #!/usr/bin/env node
 
 var ghRelease = require(__dirname + '/../')
-var defaults = require(__dirname + '/../get-defaults')()
+var getDefaults = require(__dirname + '/../lib/get-defaults')
+var extend = require('util')._extend
 var argv = require('yargs')
-  .usage('Usage: $0 [options]')
+  .usage('Usage: $0 -t [tag_name] -c [commit] -n [name] -b [body] -o [owner] -r [repo] -d -p')
   .options({
     't': {
       alias: 'tag_name',
-      default: defaults.tag_name
+      type: 'string',
+      describe: 'tag for this release'
     },
     'c': {
       alias: 'target_commitish',
-      default: defaults.target_commitish
+      type: 'string',
+      describe: 'commitish value for tag'
     },
     'n': {
       alias: 'name',
-      default: defaults.name
+      type: 'string',
+      describe: 'text of release title'
     },
     'b': {
       alias: 'body',
-      default: defaults.body
+      type: 'string',
+      describe: 'text of release body'
     },
     'o': {
       alias: 'owner',
-      default: defaults.owner
+      describe: 'repo owner'
     },
     'r': {
       alias: 'repo',
-      default: defaults.repo
+      describe: 'repo name'
     },
     'd': {
       alias: 'draft',
-      default: defaults.draft
+      type: 'boolean',
+      default: false,
+      describe: 'publish as draft'
     },
     'p': {
       alias: 'prerelease',
-      default: defaults.prerelease
+      type: 'boolean',
+      default: false,
+      describe: 'publish as prerelease'
     }
   })
   .help('h')
   .alias('h', 'help')
-  .version(require('../package.json').version + '\n', 'v')
+  .version(require(__dirname + '/../package.json').version + '\n', 'v')
   .alias('v', 'version')
   .argv
 
@@ -66,18 +75,15 @@ var questions = [
   }
 ]
 
-var options = {
-  tag_name: argv.t,
-  target_commitish: argv.c,
-  name: argv.n,
-  body: argv.b,
-  owner: argv.o,
-  repo: argv.r,
-  draft: argv.d,
-  prerelease: argv.p
-}
-
 inquirer.prompt(questions, function (auth) {
+  var defaults = getDefaults()
+  var whitelist = Object.keys(defaults)
+  var options = extend(getDefaults(), argv)
+
+  Object.keys(options).forEach(function(key){
+    if (whitelist.indexOf(key) === -1) delete options[key]
+  })
+
   ghRelease(options, auth, function (err, result) {
     if (err) {
       console.error(err)

@@ -1,4 +1,4 @@
-var defaults = require(__dirname + '/get-defaults')()
+var defaults = require(__dirname + '/lib/get-defaults')()
 var extend = require('util')._extend
 var GHAPI = require('github')
 var client = new GHAPI({
