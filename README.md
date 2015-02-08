@@ -1,3 +1,7 @@
+**under active development**
+
+*not actually working yet, so don't try to use it*
+
 # gh-release
 
 Create a release for a node package on github (wip).
