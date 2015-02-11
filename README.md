@@ -1,6 +1,8 @@
 # gh-release
 
-[![](https://travis-ci.org/ngoldman/gh-release.svg)](https://travis-ci.org/ngoldman/gh-release)
+[![](https://img.shields.io/github/release/ngoldman/gh-release.svg?style=flat-square)](https://github.com/ngoldman/gh-release/releases/latest)
+[![](https://img.shields.io/npm/v/gh-release.svg?style=flat-square)](https://www.npmjs.com/package/gh-release)
+[![](https://img.shields.io/travis/ngoldman/gh-release.svg?style=flat-square)](https://travis-ci.org/ngoldman/gh-release)
 
 Create a release for a node package on github.
 
