@@ -1,5 +1,8 @@
 # gh-release changelog
 
+## unreleased
+* fix ordering in readme
+
 ## 1.0.7 - 2015-02-11
 * add `standard` to dev dependencies
 * add `.travis.yml` & badge for travis-ci

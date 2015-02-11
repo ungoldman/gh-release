@@ -48,23 +48,6 @@ Expects a `package.json` and `CHANGELOG.md` in the working directory.
 
 Prints release URL (e.g. https://github.com/ngoldman/gh-release/releases/tag/v1.0.7) to terminal on success.
 
-## Options
-
-All default values taken from `package.json` unless specified otherwise.
-
-| name | description | default |
-| ---: | ----------- | ------- |
-| `tag_name` | release tag | 'v' + `version` |
-| `target_commitish` | commitish value to tag | HEAD of current branch |
-| `name` | release title | 'v' + `version` |
-| `body` | release text | `CHANGELOG.md` section matching `version` |
-| `owner` | repo owner | repo owner parsed out of `repository.url` |
-| `repo` | repo name | repo name parsed out of `repository.url` |
-| `draft` | publish as draft | false |
-| `prerelease` | publish as prerelease | false |
-
-Override defaults with flags ([cli](#cli)) or the `options` object ([node](#node)).
-
 ### Node
 
 ```
@@ -94,9 +77,26 @@ ghRelease(options, auth, function (err, result) {
 })
 ```
 
-All settings in `options` are optional (see [options](#options) for defaults).
+All settings in `options` are optional (see [defaults](#defaults)).
 
-`username` and `password` in `auth` are required. Ideally this will support a token in the future as well -- storing these things in plaintext as env vars or anything else is obviously a bad idea. Right now user & pass are mainly there to support the CLI prompt use case.
+`username` and `password` in `auth` are required. Ideally this will support a token in the future as well -- storing these things in plaintext as env vars or anything else is obviously a bad idea (don't do it!). Right now user & pass are mainly there to support the CLI prompt use case.
+
+## Defaults
+
+All default values taken from `package.json` unless specified otherwise.
+
+| name | description | default |
+| ---: | ----------- | ------- |
+| `tag_name` | release tag | 'v' + `version` |
+| `target_commitish` | commitish value to tag | HEAD of current branch |
+| `name` | release title | 'v' + `version` |
+| `body` | release text | `CHANGELOG.md` section matching `version` |
+| `owner` | repo owner | repo owner parsed out of `repository.url` |
+| `repo` | repo name | repo name parsed out of `repository.url` |
+| `draft` | publish as draft | false |
+| `prerelease` | publish as prerelease | false |
+
+Override defaults with flags ([cli](#cli)) or the `options` object ([node](#node)).
 
 ## Example
 
