@@ -1,7 +1,7 @@
 {
   "name": "gh-release",
   "description": "Create a release for a node package on github.",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "author": "Nate Goldman <nate@ngoldman.me>",
   "bin": {
     "gh-release": "./bin/cli.js"
@@ -15,6 +15,14 @@
     "shelljs": "^0.3.0",
     "yargs": "^2.1.1"
   },
+  "devDependencies": {
+    "standard": "^2.6.0"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "index.js"
+  ],
   "homepage": "https://github.com/ngoldman/gh-release",
   "keywords": [
     "github",
@@ -29,8 +37,5 @@
   "scripts": {
     "gh-release": "node ./bin/cli.js",
     "test": "standard"
-  },
-  "devDependencies": {
-    "standard": "^2.6.0"
   }
 }
