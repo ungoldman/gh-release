@@ -1,5 +1,11 @@
 # gh-release changelog
 
+## 1.0.7 - 2015-02-11
+* add `standard` to dev dependencies
+* add `.travis.yml` & badge for travis-ci
+* improve cli usage info & move to top of readme
+* add `files` to `package.json` for future build/zip/dist support
+
 ## 1.0.6 - 2015-02-08
 * move `get-defaults.js` to `lib`
 * improve usage info for cli
