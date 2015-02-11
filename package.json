@@ -29,5 +29,8 @@
   "scripts": {
     "gh-release": "node ./bin/cli.js",
     "test": "standard"
+  },
+  "devDependencies": {
+    "standard": "^2.6.0"
   }
 }

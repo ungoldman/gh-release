@@ -80,7 +80,7 @@ inquirer.prompt(questions, function (auth) {
   var whitelist = Object.keys(defaults)
   var options = extend(getDefaults(), argv)
 
-  Object.keys(options).forEach(function(key){
+  Object.keys(options).forEach(function(key) {
     if (whitelist.indexOf(key) === -1) delete options[key]
   })
 
