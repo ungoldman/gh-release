@@ -1,6 +1,7 @@
 # gh-release changelog
 
-## unreleased
+## 1.0.8 - 2015-02-22
+* fix for standard [#4](https://github.com/ngoldman/gh-release/issues/4)
 * fix ordering in readme
 
 ## 1.0.7 - 2015-02-11

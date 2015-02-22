@@ -42,7 +42,7 @@ function ghRelease (options, auth, callback) {
       process.exit(0)
     }
 
-    client.releases.createRelease(options, function(err, res) {
+    client.releases.createRelease(options, function (err, res) {
       if (err) throw err
       callback(null, res)
     })
