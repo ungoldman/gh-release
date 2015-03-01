@@ -102,9 +102,9 @@ Override defaults with flags ([cli](#cli)) or the `options` object ([node](#node
 
 ## Standards
 
-Currently using http://keepachangelog.com/ as a standard CHANGELOG.md reference.
+Currently using http://keepachangelog.com/ as a standard `CHANGELOG.md` reference.
 
-All other standards are from npm's [package.json](https://docs.npmjs.com/files/package.json) documentation.
+All other standards are from npm's [`package.json`](https://docs.npmjs.com/files/package.json) documentation.
 
 ## Example
 
