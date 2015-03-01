@@ -108,6 +108,14 @@ All [releases](https://github.com/ngoldman/gh-release/releases) of `gh-release` 
 
 There are packages that already do something like this, and they're great, but I want something that does this one thing really well and nothing else, leans heavily on standards in `package.json` and `CHANGELOG.md`, and can work both as a cli tool and programmatically in node. Mostly I want this to work well as a dependency in [versioneer](https://github.com/ngoldman/versioneer).
 
+## Contributing
+
+`gh-release` is an **OPEN Open Source Project**. This means that:
+
+> Individuals making significant and valuable contributions are given commit-access to the project to contribute as they see fit. This project is more like an open wiki than a standard guarded open source project.
+
+See the [CONTRIBUTING.md](CONTRIBUTING.md) file for more details.
+
 ## License
 
 [ISC](LICENSE.md)
