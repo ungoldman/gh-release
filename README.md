@@ -6,7 +6,7 @@
 
 Create a release for a node package on github.
 
-Uses the [Github Releases API](https://developer.github.com/v3/repos/releases/) to create a new release using information from your `package.json` and `CHANGELOG.md`. Has strong defaults, relies on standards.
+Uses the [Github Releases API](https://developer.github.com/v3/repos/releases/) to create a new release using information from your `package.json` and `CHANGELOG.md`. Has strong [defaults](#defaults), relies on [standards](#standards).
 
 ## Usage
 
@@ -99,6 +99,12 @@ All default values taken from `package.json` unless specified otherwise.
 | `prerelease` | publish as prerelease | false |
 
 Override defaults with flags ([cli](#cli)) or the `options` object ([node](#node)).
+
+## Standards
+
+Currently using http://keepachangelog.com/ as a standard CHANGELOG.md reference.
+
+All other standards are from npm's [package.json](https://docs.npmjs.com/files/package.json) documentation.
 
 ## Example
 
