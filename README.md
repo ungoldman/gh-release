@@ -73,9 +73,8 @@ var options = {
   repo: 'gh-release',
   owner: 'ngoldman'
 }
-
 // options can also be just an empty object
-options = {}
+var options = {}
 
 // auth is required
 // it can either be a username & password...
