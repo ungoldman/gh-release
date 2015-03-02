@@ -10,6 +10,7 @@
     "url": "https://github.com/ngoldman/gh-release/issues"
   },
   "dependencies": {
+    "ghauth": "^2.0.0",
     "github": "^0.2.3",
     "inquirer": "^0.8.0",
     "shelljs": "^0.3.0",

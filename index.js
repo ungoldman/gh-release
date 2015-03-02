@@ -23,13 +23,13 @@ var questions = [
 
 function ghRelease (options, auth, callback) {
   if (!auth) return callback(new Error('Missing auth info'))
-  if (!auth.username) return callback(new Error('Missing auth.username'))
-  if (!auth.password) return callback(new Error('Missing auth.password'))
+  if (!auth.user) return callback(new Error('Missing auth.username'))
+  if (!auth.token) return callback(new Error('Missing auth.password'))
 
   client.authenticate({
     type: 'basic',
-    username: auth.username,
-    password: auth.password
+    username: auth.user,
+    password: auth.token
   })
 
   options = extend(defaults, options || {})
