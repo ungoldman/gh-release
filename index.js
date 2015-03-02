@@ -22,15 +22,20 @@ var questions = [
 ]
 
 function ghRelease (options, auth, callback) {
-  if (!auth) return callback(new Error('Missing auth info'))
-  if (!auth.user) return callback(new Error('Missing auth.username'))
-  if (!auth.token) return callback(new Error('Missing auth.password'))
-
-  client.authenticate({
-    type: 'basic',
-    username: auth.user,
-    password: auth.token
-  })
+  if (auth && auth.token) {
+    client.authenticate({
+      type: 'oauth',
+      token: auth.token
+    })
+  } else if (auth && auth.username && auth.password) {
+    client.authenticate({
+      type: 'basic',
+      username: auth.username,
+      password: auth.password
+    })
+  } else {
+    return callback(new Error('missing auth info'))
+  }
 
   options = extend(defaults, options || {})
 
@@ -43,7 +48,11 @@ function ghRelease (options, auth, callback) {
     }
 
     client.releases.createRelease(options, function (err, res) {
-      if (err) throw err
+      if (err) {
+        console.error(err)
+        process.exit(1)
+      }
+
       callback(null, res)
     })
   })

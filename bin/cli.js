@@ -65,6 +65,7 @@ ghauth(authOptions, function (err, auth) {
     console.error(err)
     process.exit(1)
   }
+
   var defaults = getDefaults()
   var whitelist = Object.keys(defaults)
   var options = extend(getDefaults(), argv)
@@ -80,7 +81,8 @@ ghauth(authOptions, function (err, auth) {
     }
 
     if (!result || !result.html_url) {
-      console.error('unknown error')
+      console.error('missing result info')
+      process.exit(1)
     }
 
     console.log(result.html_url)
