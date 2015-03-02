@@ -49,9 +49,9 @@ Should be run at the root of the project to be released.
 
 Expects a `package.json` and `CHANGELOG.md` in the working directory.
 
-Prints release URL (e.g. https://github.com/ngoldman/gh-release/releases/tag/v1.0.7) to terminal on success.
+Prints release URL to terminal on success.
 
-A github API token is saved in `$HOME/.config/gh-release.json` after the first time you provide your username and password.
+Saves github API token to `$HOME/.config/gh-release.json` after first authentication.
 
 ### Node
 
