@@ -1,4 +1,4 @@
-var defaults = require(__dirname + '/lib/get-defaults')()
+var getDefaults = require(__dirname + '/lib/get-defaults')
 var extend = require('util')._extend
 var GHAPI = require('github')
 var client = new GHAPI({
@@ -22,29 +22,42 @@ var questions = [
 ]
 
 function ghRelease (options, auth, callback) {
-  if (!auth) return callback(new Error('Missing auth info'))
-  if (!auth.username) return callback(new Error('Missing auth.username'))
-  if (!auth.password) return callback(new Error('Missing auth.password'))
+  if (auth && auth.token) {
+    client.authenticate({
+      type: 'oauth',
+      token: auth.token
+    })
+  } else if (auth && auth.username && auth.password) {
+    client.authenticate({
+      type: 'basic',
+      username: auth.username,
+      password: auth.password
+    })
+  } else {
+    return callback(new Error('missing auth info'))
+  }
 
-  client.authenticate({
-    type: 'basic',
-    username: auth.username,
-    password: auth.password
-  })
+  getDefaults(function (err, defaults) {
+    if (err) return callback(err)
 
-  options = extend(defaults, options || {})
+    var releaseOptions = extend(defaults, options || {})
 
-  console.log(options)
+    console.log(releaseOptions)
 
-  inquirer.prompt(questions, function (answers) {
-    if (!answers.confirm) {
-      console.log('release canceled')
-      process.exit(0)
-    }
+    inquirer.prompt(questions, function (answers) {
+      if (!answers.confirm) {
+        console.log('release canceled')
+        process.exit(0)
+      }
 
-    client.releases.createRelease(options, function (err, res) {
-      if (err) throw err
-      callback(null, res)
+      client.releases.createRelease(releaseOptions, function (err, res) {
+        if (err) {
+          console.error(err)
+          process.exit(1)
+        }
+
+        callback(null, res)
+      })
     })
   })
 }

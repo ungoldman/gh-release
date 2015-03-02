@@ -3,6 +3,13 @@
 var ghRelease = require(__dirname + '/../')
 var getDefaults = require(__dirname + '/../lib/get-defaults')
 var extend = require('util')._extend
+var ghauth = require('ghauth')
+var authOptions = {
+  configName: 'gh-release',
+  scopes: ['repo'],
+  note: 'This token is for gh-release',
+  userAgent: 'gh-release'
+}
 var argv = require('yargs')
   .usage('Usage: $0 -t [tag_name] -c [commit] -n [name] -b [body] -o [owner] -r [repo] -d -p')
   .options({
@@ -53,47 +60,39 @@ var argv = require('yargs')
   .alias('v', 'version')
   .argv
 
-var inquirer = require('inquirer')
-var questions = [
-  {
-    type: 'input',
-    name: 'username',
-    message: 'github username',
-    validate: function (input) {
-      if (!input) return false
-      return true
-    }
-  },
-  {
-    type: 'password',
-    name: 'password',
-    message: 'github password',
-    validate: function (input) {
-      if (!input) return false
-      return true
-    }
-  }
-]
+var auth
 
-inquirer.prompt(questions, function (auth) {
-  var defaults = getDefaults()
+ghauth(authOptions, function (err, authInfo) {
+  if (err) handleError(err)
+  auth = authInfo
+  getDefaults(handleDefaults)
+})
+
+function handleDefaults (err, defaults) {
+  if (err) handleError(err)
+
   var whitelist = Object.keys(defaults)
-  var options = extend(getDefaults(), argv)
+  var options = extend(defaults, argv)
 
   Object.keys(options).forEach(function (key) {
     if (whitelist.indexOf(key) === -1) delete options[key]
   })
 
-  ghRelease(options, auth, function (err, result) {
-    if (err) {
-      console.error(err)
-      process.exit(1)
-    }
+  ghRelease(options, auth, handleRelease)
+}
 
-    if (!result || !result.html_url) {
-      console.error('unknown error')
-    }
+function handleRelease (err, result) {
+  if (err) handleError(err)
 
-    console.log(result.html_url)
-  })
-})
+  if (!result || !result.html_url) {
+    console.error('missing result info')
+    process.exit(1)
+  }
+
+  console.log(result.html_url)
+}
+
+function handleError (err) {
+  console.error(err)
+  process.exit(1)
+}
