@@ -30,18 +30,19 @@ Options:
   -v, --version           Show version number
 
 $ gh-release
-? github username: ngoldman
-? github password: *************
-{ tag_name: 'v1.0.7',
-  target_commitish: '395a7f8dfa6fcc961b2dc5c2ced2220e04f9f28a',
-  name: 'v1.0.7',
-  body: '* add `standard` to dev dependencies\n* add `.travis.yml` & badge for travis-ci\n* improve cli usage info & move to top of readme\n\n',
+Your GitHub username: ngoldman
+Your GitHub password: ✔✔✔✔✔✔✔✔
+
+{ tag_name: 'v1.1.0',
+  target_commitish: '394c232692d89ff3c904d4d3b046db4bc43c2aa0',
+  name: 'v1.1.0',
+  body: '* target node `0.12` and `iojs` on travis\n* user docker and cache `node_modules` on travis\n* add oauth2 token authentication method [#5](https://github.com/ngoldman/gh-release/issues/5)\n\n',
   owner: 'ngoldman',
   repo: 'gh-release',
   draft: false,
   prerelease: false }
 ? does this look right? (y/N) y
-https://github.com/ngoldman/gh-release/releases/tag/v1.0.7
+https://github.com/ngoldman/gh-release/releases/tag/v1.1.0
 ```
 
 Should be run at the root of the project to be released.
@@ -49,6 +50,8 @@ Should be run at the root of the project to be released.
 Expects a `package.json` and `CHANGELOG.md` in the working directory.
 
 Prints release URL (e.g. https://github.com/ngoldman/gh-release/releases/tag/v1.0.7) to terminal on success.
+
+A github API token is saved in `$HOME/.config/gh-release.json` after the first time you provide your username and password.
 
 ### Node
 
@@ -58,6 +61,8 @@ $ npm install gh-release --save-dev
 
 ```js
 var ghRelease = require('gh-release')
+
+// all options have defaults and can be omitted
 var options = {
   tag_name: 'v1.0.0',
   target_commitish: 'master',
@@ -68,9 +73,19 @@ var options = {
   repo: 'gh-release',
   owner: 'ngoldman'
 }
+
+// options can also be just an empty object
+options = {}
+
+// auth is required
+// it can either be a username & password...
 var auth = {
   username: 'ngoldman',
   password: 'XXXXXXXX'
+}
+// or an API token
+var auth = {
+  token: 'XXXXXXXX'
 }
 
 ghRelease(options, auth, function (err, result) {
@@ -78,10 +93,6 @@ ghRelease(options, auth, function (err, result) {
   console.log('Release URL: ' + result)
 })
 ```
-
-All settings in `options` are optional (see [defaults](#defaults)).
-
-`username` and `password` in `auth` are required. Ideally this will support a token in the future as well -- storing these things in plaintext as env vars or anything else is obviously a bad idea (don't do it!). Right now user & pass are mainly there to support the CLI prompt use case.
 
 ## Defaults
 
