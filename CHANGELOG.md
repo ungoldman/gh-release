@@ -1,6 +1,6 @@
 # gh-release changelog
 
-## Unreleased
+## 1.1.0 - 2015-03-01
 * target node `0.12` and `iojs` on travis
 * user docker and cache `node_modules` on travis
 * add oauth2 token authentication method [#5](https://github.com/ngoldman/gh-release/issues/5)
