@@ -21,7 +21,11 @@ test('Set up test environment', function (t) {
 })
 
 test('get-defaults', function (t) {
-  t.plan(1)
+  t.plan(3)
+  var log = getDefaults.getChangelog(tmpDir.name)
+  t.ok(log.src && log.version && log.body, 'Check for log properties')
+  var commitish = getDefaults.getTargetCommitish()
+  t.ok(commitish, 'Check for commitish')
   getDefaults(tmpDir.name, function (err, defaults) {
     t.error(err, 'Got the defaults from the test repo')
   })
