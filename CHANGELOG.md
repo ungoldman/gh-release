@@ -1,7 +1,7 @@
 # gh-release changelog
 
-## Unreleased
-* improve version detection for `CHANGELOG.md` in `get-defaults`
+## 1.1.1 - 2015-03-02
+* use `changelog-parser` for more reliable changelog parsing
 
 ## 1.1.0 - 2015-03-01
 * target node `0.12` and `iojs` on travis

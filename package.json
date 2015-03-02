@@ -1,7 +1,7 @@
 {
   "name": "gh-release",
   "description": "Create a release for a node package on github.",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": "Nate Goldman <nate@ngoldman.me>",
   "bin": {
     "gh-release": "./bin/cli.js"
@@ -15,6 +15,7 @@
     "Paul C Pederson <paul.c.pederson@gmail.com>"
   ],
   "dependencies": {
+    "changelog-parser": "^1.0.1",
     "ghauth": "^2.0.0",
     "github": "^0.2.3",
     "inquirer": "^0.8.0",
