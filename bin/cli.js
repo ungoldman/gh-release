@@ -3,6 +3,13 @@
 var ghRelease = require(__dirname + '/../')
 var getDefaults = require(__dirname + '/../lib/get-defaults')
 var extend = require('util')._extend
+var ghauth = require('ghauth')
+var authOptions = {
+  configName: 'gh-release',
+  scopes: ['repo'],
+  note: 'This token is for gh-release',
+  userAgent: 'gh-release'
+}
 var argv = require('yargs')
   .usage('Usage: $0 -t [tag_name] -c [commit] -n [name] -b [body] -o [owner] -r [repo] -d -p')
   .options({
@@ -53,29 +60,11 @@ var argv = require('yargs')
   .alias('v', 'version')
   .argv
 
-var inquirer = require('inquirer')
-var questions = [
-  {
-    type: 'input',
-    name: 'username',
-    message: 'github username',
-    validate: function (input) {
-      if (!input) return false
-      return true
-    }
-  },
-  {
-    type: 'password',
-    name: 'password',
-    message: 'github password',
-    validate: function (input) {
-      if (!input) return false
-      return true
-    }
+ghauth(authOptions, function (err, auth) {
+  if (err) {
+    console.error(err)
+    process.exit(1)
   }
-]
-
-inquirer.prompt(questions, function (auth) {
   var defaults = getDefaults()
   var whitelist = Object.keys(defaults)
   var options = extend(getDefaults(), argv)
