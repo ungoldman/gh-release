@@ -60,31 +60,39 @@ var argv = require('yargs')
   .alias('v', 'version')
   .argv
 
-ghauth(authOptions, function (err, auth) {
-  if (err) {
-    console.error(err)
-    process.exit(1)
-  }
+var auth
 
-  var defaults = getDefaults()
+ghauth(authOptions, function (err, authInfo) {
+  if (err) handleError(err)
+  auth = authInfo
+  getDefaults(handleDefaults)
+})
+
+function handleDefaults (err, defaults) {
+  if (err) handleError(err)
+
   var whitelist = Object.keys(defaults)
-  var options = extend(getDefaults(), argv)
+  var options = extend(defaults, argv)
 
   Object.keys(options).forEach(function (key) {
     if (whitelist.indexOf(key) === -1) delete options[key]
   })
 
-  ghRelease(options, auth, function (err, result) {
-    if (err) {
-      console.error(err)
-      process.exit(1)
-    }
+  ghRelease(options, auth, handleRelease)
+}
 
-    if (!result || !result.html_url) {
-      console.error('missing result info')
-      process.exit(1)
-    }
+function handleRelease (err, result) {
+  if (err) handleError(err)
 
-    console.log(result.html_url)
-  })
-})
+  if (!result || !result.html_url) {
+    console.error('missing result info')
+    process.exit(1)
+  }
+
+  console.log(result.html_url)
+}
+
+function handleError (err) {
+  console.error(err)
+  process.exit(1)
+}

@@ -1,4 +1,4 @@
-var defaults = require(__dirname + '/lib/get-defaults')()
+var getDefaults = require(__dirname + '/lib/get-defaults')
 var extend = require('util')._extend
 var GHAPI = require('github')
 var client = new GHAPI({
@@ -37,23 +37,27 @@ function ghRelease (options, auth, callback) {
     return callback(new Error('missing auth info'))
   }
 
-  options = extend(defaults, options || {})
+  getDefaults(function (err, defaults) {
+    if (err) return callback(err)
 
-  console.log(options)
+    var releaseOptions = extend(defaults, options || {})
 
-  inquirer.prompt(questions, function (answers) {
-    if (!answers.confirm) {
-      console.log('release canceled')
-      process.exit(0)
-    }
+    console.log(releaseOptions)
 
-    client.releases.createRelease(options, function (err, res) {
-      if (err) {
-        console.error(err)
-        process.exit(1)
+    inquirer.prompt(questions, function (answers) {
+      if (!answers.confirm) {
+        console.log('release canceled')
+        process.exit(0)
       }
 
-      callback(null, res)
+      client.releases.createRelease(releaseOptions, function (err, res) {
+        if (err) {
+          console.error(err)
+          process.exit(1)
+        }
+
+        callback(null, res)
+      })
     })
   })
 }
