@@ -83,7 +83,7 @@ function authenticate () {
   ghauth(authOptions, function (err, authInfo) {
     if (err) handleError(err)
     auth = authInfo
-    getDefaults(handleDefaults)
+    getDefaults(process.cwd(), handleDefaults)
   })
 }
 
