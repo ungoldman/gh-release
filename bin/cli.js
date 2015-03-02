@@ -7,7 +7,7 @@ var ghauth = require('ghauth')
 var authOptions = {
   configName: 'gh-release',
   scopes: ['repo'],
-  note: 'This token is for gh-release',
+  note: 'gh-release',
   userAgent: 'gh-release'
 }
 var argv = require('yargs')
