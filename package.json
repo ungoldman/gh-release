@@ -9,6 +9,11 @@
   "bugs": {
     "url": "https://github.com/ngoldman/gh-release/issues"
   },
+  "contributors": [
+    "Nate Goldman <nate@ngoldman.me>",
+    "Bret Comnes <bcomnes@gmail.com>",
+    "Paul C Pederson <paul.c.pederson@gmail.com>"
+  ],
   "dependencies": {
     "ghauth": "^2.0.0",
     "github": "^0.2.3",
