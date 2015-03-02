@@ -3,14 +3,16 @@
 var ghRelease = require(__dirname + '/../')
 var getDefaults = require(__dirname + '/../lib/get-defaults')
 var extend = require('util')._extend
+var fs = require('fs')
 var ghauth = require('ghauth')
+var path = require('path')
 var authOptions = {
   configName: 'gh-release',
   scopes: ['repo'],
   note: 'gh-release',
   userAgent: 'gh-release'
 }
-var argv = require('yargs')
+var yargs = require('yargs')
   .usage('Usage: $0 -t [tag_name] -c [commit] -n [name] -b [body] -o [owner] -r [repo] -d -p')
   .options({
     't': {
@@ -58,15 +60,32 @@ var argv = require('yargs')
   .alias('h', 'help')
   .version(require(__dirname + '/../package.json').version + '\n', 'v')
   .alias('v', 'version')
-  .argv
 
+var argv = yargs.argv
 var auth
 
-ghauth(authOptions, function (err, authInfo) {
-  if (err) handleError(err)
-  auth = authInfo
-  getDefaults(handleDefaults)
-})
+checkDir()
+
+function checkDir () {
+  var pkgExists = fs.existsSync(path.resolve(process.cwd(), 'package.json'))
+  var logExists = fs.existsSync(path.resolve(process.cwd(), 'CHANGELOG.md'))
+
+  if (!pkgExists || !logExists) {
+    console.log('Must be run in a directory with package.json and CHANGELOG.md')
+    yargs.showHelp()
+    process.exit(0)
+  }
+
+  authenticate()
+}
+
+function authenticate () {
+  ghauth(authOptions, function (err, authInfo) {
+    if (err) handleError(err)
+    auth = authInfo
+    getDefaults(handleDefaults)
+  })
+}
 
 function handleDefaults (err, defaults) {
   if (err) handleError(err)
