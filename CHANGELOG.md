@@ -1,5 +1,9 @@
 # gh-release changelog
 
+## Unreleased
+* target node '0.12' and 'iojs' on travis
+* user docker and cache `node_modules` on travis
+
 ## 1.0.8 - 2015-02-22
 * fix for standard [#4](https://github.com/ngoldman/gh-release/issues/4)
 * fix ordering in readme
