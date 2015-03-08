@@ -4,6 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This change log adheres to standards from [Keep a CHANGELOG](http://keepachangelog.com).
 
 ## [Unreleased]
+* add `dry-run` option
 * improve change log
 
 ## [1.1.1] - 2015-03-02

@@ -54,6 +54,10 @@ var yargs = require('yargs')
       type: 'boolean',
       default: false,
       describe: 'publish as prerelease'
+    },
+    'dry-run': {
+      type: 'boolean',
+      default: false
     }
   })
   .help('h')
