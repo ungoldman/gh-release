@@ -41,7 +41,7 @@ function ghRelease (options, auth, callback) {
     return callback(new Error('missing auth info'))
   }
 
-  getDefaults(function (err, defaults) {
+  getDefaults(options.workpath, function (err, defaults) {
     if (err) return callback(err)
 
     var releaseOptions = extend(defaults, options || {})

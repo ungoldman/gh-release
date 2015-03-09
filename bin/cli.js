@@ -58,6 +58,12 @@ var yargs = require('yargs')
     'dry-run': {
       type: 'boolean',
       default: false
+    },
+    'w': {
+      alias: 'workpath',
+      type: 'string',
+      default: process.cwd(),
+      describe: 'path to working directory'
     }
   })
   .help('h')
@@ -68,11 +74,11 @@ var yargs = require('yargs')
 var argv = yargs.argv
 var auth
 
-checkDir()
+checkDir(argv.workpath)
 
-function checkDir () {
-  var pkgExists = fs.existsSync(path.resolve(process.cwd(), 'package.json'))
-  var logExists = fs.existsSync(path.resolve(process.cwd(), 'CHANGELOG.md'))
+function checkDir (workpath) {
+  var pkgExists = fs.existsSync(path.resolve(workpath, 'package.json'))
+  var logExists = fs.existsSync(path.resolve(workpath, 'CHANGELOG.md'))
 
   if (!pkgExists || !logExists) {
     console.log('Must be run in a directory with package.json and CHANGELOG.md')
@@ -87,7 +93,7 @@ function authenticate () {
   ghauth(authOptions, function (err, authInfo) {
     if (err) handleError(err)
     auth = authInfo
-    getDefaults(handleDefaults)
+    getDefaults(argv.workpath, handleDefaults)
   })
 }
 
@@ -98,7 +104,8 @@ function handleDefaults (err, defaults) {
   var options = extend(defaults, argv)
 
   Object.keys(options).forEach(function (key) {
-    if (whitelist.indexOf(key) === -1) delete options[key]
+    if (whitelist.indexOf(key) === -1)
+      delete options[key]
   })
 
   ghRelease(options, auth, handleRelease)
