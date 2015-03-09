@@ -7,6 +7,7 @@ This change log adheres to standards from [Keep a CHANGELOG](http://keepachangel
 * add `dry-run` option
 * improve change log
 * Added workpath option to CLI.
+* Added a get-defaults.js test
 
 ## [1.1.1] - 2015-03-02
 * use `changelog-parser` for more reliable change log parsing
