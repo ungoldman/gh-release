@@ -50,13 +50,27 @@ function ghRelease (options, auth, callback) {
         process.exit(0)
       }
 
-      client.releases.createRelease(releaseOptions, function (err, res) {
-        if (err) {
-          console.error(err)
-          process.exit(1)
-        }
+      var checkCommitForm = {
+        user: releaseOptions.owner,
+        repo: releaseOptions.repo,
+        sha: releaseOptions.target_commitish
+      }
 
-        callback(null, res)
+      client.repos.getCommit(checkCommitForm, function (err, res) {
+        if (err) {
+          console.log('Couldn\'t find the target commit on GitHub.')
+          console.log('Make sure you\'ve pushed everything up to ' + releaseOptions.owner + '/' + releaseOptions.repo + ' and try again')
+          console.log('Target commit: ' + releaseOptions.target_commitish)
+          process.exit(1)
+        } else {
+          client.releases.createRelease(releaseOptions, function (err, res) {
+            if (err) {
+              console.error(err)
+              process.exit(1)
+            }
+            callback(null, res)
+          })
+        }
       })
     })
   })
