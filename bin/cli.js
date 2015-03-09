@@ -13,7 +13,7 @@ var authOptions = {
   userAgent: 'gh-release'
 }
 var yargs = require('yargs')
-  .usage('Usage: $0 -t [tag_name] -c [commit] -n [name] -b [body] -o [owner] -r [repo] -d -p')
+  .usage('Usage: $0 [options]')
   .options({
     't': {
       alias: 'tag_name',

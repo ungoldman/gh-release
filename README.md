@@ -15,7 +15,7 @@ Uses the [Github Releases API](https://developer.github.com/v3/repos/releases/) 
 ```
 $ npm install -g gh-release
 $ gh-release --help
-Usage: gh-release -t [tag_name] -c [commit] -n [name] -b [body] -o [owner] -r [repo] -d -p
+Usage: gh-release [options]
 
 Options:
   -t, --tag_name          tag for this release
@@ -24,23 +24,27 @@ Options:
   -b, --body              text of release body
   -o, --owner             repo owner
   -r, --repo              repo name
-  -d, --draft             publish as draft         [default: false]
-  -p, --prerelease        publish as prerelease    [default: false]
+  -d, --draft             publish as draft           [default: false]
+  -p, --prerelease        publish as prerelease      [default: false]
+  -w, --workpath          path to working directory  [default: current working directory]
   -h, --help              Show help
   -v, --version           Show version number
+  --dry-run                                          [default: false]
 
 $ gh-release
 Your GitHub username: ngoldman
 Your GitHub password: ✔✔✔✔✔✔✔✔
 
-{ tag_name: 'v1.1.0',
-  target_commitish: '394c232692d89ff3c904d4d3b046db4bc43c2aa0',
-  name: 'v1.1.0',
-  body: '* target node `0.12` and `iojs` on travis\n* user docker and cache `node_modules` on travis\n* add oauth2 token authentication method [#5](https://github.com/ngoldman/gh-release/issues/5)\n\n',
+{ tag_name: 'v1.1.2',
+  target_commitish: 'ffed090688fb1b853aa07a546ac2e3965a02bb1d',
+  name: 'v1.1.2',
+  body: '* add `dry-run` and `workpath` options\n* improve change log',
   owner: 'ngoldman',
   repo: 'gh-release',
   draft: false,
-  prerelease: false }
+  prerelease: false,
+  dryRun: false,
+  workpath: '/Users/ng/dev/github/gh-release' }
 ? does this look right? (y/N) y
 https://github.com/ngoldman/gh-release/releases/tag/v1.1.0
 ```

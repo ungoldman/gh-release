@@ -4,10 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This change log adheres to standards from [Keep a CHANGELOG](http://keepachangelog.com).
 
 ## [Unreleased]
-* add `dry-run` option
+* add `dry-run` and `workpath` options
+* add a `get-defaults.js` test
 * improve change log
-* Added workpath option to CLI.
-* Added a get-defaults.js test
 
 ## [1.1.1] - 2015-03-02
 * use `changelog-parser` for more reliable change log parsing
