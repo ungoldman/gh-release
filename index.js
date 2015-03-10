@@ -22,10 +22,6 @@ var questions = [
 ]
 
 function ghRelease (options, auth, callback) {
-  // save dry run value then remove from options
-  var dryRun = options.dryRun
-  delete options.dryRun
-
   if (auth && auth.token) {
     client.authenticate({
       type: 'oauth',
@@ -48,7 +44,7 @@ function ghRelease (options, auth, callback) {
 
     console.log(releaseOptions)
 
-    if (dryRun) process.exit(0)
+    if (options.dryRun) process.exit(0)
 
     inquirer.prompt(questions, function (answers) {
       if (!answers.confirm) {

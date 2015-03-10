@@ -3,10 +3,11 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 This change log adheres to standards from [Keep a CHANGELOG](http://keepachangelog.com).
 
-## [Unreleased]
+## [1.1.2] - 2015-03-09
 * add `dry-run` and `workpath` options
 * add a `get-defaults.js` test
-* improve change log
+* check if commit exists on github before trying to create release [#11](https://github.com/ngoldman/gh-release/issues/11)
+* add support for git URLs [#16](https://github.com/ngoldman/gh-release/issues/16)
 
 ## [1.1.1] - 2015-03-02
 * use `changelog-parser` for more reliable change log parsing
@@ -56,7 +57,7 @@ This change log adheres to standards from [Keep a CHANGELOG](http://keepachangel
 * define basic node interface
 * define basic cli interface
 
-[Unreleased]: https://github.com/ngoldman/gh-release/compare/v1.1.1...HEAD
+[1.1.2]: https://github.com/ngoldman/gh-release/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/ngoldman/gh-release/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/ngoldman/gh-release/compare/v1.0.8...v1.1.0
 [1.0.8]: https://github.com/ngoldman/gh-release/compare/v1.0.7...v1.0.8
