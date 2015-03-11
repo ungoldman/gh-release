@@ -67,7 +67,14 @@ function ghRelease (options, auth, callback) {
         } else {
           client.releases.createRelease(releaseOptions, function (err, res) {
             if (err) {
-              console.error(err)
+              var message = JSON.parse(err.message)
+              var tagExists = (message.errors[0].code === 'already_exists')
+              if (err.code === 422 && tagExists) {
+                console.log('A release already exists for the tag ' + releaseOptions.tag_name)
+                console.log('Try bumping the version in your package.json.\nThen push to ' + releaseOptions.owner + '/' + releaseOptions.repo + ' and try again.')
+              } else {
+                console.error(err)
+              }
               process.exit(1)
             }
             callback(null, res)
