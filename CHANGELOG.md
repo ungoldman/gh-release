@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 This change log adheres to standards from [Keep a CHANGELOG](http://keepachangelog.com).
 
+## Unreleased
+* Improve preview style & formatting ([#15](https://github.com/ngoldman/gh-release/issues/15) & [#24](https://github.com/ngoldman/gh-release/pull/24))
+
 ## [1.1.3] - 2015-03-22
 * Handle error when release number already exists on github
 
