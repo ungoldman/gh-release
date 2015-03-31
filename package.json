@@ -15,11 +15,14 @@
     "Paul C Pederson <paul.c.pederson@gmail.com>"
   ],
   "dependencies": {
+    "chalk": "^1.0.0",
     "changelog-parser": "^1.0.1",
     "ghauth": "^2.0.0",
     "github": "^0.2.3",
     "inquirer": "^0.8.0",
     "shelljs": "^0.3.0",
+    "window-size": "^0.1.0",
+    "word-wrap": "^1.0.2",
     "yargs": "^2.1.1"
   },
   "devDependencies": {
