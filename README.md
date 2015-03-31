@@ -8,6 +8,8 @@ Create a release for a node package on github.
 
 Uses the [Github Releases API](https://developer.github.com/v3/repos/releases/) to create a new release using information from your `package.json` and `CHANGELOG.md`. Has strong [defaults](#defaults), relies on [standards](#standards).
 
+![gh-release example](demo.gif)
+
 ## Usage
 
 ### CLI
@@ -35,16 +37,17 @@ $ gh-release
 Your GitHub username: ngoldman
 Your GitHub password: ✔✔✔✔✔✔✔✔
 
-{ tag_name: 'v1.1.2',
-  target_commitish: 'ffed090688fb1b853aa07a546ac2e3965a02bb1d',
-  name: 'v1.1.2',
-  body: '* add `dry-run` and `workpath` options\n* improve change log',
-  owner: 'ngoldman',
-  repo: 'gh-release',
-  draft: false,
-  prerelease: false,
-  dryRun: false,
-  workpath: '/Users/ng/dev/github/gh-release' }
+tag_name:         v1.1.2,
+target_commitish: ffed090688fb1b853aa07a546ac2e3965a02bb1d,
+name:             v1.1.2,
+body:             * add `dry-run` and `workpath` options\n* improve change log,
+owner:            ngoldman,
+repo:             gh-release,
+draft:            false,
+prerelease:       false,
+dryRun:           false,
+workpath:         /Users/ng/dev/github/gh-release
+
 ? does this look right? (y/N) y
 https://github.com/ngoldman/gh-release/releases/tag/v1.1.0
 ```
