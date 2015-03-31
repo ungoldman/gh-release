@@ -1,6 +1,9 @@
 var getDefaults = require(__dirname + '/lib/get-defaults')
 var extend = require('util')._extend
 var GHAPI = require('github')
+var chalk = require('chalk')
+var wrap = require('word-wrap')
+var size = require('window-size')
 var client = new GHAPI({
   version: '3.0.0',
   headers: {
@@ -20,6 +23,47 @@ var questions = [
     }
   }
 ]
+
+function justify (word) {
+  var justifiedWord = word + ':'
+  while (justifiedWord.length < 18) {
+    justifiedWord += ' '
+  }
+  return justifiedWord
+}
+
+function indentBody (body) {
+  var lines = wrap(body, {
+    indent: '',
+    width: size.width - 18
+  })
+  .split('\n')
+  .filter(function (line) {
+    return line !== ''
+  })
+  return lines.map(function (line, i) {
+    if (i === 0) {
+      return {column1: justify('body'), column2: line}
+    } else {
+      return {column1: '                  ', column2: line}
+    }
+  })
+}
+
+function formatOptions (options) {
+  var prettyOptions = []
+  var keys = Object.keys(options)
+  keys.forEach(function (key) {
+    var column1 = justify(key)
+    if (key === 'body') {
+      var body = indentBody(options.body)
+      prettyOptions.push.apply(prettyOptions, body)
+    } else {
+      prettyOptions.push({column1: column1, column2: options[key]})
+    }
+  })
+  return prettyOptions
+}
 
 function ghRelease (options, auth, callback) {
   if (auth && auth.token) {
@@ -41,8 +85,12 @@ function ghRelease (options, auth, callback) {
     if (err) return callback(err)
 
     var releaseOptions = extend(defaults, options || {})
+    var prettyOptions = formatOptions(releaseOptions)
 
-    console.log(releaseOptions)
+    prettyOptions.forEach(function (option) {
+      console.log(chalk.blue(option.column1) + chalk.green(option.column2))
+    })
+    console.log('')
 
     if (options.dryRun) process.exit(0)
 
