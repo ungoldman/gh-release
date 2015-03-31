@@ -49,7 +49,7 @@ dryRun:           false,
 workpath:         /Users/ng/dev/github/gh-release
 
 ? does this look right? (y/N) y
-https://github.com/ngoldman/gh-release/releases/tag/v1.1.0
+https://github.com/ngoldman/gh-release/releases/tag/v1.1.2
 ```
 
 Should be run at the root of the project to be released.
