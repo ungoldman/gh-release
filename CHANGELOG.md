@@ -1,9 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
-This change log adheres to standards from [Keep a CHANGELOG](http://keepachangelog.com).
+This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
-## Unreleased
+## [1.1.4] - 2015-04-01
 * Improve preview style & formatting ([#15](https://github.com/ngoldman/gh-release/issues/15) & [#24](https://github.com/ngoldman/gh-release/pull/24))
 
 ## [1.1.3] - 2015-03-22
@@ -63,6 +63,7 @@ This change log adheres to standards from [Keep a CHANGELOG](http://keepachangel
 * define basic node interface
 * define basic cli interface
 
+[1.1.3]: https://github.com/ngoldman/gh-release/compare/v1.1.3...v1.1.4
 [1.1.3]: https://github.com/ngoldman/gh-release/compare/v1.1.2...v1.1.3
 [1.1.2]: https://github.com/ngoldman/gh-release/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/ngoldman/gh-release/compare/v1.1.0...v1.1.1
