@@ -37,15 +37,16 @@ $ gh-release
 Your GitHub username: ngoldman
 Your GitHub password: ✔✔✔✔✔✔✔✔
 
-tag_name:         v1.1.2,
-target_commitish: ffed090688fb1b853aa07a546ac2e3965a02bb1d,
-name:             v1.1.2,
-body:             * add `dry-run` and `workpath` options\n* improve change log,
-owner:            ngoldman,
-repo:             gh-release,
-draft:            false,
-prerelease:       false,
-dryRun:           false,
+tag_name:         v1.1.2
+target_commitish: ffed090688fb1b853aa07a546ac2e3965a02bb1d
+name:             v1.1.2
+body:             * add `dry-run` and `workpath` options
+                  * improve change log
+owner:            ngoldman
+repo:             gh-release
+draft:            false
+prerelease:       false
+dryRun:           false
 workpath:         /Users/ng/dev/github/gh-release
 
 ? does this look right? (y/N) y
