@@ -10,12 +10,17 @@ Uses the [Github Releases API](https://developer.github.com/v3/repos/releases/) 
 
 ![gh-release example](demo.gif)
 
-## Usage
+## Command-line interface
 
-### CLI
+### Install
 
 ```
-$ npm install -g gh-release
+$ npm install gh-release -g
+```
+
+### Usage
+
+```
 $ gh-release --help
 Usage: gh-release [options]
 
@@ -37,19 +42,18 @@ $ gh-release
 Your GitHub username: ngoldman
 Your GitHub password: ✔✔✔✔✔✔✔✔
 
+creating release v1.1.2 for ngoldman/gh-release
+
+name:             v1.1.2
 tag_name:         v1.1.2
 target_commitish: ffed090688fb1b853aa07a546ac2e3965a02bb1d
-name:             v1.1.2
-body:             * add `dry-run` and `workpath` options
-                  * improve change log
-owner:            ngoldman
-repo:             gh-release
 draft:            false
 prerelease:       false
+body:             * add `dry-run` and `workpath` options
+                  * improve change log
 dryRun:           false
-workpath:         /Users/ng/dev/github/gh-release
 
-? does this look right? (y/N) y
+? publish release to github? (y/N) y
 https://github.com/ngoldman/gh-release/releases/tag/v1.1.2
 ```
 
@@ -61,11 +65,15 @@ Prints release URL to terminal on success.
 
 Saves github API token to `$HOME/.config/gh-release.json` after first authentication.
 
-### Node
+## Node
+
+### Install
 
 ```
 $ npm install gh-release --save-dev
 ```
+
+### Usage
 
 ```js
 var ghRelease = require('gh-release')
@@ -116,7 +124,7 @@ All default values taken from `package.json` unless specified otherwise.
 | `draft` | publish as draft | false |
 | `prerelease` | publish as prerelease | false |
 
-Override defaults with flags ([cli](#cli)) or the `options` object ([node](#node)).
+Override defaults with flags (CLI) or the `options` object (node).
 
 ## Standards
 
@@ -129,7 +137,7 @@ All [releases](https://github.com/ngoldman/gh-release/releases) of `gh-release` 
 
 ## Motivation
 
-There are packages that already do something like this, and they're great, but I want something that does this one thing really well and nothing else, leans heavily on standards in `package.json` and `CHANGELOG.md`, and can work both as a cli tool and programmatically in node.
+There are packages that already do something like this, and they're great, but I want something that does this one thing really well and nothing else, leans heavily on standards in `package.json` and `CHANGELOG.md`, and can work both as a CLI tool and programmatically in node.
 
 ## Contributing
 

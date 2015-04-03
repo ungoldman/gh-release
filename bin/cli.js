@@ -104,8 +104,7 @@ function handleDefaults (err, defaults) {
   var options = extend(defaults, argv)
 
   Object.keys(options).forEach(function (key) {
-    if (whitelist.indexOf(key) === -1)
-      delete options[key]
+    if (whitelist.indexOf(key) === -1) delete options[key]
   })
 
   ghRelease(options, auth, handleRelease)

@@ -3,8 +3,14 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
+## [1.1.5] - 2015-04-02
+* more improvements to CLI style & formatting
+* bump `changelog-parser` to 2.x
+* bump `standard` to 3.x
+* readme updates
+
 ## [1.1.4] - 2015-04-01
-* Improve preview style & formatting ([#15](https://github.com/ngoldman/gh-release/issues/15) & [#24](https://github.com/ngoldman/gh-release/pull/24))
+* improve preview style & formatting ([#15](https://github.com/ngoldman/gh-release/issues/15) & [#24](https://github.com/ngoldman/gh-release/pull/24))
 
 ## [1.1.3] - 2015-03-22
 * Handle error when release number already exists on github
@@ -63,7 +69,8 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 * define basic node interface
 * define basic cli interface
 
-[1.1.3]: https://github.com/ngoldman/gh-release/compare/v1.1.3...v1.1.4
+[1.1.5]: https://github.com/ngoldman/gh-release/compare/v1.1.4...v1.1.5
+[1.1.4]: https://github.com/ngoldman/gh-release/compare/v1.1.3...v1.1.4
 [1.1.3]: https://github.com/ngoldman/gh-release/compare/v1.1.2...v1.1.3
 [1.1.2]: https://github.com/ngoldman/gh-release/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/ngoldman/gh-release/compare/v1.1.0...v1.1.1
