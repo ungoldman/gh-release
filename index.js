@@ -11,7 +11,7 @@ var client = new GHAPI({
   headers: { 'user-agent': 'gh-release' }
 })
 var inquirer = require('inquirer')
-var columnWidth = 18
+var columnWidth = 20
 var questions = [
   {
     type: 'confirm',
@@ -147,7 +147,7 @@ function indentBody (body) {
     if (i === 0) {
       return { column1: justify('body'), column2: line }
     } else {
-      return { column1: new Array(columnWidth).join(' '), column2: line }
+      return { column1: new Array(columnWidth + 1).join(' '), column2: line }
     }
   })
 }
