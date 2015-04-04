@@ -1,7 +1,7 @@
 {
   "name": "gh-release",
   "description": "Create a release for a node package on github.",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "author": "Nate Goldman <nate@ngoldman.me>",
   "bin": {
     "gh-release": "./bin/cli.js"
@@ -41,7 +41,10 @@
   "homepage": "https://github.com/ngoldman/gh-release",
   "keywords": [
     "github",
-    "release"
+    "release",
+    "tag",
+    "semver",
+    "changelog"
   ],
   "license": "ISC",
   "main": "index.js",
