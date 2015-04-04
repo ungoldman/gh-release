@@ -3,8 +3,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
-## Unreleased
+## [Unreleased]
 * update demo
+* update doc
 
 ## [1.1.5] - 2015-04-02
 * more improvements to CLI style & formatting

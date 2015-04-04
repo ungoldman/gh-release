@@ -21,6 +21,34 @@ $ npm install gh-release -g
 ### Usage
 
 ```
+$ gh-release
+Your GitHub username: ngoldman
+Your GitHub password: ✔✔✔✔✔✔✔✔
+
+creating release v1.0.0 for ngoldman/cool-project
+
+name:               v1.0.0
+tag_name:           v1.0.0
+target_commitish:   9561804a4d1fca2525d3207bec4907dd5ec7a705
+draft:              false
+prerelease:         false
+body:               * engage
+
+? publish release to github? Yes
+https://github.com/ngoldman/cool-project/releases/tag/v1.0.0
+```
+
+Should be run at the root of the project to be released.
+
+Expects a `package.json` and `CHANGELOG.md` in the working directory.
+
+Prints release URL to terminal on success.
+
+Saves github API token to `$HOME/.config/gh-release.json` after first authentication.
+
+Get usage info by running with `--help` or `-h`.
+
+```
 $ gh-release --help
 Usage: gh-release [options]
 
@@ -37,35 +65,9 @@ Options:
   -h, --help              Show help
   -v, --version           Show version number
   --dry-run                                          [default: false]
-
-$ gh-release
-Your GitHub username: ngoldman
-Your GitHub password: ✔✔✔✔✔✔✔✔
-
-creating release v1.1.2 for ngoldman/gh-release
-
-name:             v1.1.2
-tag_name:         v1.1.2
-target_commitish: ffed090688fb1b853aa07a546ac2e3965a02bb1d
-draft:            false
-prerelease:       false
-body:             * add `dry-run` and `workpath` options
-                  * improve change log
-dryRun:           false
-
-? publish release to github? (y/N) y
-https://github.com/ngoldman/gh-release/releases/tag/v1.1.2
 ```
 
-Should be run at the root of the project to be released.
-
-Expects a `package.json` and `CHANGELOG.md` in the working directory.
-
-Prints release URL to terminal on success.
-
-Saves github API token to `$HOME/.config/gh-release.json` after first authentication.
-
-## Node
+## Node API
 
 ### Install
 
