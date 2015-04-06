@@ -1,12 +1,19 @@
 # gh-release
 
-[![](https://img.shields.io/github/release/ngoldman/gh-release.svg?style=flat-square)](https://github.com/ngoldman/gh-release/releases/latest)
-[![](https://img.shields.io/npm/v/gh-release.svg?style=flat-square)](https://www.npmjs.com/package/gh-release)
-[![](https://img.shields.io/travis/ngoldman/gh-release.svg?style=flat-square)](https://travis-ci.org/ngoldman/gh-release)
+[![release][release-image]][release-url]
+[![npm][npm-image]][npm-url]
+[![travis][travis-image]][travis-url]
+
+[release-image]: https://img.shields.io/github/release/ngoldman/gh-release.svg?style=flat-square
+[release-url]: https://github.com/ngoldman/gh-release/releases/latest
+[npm-image]: https://img.shields.io/npm/v/gh-release.svg?style=flat-square
+[npm-url]: https://www.npmjs.com/package/gh-release
+[travis-image]: https://img.shields.io/travis/ngoldman/gh-release.svg?style=flat-square
+[travis-url]: https://travis-ci.org/ngoldman/gh-release
 
 Create a release for a node package on github.
 
-Uses the [Github Releases API](https://developer.github.com/v3/repos/releases/) to create a new release using information from your `package.json` and `CHANGELOG.md`. Has strong [defaults](#defaults), relies on [standards](#standards).
+Uses the [Github Releases API](https://developer.github.com/v3/repos/releases/) to create a new release. Defaults to using information from `package.json` and `CHANGELOG.md`.
 
 ![gh-release example](demo.gif)
 
@@ -44,7 +51,7 @@ Expects a `package.json` and `CHANGELOG.md` in the working directory.
 
 Prints release URL to terminal on success.
 
-Saves github API token to `$HOME/.config/gh-release.json` after first authentication.
+Saves Github API token to `$HOME/.config/gh-release.json` after first authentication.
 
 Get usage info by running with `--help` or `-h`.
 
