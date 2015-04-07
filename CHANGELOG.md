@@ -5,7 +5,7 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
 ## [1.1.7] - 2015-04-07
 ### Fixed
-- If cli is successful, should exit with code of 0
+* If cli is successful, should exit with code of 0
 
 ## [1.1.6] - 2015-04-03
 * update demo
