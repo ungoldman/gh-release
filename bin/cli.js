@@ -119,6 +119,7 @@ function handleRelease (err, result) {
   }
 
   console.log(result.html_url)
+  process.exit(0)
 }
 
 function handleError (err) {
