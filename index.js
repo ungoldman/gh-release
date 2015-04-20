@@ -59,7 +59,7 @@ function ghRelease (options, auth, callback) {
     if (options.dryRun) process.exit(0)
 
     inquirer.prompt(questions, function (answers) {
-      if (!answers.confirm) return process.exit(0)
+      if (!answers.confirm) return process.exit(1)
 
       var checkCommitForm = {
         user: releaseOptions.owner,

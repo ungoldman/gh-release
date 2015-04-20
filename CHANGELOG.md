@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
+## Unreleased
+### Fixed
+* exit process with code 1 on aborted release or invalid directory
+
 ## [1.1.7] - 2015-04-07
 ### Fixed
 * If cli is successful, should exit with code of 0
