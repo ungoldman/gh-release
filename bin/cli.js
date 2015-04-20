@@ -83,7 +83,7 @@ function checkDir (workpath) {
   if (!pkgExists || !logExists) {
     console.log('Must be run in a directory with package.json and CHANGELOG.md')
     yargs.showHelp()
-    process.exit(0)
+    process.exit(1)
   }
 
   authenticate()
