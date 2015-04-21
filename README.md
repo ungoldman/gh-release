@@ -3,6 +3,7 @@
 [![release][release-image]][release-url]
 [![npm][npm-image]][npm-url]
 [![travis][travis-image]][travis-url]
+[![stability][stability-image]][stability-url]
 
 [release-image]: https://img.shields.io/github/release/ngoldman/gh-release.svg?style=flat-square
 [release-url]: https://github.com/ngoldman/gh-release/releases/latest
@@ -10,6 +11,8 @@
 [npm-url]: https://www.npmjs.com/package/gh-release
 [travis-image]: https://img.shields.io/travis/ngoldman/gh-release.svg?style=flat-square
 [travis-url]: https://travis-ci.org/ngoldman/gh-release
+[stability-image]: https://img.shields.io/badge/stability-2%20--%20unstable-yellow.svg?style=flat-square
+[stability-url]: https://nodejs.org/api/documentation.html#documentation_stability_index
 
 Create a release for a node package on github.
 

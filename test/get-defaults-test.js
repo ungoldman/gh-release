@@ -3,7 +3,7 @@ var tmp = require('tmp')
 var gits = require('quick-gits')
 var rimraf = require('rimraf')
 
-var getDefaults = require('../lib/get-defaults')
+var getDefaults = require('../bin/lib/get-defaults')
 
 var tmpDir
 var repo

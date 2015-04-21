@@ -2,7 +2,7 @@ var path = require('path')
 var changelogParser = require('changelog-parser')
 var exec = require('shelljs').exec
 
-module.exports = function getDefaults (workPath, callback) {
+function getDefaults (workPath, callback) {
   var pkg = require(path.resolve(workPath, 'package.json'))
 
   if (!pkg.hasOwnProperty('repository')) {
@@ -21,7 +21,7 @@ module.exports = function getDefaults (workPath, callback) {
 
     if (log.version !== pkg.version) {
       var errStr = 'CHANGELOG.md out of sync with package.json '
-      errStr += '(' + log.version + ' !== ' + pkg.version + ')'
+      errStr += '(' + (log.version || log.title) + ' !== ' + pkg.version + ')'
       return callback(new Error(errStr))
     }
 
@@ -48,4 +48,5 @@ function getTargetCommitish () {
   return 'master'
 }
 
+module.exports = getDefaults
 module.exports.getTargetCommitish = getTargetCommitish
