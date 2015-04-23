@@ -3,9 +3,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
-## Unreleased
+## [1.1.8] - 2015-04-22
 ### Fixed
-* exit process with code 1 on aborted release or invalid directory
+* exit process with code 1 on aborted release or invalid directory ([#31](https://github.com/ngoldman/gh-release/issues/31))
 
 ## [1.1.7] - 2015-04-07
 ### Fixed
