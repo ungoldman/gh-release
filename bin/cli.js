@@ -1,128 +1,110 @@
 #!/usr/bin/env node
 
-var ghRelease = require(__dirname + '/../')
-var getDefaults = require(__dirname + '/../lib/get-defaults')
-var extend = require('util')._extend
+var extend = require('deep-extend')
 var fs = require('fs')
-var ghauth = require('ghauth')
 var path = require('path')
-var authOptions = {
+var chalk = require('chalk')
+var ghauth = require('ghauth')
+var inquirer = require('inquirer')
+var ghRelease = require(__dirname + '/../')
+var getDefaults = require(__dirname + '/lib/get-defaults')
+var preview = require(__dirname + '/lib/preview')
+var yargs = require(__dirname + '/lib/yargs')
+var argv = yargs.argv
+
+// check dir
+
+var pkgExists = fs.existsSync(path.resolve(argv.workpath, 'package.json'))
+var logExists = fs.existsSync(path.resolve(argv.workpath, 'CHANGELOG.md'))
+
+if (!pkgExists || !logExists) {
+  console.log('Must be run in a directory with package.json and CHANGELOG.md')
+  yargs.showHelp()
+  process.exit(1)
+}
+
+// get auth
+
+var ghauthOpts = {
   configName: 'gh-release',
   scopes: ['repo'],
   note: 'gh-release',
   userAgent: 'gh-release'
 }
-var yargs = require('yargs')
-  .usage('Usage: $0 [options]')
-  .options({
-    't': {
-      alias: 'tag_name',
-      type: 'string',
-      describe: 'tag for this release'
-    },
-    'c': {
-      alias: 'target_commitish',
-      type: 'string',
-      describe: 'commitish value for tag'
-    },
-    'n': {
-      alias: 'name',
-      type: 'string',
-      describe: 'text of release title'
-    },
-    'b': {
-      alias: 'body',
-      type: 'string',
-      describe: 'text of release body'
-    },
-    'o': {
-      alias: 'owner',
-      describe: 'repo owner'
-    },
-    'r': {
-      alias: 'repo',
-      describe: 'repo name'
-    },
-    'd': {
-      alias: 'draft',
-      type: 'boolean',
+
+ghauth(ghauthOpts, function (err, auth) {
+  if (err) return handleError(err)
+
+  var options = {}
+  options.auth = auth
+
+  // get defaults
+
+  getDefaults(argv.workpath, function getDefaultsCallback (err, defaults) {
+    if (err) return handleError(err)
+
+    // merge defaults and command line arguments into options
+
+    extend(options, defaults, argv)
+
+    // filter options through whitelist
+
+    var whitelist = ghRelease.OPTIONS.whitelist
+
+    Object.keys(options).forEach(function (key) {
+      if (whitelist.indexOf(key) === -1) delete options[key]
+    })
+
+    // @TODO: prompt for user options if mode is interactive
+    // if (argv.interactive) {
+    //   var questions = []
+    // }
+
+    // show preview
+
+    preview(options)
+
+    // exit 0 if dry run
+
+    if (options.dryRun) process.exit(0)
+
+    // confirm & release
+
+    var confirmation = [{
+      type: 'confirm',
+      name: 'confirm',
+      message: 'publish release to github?',
       default: false,
-      describe: 'publish as draft'
-    },
-    'p': {
-      alias: 'prerelease',
-      type: 'boolean',
-      default: false,
-      describe: 'publish as prerelease'
-    },
-    'dry-run': {
-      type: 'boolean',
-      default: false
-    },
-    'w': {
-      alias: 'workpath',
-      type: 'string',
-      default: process.cwd(),
-      describe: 'path to working directory'
-    }
+      validate: function (input) {
+        if (!input) return false
+        return true
+      }
+    }]
+
+    inquirer.prompt(confirmation, function (answers) {
+      if (!answers.confirm) return process.exit(1)
+
+      // pass options to api
+
+      ghRelease(options, function ghReleaseCallback (err, result) {
+        // handle errors
+        if (err) return handleError(err)
+
+        if (!result || !result.html_url) {
+          console.error('missing result info')
+          process.exit(1)
+        }
+
+        // log release url & exit 0
+        console.log(result.html_url)
+        process.exit(0)
+      })
+    })
   })
-  .help('h')
-  .alias('h', 'help')
-  .version(require(__dirname + '/../package.json').version + '\n', 'v')
-  .alias('v', 'version')
-
-var argv = yargs.argv
-var auth
-
-checkDir(argv.workpath)
-
-function checkDir (workpath) {
-  var pkgExists = fs.existsSync(path.resolve(workpath, 'package.json'))
-  var logExists = fs.existsSync(path.resolve(workpath, 'CHANGELOG.md'))
-
-  if (!pkgExists || !logExists) {
-    console.log('Must be run in a directory with package.json and CHANGELOG.md')
-    yargs.showHelp()
-    process.exit(1)
-  }
-
-  authenticate()
-}
-
-function authenticate () {
-  ghauth(authOptions, function (err, authInfo) {
-    if (err) handleError(err)
-    auth = authInfo
-    getDefaults(argv.workpath, handleDefaults)
-  })
-}
-
-function handleDefaults (err, defaults) {
-  if (err) handleError(err)
-
-  var whitelist = Object.keys(defaults)
-  var options = extend(defaults, argv)
-
-  Object.keys(options).forEach(function (key) {
-    if (whitelist.indexOf(key) === -1) delete options[key]
-  })
-
-  ghRelease(options, auth, handleRelease)
-}
-
-function handleRelease (err, result) {
-  if (err) handleError(err)
-
-  if (!result || !result.html_url) {
-    console.error('missing result info')
-    process.exit(1)
-  }
-
-  console.log(result.html_url)
-  process.exit(0)
-}
+})
 
 function handleError (err) {
-  console.error(err)
+  var msg = err.msg || err
+  console.log(chalk.red(msg))
   process.exit(1)
 }

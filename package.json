@@ -17,6 +17,7 @@
   "dependencies": {
     "chalk": "^1.0.0",
     "changelog-parser": "^2.0.0",
+    "deep-extend": "^0.3.3",
     "ghauth": "^2.0.0",
     "github": "^0.2.3",
     "inquirer": "^0.8.0",
@@ -28,7 +29,7 @@
   "devDependencies": {
     "quick-gits": "^1.0.4",
     "rimraf": "^2.2.8",
-    "standard": "^3.3.1",
+    "standard": "*",
     "tap-spec": "^2.2.2",
     "tape": "^3.5.0",
     "tmp": "0.0.25"

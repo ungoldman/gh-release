@@ -1,0 +1,63 @@
+var pkg = require(__dirname + '/../../package.json')
+var version = pkg.version
+
+module.exports = require('yargs')
+  .usage('Usage: $0 [options]')
+  .options({
+    't': {
+      alias: 'tag_name',
+      type: 'string',
+      describe: 'tag for this release'
+    },
+    'c': {
+      alias: 'target_commitish',
+      type: 'string',
+      describe: 'commitish value for tag'
+    },
+    'n': {
+      alias: 'name',
+      type: 'string',
+      describe: 'text of release title'
+    },
+    'b': {
+      alias: 'body',
+      type: 'string',
+      describe: 'text of release body'
+    },
+    'o': {
+      alias: 'owner',
+      describe: 'repo owner'
+    },
+    'r': {
+      alias: 'repo',
+      describe: 'repo name'
+    },
+    'd': {
+      alias: 'draft',
+      type: 'boolean',
+      default: false,
+      describe: 'publish as draft'
+    },
+    'p': {
+      alias: 'prerelease',
+      type: 'boolean',
+      default: false,
+      describe: 'publish as prerelease'
+    },
+    'dry-run': {
+      type: 'boolean',
+      default: false,
+      describe: 'dry run (stops before release step)'
+    },
+    'w': {
+      alias: 'workpath',
+      type: 'string',
+      default: process.cwd(),
+      describe: 'path to working directory'
+    }
+  })
+  .example('$0 -n v' + version + ' -c master -d', 'create a draft release with title v' + version + ' tagged at HEAD of master')
+  .help('h')
+  .alias('h', 'help')
+  .version(version + '\n', 'v')
+  .alias('v', 'version')
