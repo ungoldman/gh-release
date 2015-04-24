@@ -32,6 +32,10 @@ var ghauthOpts = {
   userAgent: 'gh-release'
 }
 
+if (argv.assets) {
+  argv.assets = argv.assets.split(',')
+}
+
 ghauth(ghauthOpts, function (err, auth) {
   if (err) return handleError(err)
 
@@ -46,9 +50,6 @@ ghauth(ghauthOpts, function (err, auth) {
     // merge defaults and command line arguments into options
 
     extend(options, defaults, argv)
-
-    // filter options through whitelist
-
     var whitelist = ghRelease.OPTIONS.whitelist
 
     Object.keys(options).forEach(function (key) {

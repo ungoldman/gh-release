@@ -18,6 +18,7 @@
     "chalk": "^1.0.0",
     "changelog-parser": "^2.0.0",
     "deep-extend": "^0.3.3",
+    "gh-release-assets": "^1.1.0",
     "ghauth": "^2.0.0",
     "inquirer": "^0.8.0",
     "request": "^2.55.0",

@@ -1,6 +1,7 @@
 var extend = require('deep-extend')
 var request = require('request')
 var format = require('util').format
+var path = require('path')
 var ghReleaseAssets = require('gh-release-assets')
 
 var API_ROOT = 'https://api.github.com/'
@@ -33,7 +34,8 @@ var OPTIONS = {
     'dryRun',
     'draft',
     'prerelease',
-    'workpath'
+    'workpath',
+    'assets'
   ]
 }
 
@@ -57,8 +59,8 @@ function Release (options, callback) {
     return callback(err)
   }
 
-  // create client
-  if (!options.auth) return callback(new Error('missing auth info'))
+  // err if auth info not provided (token or user/pass)
+  if (!getAuth(options)) return callback(new Error('missing auth info'))
 
   // check if commit exists on remote
   var getCommitOptions = extend(getAuth(options), {
@@ -90,21 +92,34 @@ function Release (options, callback) {
 
     request(releaseOpts, function (err, res, body) {
       if (err) {
-        var message = JSON.parse(err.message)
-        var tagExists = (message.errors[0].code === 'already_exists')
-        if (err.code === 422 && tagExists) {
+        return callback(err)
+      }
+
+      if (body.errors) {
+        if (body.errors[0].code === 'already_exists') {
           var errorMessage = format('Release already exists for tag %s in %s/%s', options.tag_name, options.owner, options.repo)
           return callback(new Error(errorMessage))
         } else {
-          return callback(err)
+          return callback(body.errors)
         }
       }
+
       if (options.assets) {
-        ghReleaseAssets({
+        var assets = options.assets.map(function (asset) {
+          return path.join(options.workpath, asset)
+        })
+        var assetOptions = {
           url: body.upload_url,
-          token: options.auth.token,
-          assets: options.assets
-        }, function (err, assets) {
+          assets: assets
+        }
+
+        if (options.auth.token) {
+          assetOptions.token = options.auth.token
+        } else {
+          assetOptions.auth = options.auth
+        }
+
+        ghReleaseAssets(assetOptions, function (err) {
           if (err) {
             return callback(err)
           } else {
@@ -142,14 +157,23 @@ function validate (options) {
 }
 
 function getAuth (options) {
-  return {
+  var defaultRequest = {
     method: 'POST',
     json: true,
     headers: {
-      'Authorization': 'token ' + options.auth.token,
       'User-Agent': 'gh-release'
     }
   }
+
+  if (options.auth.token) {
+    defaultRequest.headers.Authorization = 'token ' + options.auth.token
+  } else if (options.auth.username && options.auth.password) {
+    defaultRequest.auth = options.auth
+  } else {
+    return false
+  }
+
+  return defaultRequest
 }
 
 Release.OPTIONS = OPTIONS

@@ -28,6 +28,7 @@ function getDefaults (workPath, callback) {
     var version = pkg.version ? 'v' + pkg.version : null
 
     callback(null, {
+      assets: false,
       owner: owner,
       repo: repo,
       dryRun: false,
