@@ -1,5 +1,9 @@
 var extend = require('deep-extend')
-var GHAPI = require('github')
+var request = require('request')
+var format = require('util').format
+var ghReleaseAssets = require('gh-release-assets')
+
+var API_ROOT = 'https://api.github.com/'
 
 var OPTIONS = {
   required: [
@@ -54,41 +58,62 @@ function Release (options, callback) {
   }
 
   // create client
-
-  var client = createClient(options)
-  if (!client) return callback(new Error('missing auth info'))
+  if (!options.auth) return callback(new Error('missing auth info'))
 
   // check if commit exists on remote
+  var getCommitOptions = extend(getAuth(options), {
+    method: 'GET',
+    uri: API_ROOT + format('repos/%s/%s/git/commits/%s', options.owner, options.repo, options.target_commitish)
+  })
 
-  var commitOpts = {
-    user: options.owner,
-    repo: options.repo,
-    sha: options.target_commitish
-  }
-
-  client.repos.getCommit(commitOpts, function (err, res) {
+  request(getCommitOptions, function (err, res, body) {
     if (err) {
-      return callback(new Error('Target commitish "' + options.target_commitish +
-        '" not found in ' + options.owner + '/' + options.repo))
+      var errorMessage = format('Target commitish %s not found in %s/%s', options.target_commitish, options.owner, options.repo)
+      return callback(new Error(errorMessage))
     }
 
-    var releaseOpts = prepOptions(options)
+    var releaseOpts = extend(getAuth(options), {
+      uri: API_ROOT + format('repos/%s/%s/releases', options.owner, options.repo),
+      body: {
+        tag_name: options.tag_name,
+        target_commitish: options.target_commitish,
+        name: options.name,
+        body: options.body,
+        draft: options.draft,
+        prerelease: options.prerelease,
+        repo: options.repo,
+        owner: options.owner
+      }
+    })
 
     if (options.dryRun) return callback(null, options)
 
-    client.releases.createRelease(releaseOpts, function (err, res) {
+    request(releaseOpts, function (err, res, body) {
       if (err) {
         var message = JSON.parse(err.message)
         var tagExists = (message.errors[0].code === 'already_exists')
         if (err.code === 422 && tagExists) {
-          return callback(new Error('Release already exists for tag "' + options.tag_name +
-            '" in ' + options.owner + '/' + options.repo))
+          var errorMessage = format('Release already exists for tag %s in %s/%s', options.tag_name, options.owner, options.repo)
+          return callback(new Error(errorMessage))
         } else {
           return callback(err)
         }
       }
-
-      callback(null, res)
+      if (options.assets) {
+        ghReleaseAssets({
+          url: body.upload_url,
+          token: options.auth.token,
+          assets: options.assets
+        }, function (err, assets) {
+          if (err) {
+            return callback(err)
+          } else {
+            return callback(null, body)
+          }
+        })
+      } else {
+        callback(null, body)
+      }
     })
   })
 }
@@ -116,49 +141,18 @@ function validate (options) {
   }
 }
 
-function createClient (options) {
-  var client = new GHAPI({
-    version: '3.0.0',
-    headers: { 'user-agent': 'gh-release' }
-  })
-
-  var auth = options.auth || {}
-  var hasToken = auth && auth.token
-  var hasUser = auth && auth.username
-  var hasPass = auth && auth.password
-  var hasBasic = hasUser && hasPass
-  var authOptions
-
-  if (!hasToken && !hasBasic) return false
-
-  if (hasToken) {
-    authOptions = {
-      type: 'oauth',
-      token: auth.token
-    }
-  } else {
-    authOptions = {
-      type: 'basic',
-      username: auth.username,
-      password: auth.password
+function getAuth (options) {
+  return {
+    method: 'POST',
+    json: true,
+    headers: {
+      'Authorization': 'token ' + options.auth.token,
+      'User-Agent': 'gh-release'
     }
   }
-
-  client.authenticate(authOptions)
-
-  return client
-}
-
-function prepOptions (options) {
-  var copy = extend({}, options)
-
-  delete copy.auth
-
-  return copy
 }
 
 Release.OPTIONS = OPTIONS
 Release.validate = validate
-Release.createClient = createClient
 
 module.exports = Release
