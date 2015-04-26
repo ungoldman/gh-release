@@ -32,6 +32,10 @@ var ghauthOpts = {
   userAgent: 'gh-release'
 }
 
+if (argv.assets) {
+  argv.assets = argv.assets.split(',')
+}
+
 ghauth(ghauthOpts, function (err, auth) {
   if (err) return handleError(err)
 

@@ -1,5 +1,10 @@
 var extend = require('deep-extend')
-var GHAPI = require('github')
+var request = require('request')
+var format = require('util').format
+var path = require('path')
+var ghReleaseAssets = require('gh-release-assets')
+
+var API_ROOT = 'https://api.github.com/'
 
 var OPTIONS = {
   required: [
@@ -29,7 +34,8 @@ var OPTIONS = {
     'dryRun',
     'draft',
     'prerelease',
-    'workpath'
+    'workpath',
+    'assets'
   ]
 }
 
@@ -53,42 +59,76 @@ function Release (options, callback) {
     return callback(err)
   }
 
-  // create client
-
-  var client = createClient(options)
-  if (!client) return callback(new Error('missing auth info'))
+  // err if auth info not provided (token or user/pass)
+  if (!getAuth(options)) return callback(new Error('missing auth info'))
 
   // check if commit exists on remote
+  var getCommitOptions = extend(getAuth(options), {
+    method: 'GET',
+    uri: API_ROOT + format('repos/%s/%s/git/commits/%s', options.owner, options.repo, options.target_commitish)
+  })
 
-  var commitOpts = {
-    user: options.owner,
-    repo: options.repo,
-    sha: options.target_commitish
-  }
-
-  client.repos.getCommit(commitOpts, function (err, res) {
+  request(getCommitOptions, function (err, res, body) {
     if (err) {
-      return callback(new Error('Target commitish "' + options.target_commitish +
-        '" not found in ' + options.owner + '/' + options.repo))
+      var errorMessage = format('Target commitish %s not found in %s/%s', options.target_commitish, options.owner, options.repo)
+      return callback(new Error(errorMessage))
     }
 
-    var releaseOpts = prepOptions(options)
+    var releaseOpts = extend(getAuth(options), {
+      uri: API_ROOT + format('repos/%s/%s/releases', options.owner, options.repo),
+      body: {
+        tag_name: options.tag_name,
+        target_commitish: options.target_commitish,
+        name: options.name,
+        body: options.body,
+        draft: options.draft,
+        prerelease: options.prerelease,
+        repo: options.repo,
+        owner: options.owner
+      }
+    })
 
     if (options.dryRun) return callback(null, options)
 
-    client.releases.createRelease(releaseOpts, function (err, res) {
+    request(releaseOpts, function (err, res, body) {
       if (err) {
-        var message = JSON.parse(err.message)
-        var tagExists = (message.errors[0].code === 'already_exists')
-        if (err.code === 422 && tagExists) {
-          return callback(new Error('Release already exists for tag "' + options.tag_name +
-            '" in ' + options.owner + '/' + options.repo))
+        return callback(err)
+      }
+
+      if (body.errors) {
+        if (body.errors[0].code === 'already_exists') {
+          var errorMessage = format('Release already exists for tag %s in %s/%s', options.tag_name, options.owner, options.repo)
+          return callback(new Error(errorMessage))
         } else {
-          return callback(err)
+          return callback(body.errors)
         }
       }
 
-      callback(null, res)
+      if (options.assets) {
+        var assets = options.assets.map(function (asset) {
+          return path.join(options.workpath, asset)
+        })
+        var assetOptions = {
+          url: body.upload_url,
+          assets: assets
+        }
+
+        if (options.auth.token) {
+          assetOptions.token = options.auth.token
+        } else {
+          assetOptions.auth = options.auth
+        }
+
+        ghReleaseAssets(assetOptions, function (err) {
+          if (err) {
+            return callback(err)
+          } else {
+            return callback(null, body)
+          }
+        })
+      } else {
+        callback(null, body)
+      }
     })
   })
 }
@@ -116,49 +156,27 @@ function validate (options) {
   }
 }
 
-function createClient (options) {
-  var client = new GHAPI({
-    version: '3.0.0',
-    headers: { 'user-agent': 'gh-release' }
-  })
-
-  var auth = options.auth || {}
-  var hasToken = auth && auth.token
-  var hasUser = auth && auth.username
-  var hasPass = auth && auth.password
-  var hasBasic = hasUser && hasPass
-  var authOptions
-
-  if (!hasToken && !hasBasic) return false
-
-  if (hasToken) {
-    authOptions = {
-      type: 'oauth',
-      token: auth.token
-    }
-  } else {
-    authOptions = {
-      type: 'basic',
-      username: auth.username,
-      password: auth.password
+function getAuth (options) {
+  var defaultRequest = {
+    method: 'POST',
+    json: true,
+    headers: {
+      'User-Agent': 'gh-release'
     }
   }
 
-  client.authenticate(authOptions)
+  if (options.auth.token) {
+    defaultRequest.headers.Authorization = 'token ' + options.auth.token
+  } else if (options.auth.username && options.auth.password) {
+    defaultRequest.auth = options.auth
+  } else {
+    return false
+  }
 
-  return client
-}
-
-function prepOptions (options) {
-  var copy = extend({}, options)
-
-  delete copy.auth
-
-  return copy
+  return defaultRequest
 }
 
 Release.OPTIONS = OPTIONS
 Release.validate = validate
-Release.createClient = createClient
 
 module.exports = Release

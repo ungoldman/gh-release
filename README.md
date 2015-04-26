@@ -14,7 +14,7 @@
 [stability-image]: https://img.shields.io/badge/stability-2%20--%20unstable-yellow.svg?style=flat-square
 [stability-url]: https://nodejs.org/api/documentation.html#documentation_stability_index
 
-Create a release for a node package on github.
+Create a release for a node package on GitHub.
 
 Uses the [Github Releases API](https://developer.github.com/v3/repos/releases/) to create a new release. Defaults to using information from `package.json` and `CHANGELOG.md`.
 
@@ -72,6 +72,7 @@ Options:
   -d, --draft             publish as draft           [default: false]
   -p, --prerelease        publish as prerelease      [default: false]
   -w, --workpath          path to working directory  [default: current working directory]
+  -a, --assets            list of assets to upload to release
   -h, --help              Show help
   -v, --version           Show version number
   --dry-run                                          [default: false]
@@ -106,18 +107,19 @@ var options = {}
 
 // auth is required
 // it can either be a username & password...
-var auth = {
+options.auth = {
   username: 'ngoldman',
   password: 'XXXXXXXX'
 }
+
 // or an API token
-var auth = {
+options.auth = {
   token: 'XXXXXXXX'
 }
 
-ghRelease(options, auth, function (err, result) {
+ghRelease(options, function (err, result) {
   if (err) throw err
-  console.log('Release URL: ' + result)
+  console.log(result) // create release response: https://developer.github.com/v3/repos/releases/#response-4
 })
 ```
 

@@ -8,6 +8,10 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 * moved all logging and CLI-related logic out of API and into CLI
 * **breaking:** changed API parameters from `options, auth, callback` to `options, callback`
   * `auth` is now in `options` as `options.auth`
+* no longer uses the node-github client
+
+### Added
+* `assets` option for uploading assets
 
 ## [1.1.8] - 2015-04-22
 ### Fixed
