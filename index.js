@@ -96,18 +96,19 @@ function Release (options, callback) {
       }
 
       if (body.errors) {
-        if (body.errors[0].code === 'already_exists') {
-          var errorMessage = format('Release already exists for tag %s in %s/%s', options.tag_name, options.owner, options.repo)
-          return callback(new Error(errorMessage))
-        } else {
+        if (body.errors[0].code !== 'already_exists') {
           return callback(body.errors)
         }
+
+        var errorMessage = format('Release already exists for tag %s in %s/%s', options.tag_name, options.owner, options.repo)
+        return callback(new Error(errorMessage))
       }
 
       if (options.assets) {
         var assets = options.assets.map(function (asset) {
           return path.join(options.workpath, asset)
         })
+
         var assetOptions = {
           url: body.upload_url,
           assets: assets
@@ -120,11 +121,8 @@ function Release (options, callback) {
         }
 
         ghReleaseAssets(assetOptions, function (err) {
-          if (err) {
-            return callback(err)
-          } else {
-            return callback(null, body)
-          }
+          if (err) return callback(err)
+          return callback(null, body)
         })
       } else {
         callback(null, body)
