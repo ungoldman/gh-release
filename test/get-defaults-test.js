@@ -4,11 +4,9 @@ var gits = require('quick-gits')
 var rimraf = require('rimraf')
 
 var getDefaults = require('../bin/lib/get-defaults')
-
-var tmpDir
-var repo
 var remote = 'https://github.com/bcomnes/gh-release-test.git'
-// var remotePath
+
+var tmpDir, repo
 
 test('Set up test environment', function (t) {
   t.plan(2)
