@@ -40,8 +40,6 @@ creating release v1.0.0 for ngoldman/cool-project
 name:               v1.0.0
 tag_name:           v1.0.0
 target_commitish:   9561804a4d1fca2525d3207bec4907dd5ec7a705
-draft:              false
-prerelease:         false
 body:               * engage
 
 ? publish release to github? Yes
@@ -62,6 +60,10 @@ Get usage info by running with `--help` or `-h`.
 $ gh-release --help
 Usage: gh-release [options]
 
+Examples:
+  node bin/cli.js -n v1.1.8 -c master -d    create a draft release with title v1.1.8 tagged at HEAD of master
+
+
 Options:
   -t, --tag_name          tag for this release
   -c, --target_commitish  commitish value for tag
@@ -69,13 +71,13 @@ Options:
   -b, --body              text of release body
   -o, --owner             repo owner
   -r, --repo              repo name
-  -d, --draft             publish as draft           [default: false]
-  -p, --prerelease        publish as prerelease      [default: false]
-  -w, --workpath          path to working directory  [default: current working directory]
-  -a, --assets            list of assets to upload to release
+  -d, --draft             publish as draft                     [default: false]
+  -p, --prerelease        publish as prerelease                [default: false]
+  --dry-run               dry run (stops before release step)  [default: false]
+  -w, --workpath          path to working directory            [default: <current working directory>]
+  -a, --assets            list of assets to upload to release  [default: false]
   -h, --help              Show help
   -v, --version           Show version number
-  --dry-run                                          [default: false]
 ```
 
 ## Node API
@@ -102,6 +104,7 @@ var options = {
   repo: 'gh-release',
   owner: 'ngoldman'
 }
+
 // options can also be just an empty object
 var options = {}
 
@@ -137,6 +140,7 @@ All default values taken from `package.json` unless specified otherwise.
 | `repo` | repo name | repo name parsed out of `repository.url` |
 | `draft` | publish as draft | false |
 | `prerelease` | publish as prerelease | false |
+| `assets` | release assets to upload | false |
 
 Override defaults with flags (CLI) or the `options` object (node).
 
@@ -155,11 +159,7 @@ There are packages that already do something like this, and they're great, but I
 
 ## Contributing
 
-`gh-release` is an **OPEN Open Source Project**. This means that:
-
-> Individuals making significant and valuable contributions are given commit-access to the project to contribute as they see fit. This project is more like an open wiki than a standard guarded open source project.
-
-See the [CONTRIBUTING.md](CONTRIBUTING.md) file for more details.
+Contributions welcome! Please read the [contributing guidelines](CONTRIBUTING.md) first.
 
 ## License
 
