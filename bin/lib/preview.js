@@ -31,6 +31,10 @@ function formatOptions (options) {
   var keys = Object.keys(copy).reverse()
 
   keys.forEach(function (key) {
+    if (['assets', 'draft', 'prerelease'].indexOf(key) > -1) {
+      if (!copy[key]) return
+    }
+
     if (key === 'body') {
       var body = indentBody(copy.body)
       formatted.push.apply(formatted, body)
