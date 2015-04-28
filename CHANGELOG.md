@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
-## Unreleased
+## [Unreleased][unreleased]
 ### Changed
 * moved all logging and CLI-related logic out of API and into CLI
 * **breaking:** changed API parameters from `options, auth, callback` to `options, callback`
@@ -91,6 +91,8 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 * define basic node interface
 * define basic cli interface
 
+[unreleased]: https://github.com/ngoldman/gh-release/compare/v1.1.8...HEAD
+[1.1.8]: https://github.com/ngoldman/gh-release/compare/v1.1.7...v1.1.8
 [1.1.7]: https://github.com/ngoldman/gh-release/compare/v1.1.6...v1.1.7
 [1.1.6]: https://github.com/ngoldman/gh-release/compare/v1.1.5...v1.1.6
 [1.1.5]: https://github.com/ngoldman/gh-release/compare/v1.1.4...v1.1.5
