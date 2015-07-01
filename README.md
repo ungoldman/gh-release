@@ -1,5 +1,7 @@
 # gh-release
 
+> Create a release for a node package on GitHub.
+
 [![release][release-image]][release-url]
 [![npm][npm-image]][npm-url]
 [![travis][travis-image]][travis-url]
@@ -13,8 +15,6 @@
 [travis-url]: https://travis-ci.org/ngoldman/gh-release
 [stability-image]: https://img.shields.io/badge/stability-1%20--%20experimental-orange.svg?style=flat-square
 [stability-url]: https://iojs.org/api/documentation.html#documentation_stability_index
-
-Create a release for a node package on GitHub.
 
 Uses the [Github Releases API](https://developer.github.com/v3/repos/releases/) to create a new release. Defaults to using information from `package.json` and `CHANGELOG.md`.
 
