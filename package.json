@@ -42,11 +42,11 @@
   ],
   "homepage": "https://github.com/ngoldman/gh-release",
   "keywords": [
+    "changelog",
     "github",
     "release",
-    "tag",
     "semver",
-    "changelog"
+    "tag"
   ],
   "license": "ISC",
   "main": "index.js",
