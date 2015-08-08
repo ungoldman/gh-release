@@ -2,33 +2,27 @@
 
 > Create a release for a node package on GitHub.
 
-[![release][release-image]][release-url]
 [![npm][npm-image]][npm-url]
 [![travis][travis-image]][travis-url]
-[![stability][stability-image]][stability-url]
 
-[release-image]: https://img.shields.io/github/release/ngoldman/gh-release.svg?style=flat-square
-[release-url]: https://github.com/ngoldman/gh-release/releases/latest
 [npm-image]: https://img.shields.io/npm/v/gh-release.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/gh-release
 [travis-image]: https://img.shields.io/travis/ngoldman/gh-release.svg?style=flat-square
 [travis-url]: https://travis-ci.org/ngoldman/gh-release
-[stability-image]: https://img.shields.io/badge/stability-1%20--%20experimental-orange.svg?style=flat-square
-[stability-url]: https://iojs.org/api/documentation.html#documentation_stability_index
 
 Uses the [Github Releases API](https://developer.github.com/v3/repos/releases/) to create a new release. Defaults to using information from `package.json` and `CHANGELOG.md`.
 
 ![gh-release example](demo.gif)
 
-## Command-line interface
-
-### Install
+## Install
 
 ```
-$ npm install gh-release -g
+$ npm install gh-release
 ```
 
-### Usage
+## Usage
+
+### Command-line interface
 
 ```
 $ gh-release
@@ -80,15 +74,7 @@ Options:
   -v, --version           Show version number
 ```
 
-## Node API
-
-### Install
-
-```
-$ npm install gh-release --save-dev
-```
-
-### Usage
+### Node API
 
 ```js
 var ghRelease = require('gh-release')
@@ -163,4 +149,4 @@ Contributions welcome! Please read the [contributing guidelines](CONTRIBUTING.md
 
 ## License
 
-[ISC](LICENSE.md)
+[ISC](LICENSE)
