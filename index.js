@@ -69,7 +69,7 @@ function Release (options, callback) {
   })
 
   request(getCommitOptions, function (err, res, body) {
-    if (err) {
+    if (err || res.statusCode === 404) {
       var errorMessage = format('Target commitish %s not found in %s/%s', options.target_commitish, options.owner, options.repo)
       return callback(new Error(errorMessage))
     }
