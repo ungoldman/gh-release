@@ -6,6 +6,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
+## [Unreleased] - 2015-08-11
+
+* if target commit returns a 404, throw error
+
 ## [2.0.0] - 2015-04-28
 
 ### Changed
