@@ -6,7 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
-## [Unreleased] - 2015-08-11
+## [2.0.1] - 2015-08-11
 
 * if target commit returns a 404, throw error
 
@@ -121,6 +121,7 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 * define basic node interface
 * define basic cli interface
 
+[2.0.1]: https://github.com/ngoldman/gh-release/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/ngoldman/gh-release/compare/v1.1.8...v2.0.0
 [1.1.8]: https://github.com/ngoldman/gh-release/compare/v1.1.7...v1.1.8
 [1.1.7]: https://github.com/ngoldman/gh-release/compare/v1.1.6...v1.1.7
