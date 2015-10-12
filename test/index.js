@@ -20,3 +20,12 @@ test('should return error if changelog version !== package.json version', functi
     t.deepEqual(err, new Error('CHANGELOG.md out of sync with package.json (0.0.0 !== 0.0.1)'))
   })
 })
+
+test('should ignore entries with invalid versions', function (t) {
+  t.plan(1)
+  ghRelease({
+    workpath: fixture('mismatch')
+  }, function (err, result) {
+    t.deepEqual(err, {})
+  })
+})

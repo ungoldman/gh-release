@@ -17,7 +17,7 @@ function getDefaults (workPath, callback) {
 
   changelogParser(logPath, function (err, result) {
     if (err) return callback(err)
-    var log = result.versions[0]
+    var log = result.versions.find(function (release) { return release.version !== null })
 
     if (log.version !== pkg.version) {
       var errStr = 'CHANGELOG.md out of sync with package.json '
