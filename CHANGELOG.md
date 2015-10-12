@@ -6,7 +6,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
-## Unreleased
+## [2.0.2] - 2015-10-12
+
 * Use the most recently released version when comparing versions ([#39](https://github.com/ngoldman/gh-release/pull/39))
 * Set travis-ci to test builds on `0.10`, `0.12`, and `stable` ([#40](https://github.com/ngoldman/gh-release/pull/40))
 
@@ -125,6 +126,7 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 * define basic node interface
 * define basic cli interface
 
+[2.0.2]: https://github.com/ngoldman/gh-release/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/ngoldman/gh-release/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/ngoldman/gh-release/compare/v1.1.8...v2.0.0
 [1.1.8]: https://github.com/ngoldman/gh-release/compare/v1.1.7...v1.1.8
