@@ -6,6 +6,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
+## Unreleased
+* Use the most recently released version when comparing versions ([#39](https://github.com/ngoldman/gh-release/pull/39))
+
 ## [2.0.1] - 2015-08-11
 
 * if target commit returns a 404, throw error
