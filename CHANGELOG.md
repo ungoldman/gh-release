@@ -8,6 +8,7 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
 ## Unreleased
 * Use the most recently released version when comparing versions ([#39](https://github.com/ngoldman/gh-release/pull/39))
+* Set travis-ci to test builds on `0.10`, `0.12`, and `stable` ([#40](https://github.com/ngoldman/gh-release/pull/40))
 
 ## [2.0.1] - 2015-08-11
 
