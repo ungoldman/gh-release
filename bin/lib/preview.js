@@ -1,7 +1,5 @@
 var chalk = require('chalk')
 var extend = require('deep-extend')
-var size = require('window-size')
-var wrap = require('word-wrap')
 var columnWidth = 20
 
 function preview (options) {
@@ -36,7 +34,7 @@ function formatOptions (options) {
     }
 
     if (key === 'body') {
-      var body = indentBody(copy.body)
+      var body = formatBody(copy.body)
       formatted.push.apply(formatted, body)
     } else {
       formatted.push({column1: justify(key), column2: copy[key]})
@@ -46,23 +44,14 @@ function formatOptions (options) {
   return formatted
 }
 
-function indentBody (body) {
-  var lines = wrap(body, {
-    indent: '',
-    width: size.width - columnWidth
+function formatBody (body) {
+  var arr = []
+  arr.push({ column1: justify('body'), column2: '' })
+  arr.push({ column1: '', column2: '' })
+  body.split('\n').map(function (line, i) {
+    arr.push({ column1: '', column2: line })
   })
-    .split('\n')
-    .filter(function (line) {
-      return line !== ''
-    })
-
-  return lines.map(function (line, i) {
-    if (i === 0) {
-      return { column1: justify('body'), column2: line }
-    } else {
-      return { column1: new Array(columnWidth + 1).join(' '), column2: line }
-    }
-  })
+  return arr
 }
 
 function justify (word) {

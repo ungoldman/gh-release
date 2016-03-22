@@ -8,6 +8,12 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
 ## Unreleased
 
+### Changed
+
+* remove `word-wrap`, show newlines in cli body preview
+
+### Fixed
+
 * fix project URLs (ngoldman -> ungoldman)
 
 ## [2.0.2] - 2015-10-12

@@ -23,8 +23,6 @@
     "inquirer": "^0.8.0",
     "request": "^2.55.0",
     "shelljs": "^0.3.0",
-    "window-size": "^0.1.0",
-    "word-wrap": "^1.0.2",
     "yargs": "^2.1.1"
   },
   "devDependencies": {
