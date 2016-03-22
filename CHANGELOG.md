@@ -10,7 +10,10 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
 ### Changed
 
-* remove `word-wrap`, show newlines in cli body preview
+* improve cli body preview
+  * no word-wrap
+  * no window-size
+  * show newlines
 
 ### Fixed
 
