@@ -6,6 +6,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
+## Unreleased
+
+### Changed
+
+* Using `ghauth@^3.2.0` (better 2FA support). Config directory is now determined by [`application-config`](https://github.com/LinusU/node-application-config) and is OS-specific. You may want to delete your old config directory (`~/.config/gh-release`).
+
 ## [2.0.3] - 2016-03-22
 
 ### Changed

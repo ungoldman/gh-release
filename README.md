@@ -37,7 +37,9 @@ creating release v1.0.0 for ungoldman/cool-project
 name:               v1.0.0
 tag_name:           v1.0.0
 target_commitish:   9561804a4d1fca2525d3207bec4907dd5ec7a705
-body:               * engage
+body:
+
+* engage
 
 ? publish release to github? Yes
 https://github.com/ungoldman/cool-project/releases/tag/v1.0.0
@@ -47,9 +49,9 @@ Should be run at the root of the project to be released.
 
 Expects a `package.json` and `CHANGELOG.md` in the working directory.
 
-Prints release URL to terminal on success.
+Prints release URL to `stdout` on success.
 
-Saves Github API token to `$HOME/.config/gh-release.json` after first authentication.
+Uses [`ghauth`](https://github.com/rvagg/ghauth) for authentication with Github. A Github API OAuth token is saved to the `gh-release` config directory after the first time authenticating. Note that the config directory is determined by [`application-config`](https://github.com/LinusU/node-application-config) and is OS-specific.
 
 Get usage info by running with `--help` or `-h`.
 
@@ -58,7 +60,7 @@ $ gh-release --help
 Usage: gh-release [options]
 
 Examples:
-  node bin/cli.js -n v1.1.8 -c master -d    create a draft release with title v1.1.8 tagged at HEAD of master
+  gh-release -n v2.0.3 -c master -d    create a draft release with title v2.0.3 tagged at HEAD of master
 
 
 Options:
@@ -71,7 +73,7 @@ Options:
   -d, --draft             publish as draft                     [default: false]
   -p, --prerelease        publish as prerelease                [default: false]
   --dry-run               dry run (stops before release step)  [default: false]
-  -w, --workpath          path to working directory            [default: <current working directory>]
+  -w, --workpath          path to working directory            [default: "<current working directory>"]
   -a, --assets            list of assets to upload to release  [default: false]
   -h, --help              Show help
   -v, --version           Show version number
