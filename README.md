@@ -7,8 +7,8 @@
 
 [npm-image]: https://img.shields.io/npm/v/gh-release.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/gh-release
-[travis-image]: https://img.shields.io/travis/ngoldman/gh-release.svg?style=flat-square
-[travis-url]: https://travis-ci.org/ngoldman/gh-release
+[travis-image]: https://img.shields.io/travis/ungoldman/gh-release.svg?style=flat-square
+[travis-url]: https://travis-ci.org/ungoldman/gh-release
 
 Uses the [Github Releases API](https://developer.github.com/v3/repos/releases/) to create a new release. Defaults to using information from `package.json` and `CHANGELOG.md`.
 
@@ -26,10 +26,10 @@ $ npm install gh-release
 
 ```
 $ gh-release
-Your GitHub username: ngoldman
+Your GitHub username: ungoldman
 Your GitHub password: ✔✔✔✔✔✔✔✔
 
-creating release v1.0.0 for ngoldman/cool-project
+creating release v1.0.0 for ungoldman/cool-project
 
 name:               v1.0.0
 tag_name:           v1.0.0
@@ -37,7 +37,7 @@ target_commitish:   9561804a4d1fca2525d3207bec4907dd5ec7a705
 body:               * engage
 
 ? publish release to github? Yes
-https://github.com/ngoldman/cool-project/releases/tag/v1.0.0
+https://github.com/ungoldman/cool-project/releases/tag/v1.0.0
 ```
 
 Should be run at the root of the project to be released.
@@ -88,7 +88,7 @@ var options = {
   draft: false,
   prerelease: false,
   repo: 'gh-release',
-  owner: 'ngoldman'
+  owner: 'ungoldman'
 }
 
 // options can also be just an empty object
@@ -97,7 +97,7 @@ var options = {}
 // auth is required
 // it can either be a username & password...
 options.auth = {
-  username: 'ngoldman',
+  username: 'ungoldman',
   password: 'XXXXXXXX'
 }
 
@@ -137,7 +137,7 @@ Override defaults with flags (CLI) or the `options` object (node).
 
 ## Example
 
-All [releases](https://github.com/ngoldman/gh-release/releases) of `gh-release` were created with `gh-release`.
+All [releases](https://github.com/ungoldman/gh-release/releases) of `gh-release` were created with `gh-release`.
 
 ## Motivation
 
@@ -149,4 +149,4 @@ Contributions welcome! Please read the [contributing guidelines](CONTRIBUTING.md
 
 ## License
 
-[ISC](LICENSE)
+[ISC](LICENSE.md)
