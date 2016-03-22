@@ -4,11 +4,14 @@
 
 [![npm][npm-image]][npm-url]
 [![travis][travis-image]][travis-url]
+[![standard][standard-image]][standard-url]
 
 [npm-image]: https://img.shields.io/npm/v/gh-release.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/gh-release
 [travis-image]: https://img.shields.io/travis/ungoldman/gh-release.svg?style=flat-square
 [travis-url]: https://travis-ci.org/ungoldman/gh-release
+[standard-image]: https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square
+[standard-url]: http://standardjs.com/
 
 Uses the [Github Releases API](https://developer.github.com/v3/repos/releases/) to create a new release. Defaults to using information from `package.json` and `CHANGELOG.md`.
 
@@ -146,6 +149,10 @@ There are packages that already do something like this, and they're great, but I
 ## Contributing
 
 Contributions welcome! Please read the [contributing guidelines](CONTRIBUTING.md) first.
+
+## Tests
+
+`gh-release` uses [`standard`][standard-url] and [`tape`](https://github.com/substack/tape) for testing. You can run all tests with `npm test`.
 
 ## License
 
