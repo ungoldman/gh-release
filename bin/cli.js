@@ -6,10 +6,10 @@ var path = require('path')
 var chalk = require('chalk')
 var ghauth = require('ghauth')
 var inquirer = require('inquirer')
-var ghRelease = require(__dirname + '/../')
-var getDefaults = require(__dirname + '/lib/get-defaults')
-var preview = require(__dirname + '/lib/preview')
-var yargs = require(__dirname + '/lib/yargs')
+var ghRelease = require('../')
+var getDefaults = require('./lib/get-defaults')
+var preview = require('./lib/preview')
+var yargs = require('./lib/yargs')
 var argv = yargs.argv
 
 // check dir

@@ -1,4 +1,4 @@
-var pkg = require(__dirname + '/../../package.json')
+var pkg = require('../../package.json')
 var version = pkg.version
 
 module.exports = require('yargs')

@@ -2,6 +2,7 @@
   "name": "gh-release",
   "description": "Create a release for a node package on github.",
   "version": "2.0.2",
+  "author": "Nate Goldman <ungoldman@gmail.com> (http://ungoldman.com/)",
   "bin": {
     "gh-release": "./bin/cli.js"
   },
@@ -29,7 +30,7 @@
   "devDependencies": {
     "quick-gits": "^1.0.4",
     "rimraf": "^2.2.8",
-    "standard": "*",
+    "standard": "^6.0.8",
     "tap-spec": "^2.2.2",
     "tape": "^3.5.0",
     "tmp": "0.0.25"
@@ -51,7 +52,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ungoldman/gh-release.git"
+    "url": "git+https://github.com/ungoldman/gh-release.git"
   },
   "scripts": {
     "test": "standard && tape test/*.js | tap-spec"
