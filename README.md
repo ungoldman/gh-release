@@ -144,6 +144,16 @@ Override defaults with flags (CLI) or the `options` object (node).
 
 All [releases](https://github.com/ungoldman/gh-release/releases) of `gh-release` were created with `gh-release`.
 
+## Config location
+
+Platform | Location
+--- | ---
+OS X | `~/Library/Application Support/gh-release/config.json`
+Linux (XDG) | `$XDG_CONFIG_HOME/gh-release/config.json`
+Linux (Legacy) | `~/.config/gh-release/config.json`
+Windows (> Vista) | `%LOCALAPPDATA%/gh-release/config.json`
+Windows (XP, 2000) | `%USERPROFILE%/Local Settings/Application Data/gh-release/config.json`
+
 ## Motivation
 
 There are packages that already do something like this, and they're great, but I want something that does this one thing really well and nothing else, leans heavily on standards in `package.json` and `CHANGELOG.md`, and can work both as a CLI tool and programmatically in node.
