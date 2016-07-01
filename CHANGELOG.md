@@ -6,7 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
-## Unreleased
+## [2.1.0] - 2016-07-01
 
 ### Changed
 
@@ -149,6 +149,7 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 * define basic node interface
 * define basic cli interface
 
+[2.1.0]: https://github.com/ungoldman/gh-release/compare/v2.0.3...v2.1.0
 [2.0.3]: https://github.com/ungoldman/gh-release/compare/v2.0.2...v2.0.3
 [2.0.2]: https://github.com/ungoldman/gh-release/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/ungoldman/gh-release/compare/v2.0.0...v2.0.1
