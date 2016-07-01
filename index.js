@@ -104,6 +104,10 @@ function Release (options, callback) {
         return callback(new Error(errorMessage))
       }
 
+      if (body.message === 'Bad credentials') {
+        return callback(new Error('GitHub says password is no beuno. please clear your cache manually. https://github.com/ungoldman/gh-release#config-location'))
+      }
+
       if (options.assets) {
         var assets = options.assets.map(function (asset) {
           return path.join(options.workpath, asset)
