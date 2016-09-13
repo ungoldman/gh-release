@@ -5,6 +5,7 @@
 [![npm][npm-image]][npm-url]
 [![travis][travis-image]][travis-url]
 [![standard][standard-image]][standard-url]
+[![downloads][downloads-img]][npm-url]
 
 [npm-image]: https://img.shields.io/npm/v/gh-release.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/gh-release
@@ -12,6 +13,7 @@
 [travis-url]: https://travis-ci.org/ungoldman/gh-release
 [standard-image]: https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square
 [standard-url]: http://standardjs.com/
+[downloads-img]: https://img.shields.io/npm/dm/gh-release.svg?style=flat-square
 
 Uses the [Github Releases API](https://developer.github.com/v3/repos/releases/) to create a new release. Defaults to using information from `package.json` and `CHANGELOG.md`.
 
