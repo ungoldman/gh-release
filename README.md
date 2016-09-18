@@ -1,6 +1,6 @@
 # gh-release
 
-> Create a release for a node package on GitHub.
+Create a release for a node package on GitHub.
 
 [![npm][npm-image]][npm-url]
 [![travis][travis-image]][travis-url]
@@ -15,7 +15,10 @@
 [standard-url]: http://standardjs.com/
 [downloads-img]: https://img.shields.io/npm/dm/gh-release.svg?style=flat-square
 
-Uses the [Github Releases API](https://developer.github.com/v3/repos/releases/) to create a new release. Defaults to using information from `package.json` and `CHANGELOG.md`.
+## Features
+
+- Uses the [Github Releases API](https://developer.github.com/v3/repos/releases/) to create a new github release.
+- Defaults to using information from `package.json` and `CHANGELOG.md`.
 
 ![gh-release example](demo.gif)
 
