@@ -2,11 +2,82 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>module-init</title>
-    <link rel="stylesheet" href="https://ungoldman.github.io/style.css/style.css">
+    <title>gh-release</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/github.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://ungoldman.github.io/style.css/site.css">
   </head>
   <body>
-    <main class="markdown-body"></main>
+    <div class="page serif">
+      <header class="top-bar">
+        <a class="top-bar-title" href="./">gh-release</a>
+        <div class="top-bar-right">
+          <a class="top-bar-link" href="https://github.com/ungoldman/gh-release/">
+            <i class="fa fa-github-alt"></i> github
+          </a>
+        </div>
+      </header>
+      <main class="markdown-body"></main>
+      <nav class="nav">
+        <ul class="hamburger">
+          <li>
+            <a class="id">
+              <i class="fa fa-bars"></i> Nate Goldman
+            </a>
+          </li>
+        </ul>
+        <ul class="site">
+          <li>
+            <a class="home" href="http://ungoldman.com">
+              <i class="fa fa-home"></i> Home
+            </a>
+          </li>
+          <li>
+            <a class="contact" href="http://ungoldman.com/contact/">
+              <i class="fa fa-comment"></i> Contact
+            </a>
+          </li>
+          <li>
+            <a class="cv" href="http://ungoldman.com/cv/">
+              <i class="fa fa-file-text"></i> CV
+            </a>
+          </li>
+        </ul>
+        <ul class="external">
+          <li>
+            <a href="https://github.com/ungoldman">
+              <i class="fa fa-github-alt"></i> github
+            </a>
+          </li>
+          <li>
+            <a href="https://goodreads.com/ungoldman">
+              <i class="fa fa-book"></i> goodreads
+            </a>
+          </li>
+          <li>
+            <a href="https://soundcloud.com/nullghostman">
+              <i class="fa fa-soundcloud"></i> soundcloud
+            </a>
+          </li>
+          <li>
+            <a href="https://twitter.com/ungoldman">
+              <i class="fa fa-twitter"></i> twitter
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <script>
+      (function () {
+        var page = document.querySelector('.page')
+        var toggle = document.querySelector('.id')
+
+        function navOpen () {
+          page.classList.toggle('nav-open')
+        }
+
+        toggle.addEventListener('click', navOpen)
+      })()
+    </script>
   </body>
 </html>
