@@ -1,4 +1,4 @@
-# [gh-release](https://github.com/ungoldman/gh-release/)
+# gh-release
 
 Create a release for a node package on GitHub.
 
