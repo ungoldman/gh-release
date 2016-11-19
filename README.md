@@ -98,7 +98,8 @@ var options = {
   draft: false,
   prerelease: false,
   repo: 'gh-release',
-  owner: 'ungoldman'
+  owner: 'ungoldman',
+  endpoint: 'https://api.github.com/' //for GitHub enterprise, you should change it to http(s)://hostname/api/v3/
 }
 
 // options can also be just an empty object
@@ -137,6 +138,7 @@ All default values taken from `package.json` unless specified otherwise.
 | `draft` | publish as draft | false |
 | `prerelease` | publish as prerelease | false |
 | `assets` | release assets to upload | false |
+| `endpoint` | the api root of GitHub (value changed only take effect in Node API) | https://api.github.com/ |
 
 Override defaults with flags (CLI) or the `options` object (node).
 
