@@ -35,7 +35,8 @@ var OPTIONS = {
     'draft',
     'prerelease',
     'workpath',
-    'assets'
+    'assets',
+    'endpoint'
   ]
 }
 
@@ -62,10 +63,15 @@ function Release (options, callback) {
   // err if auth info not provided (token or user/pass)
   if (!getAuth(options)) return callback(new Error('missing auth info'))
 
+  // set api root if options's endpoint is not empty (http(s)://hostname/api/v3/ for github enterprise), detail see https://developer.github.com/v3/enterprise/
+  if (options.endpoint) {
+    API_ROOT = options.endpoint
+  }
+
   // check if commit exists on remote
   var getCommitOptions = extend(getAuth(options), {
     method: 'GET',
-    uri: API_ROOT + format('repos/%s/%s/git/commits/%s', options.owner, options.repo, options.target_commitish)
+    uri: API_ROOT + format('repos/%s/%s/commits/%s', options.owner, options.repo, options.target_commitish)
   })
 
   request(getCommitOptions, function (err, res, body) {
