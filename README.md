@@ -79,6 +79,7 @@ Options:
   -p, --prerelease        publish as prerelease                [default: false]
   --dry-run               dry run (stops before release step)  [default: false]
   -w, --workpath          path to working directory            [default: "<current working directory>"]
+  -e, --endpoint          GitHub API endpoint URL              [default: "https://api.github.com/"]
   -a, --assets            list of assets to upload to release  [default: false]
   -h, --help              Show help
   -v, --version           Show version number
@@ -138,7 +139,7 @@ All default values taken from `package.json` unless specified otherwise.
 | `draft` | publish as draft | false |
 | `prerelease` | publish as prerelease | false |
 | `assets` | release assets to upload | false |
-| `endpoint` | the api root of GitHub (value changed only take effect in Node API) | https://api.github.com/ |
+| `endpoint` | GitHub API endpoint URL | https://api.github.com/ |
 
 Override defaults with flags (CLI) or the `options` object (node).
 

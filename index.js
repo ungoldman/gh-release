@@ -4,8 +4,6 @@ var format = require('util').format
 var path = require('path')
 var ghReleaseAssets = require('gh-release-assets')
 
-var API_ROOT = 'https://api.github.com/'
-
 var OPTIONS = {
   required: [
     'auth',
@@ -20,6 +18,7 @@ var OPTIONS = {
   defaults: {
     'dryRun': false,
     'draft': false,
+    'endpoint': 'https://api.github.com/',
     'prerelease': false,
     'workpath': process.cwd()
   },
@@ -33,10 +32,10 @@ var OPTIONS = {
     'name',
     'dryRun',
     'draft',
+    'endpoint',
     'prerelease',
     'workpath',
-    'assets',
-    'endpoint'
+    'assets'
   ]
 }
 
@@ -63,15 +62,10 @@ function Release (options, callback) {
   // err if auth info not provided (token or user/pass)
   if (!getAuth(options)) return callback(new Error('missing auth info'))
 
-  // set api root if options's endpoint is not empty (http(s)://hostname/api/v3/ for github enterprise), detail see https://developer.github.com/v3/enterprise/
-  if (options.endpoint) {
-    API_ROOT = options.endpoint
-  }
-
   // check if commit exists on remote
   var getCommitOptions = extend(getAuth(options), {
     method: 'GET',
-    uri: API_ROOT + format('repos/%s/%s/commits/%s', options.owner, options.repo, options.target_commitish)
+    uri: format('%s/repos/%s/%s/commits/%s', options.endpoint, options.owner, options.repo, options.target_commitish)
   })
 
   request(getCommitOptions, function (err, res, body) {
@@ -81,7 +75,7 @@ function Release (options, callback) {
     }
 
     var releaseOpts = extend(getAuth(options), {
-      uri: API_ROOT + format('repos/%s/%s/releases', options.owner, options.repo),
+      uri: format('%s/repos/%s/%s/releases', options.endpoint, options.owner, options.repo),
       body: {
         tag_name: options.tag_name,
         target_commitish: options.target_commitish,
