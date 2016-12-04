@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file. Project ver
 
 ### Added
 
-- feature: add support for Github Enterprise (use `endpoint` option) ([#44](https://github.com/ungoldman/gh-release/issues/44))
+- feature: add support for Github Enterprise (use `endpoint` option) ([#44](https://github.com/ungoldman/gh-release/issues/44)) - thanks @henryhuang
 
 ### Miscellaneous
 
