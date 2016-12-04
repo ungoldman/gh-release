@@ -55,6 +55,12 @@ module.exports = require('yargs')
       default: process.cwd(),
       describe: 'path to working directory'
     },
+    'e': {
+      alias: 'endpoint',
+      type: 'string',
+      default: 'https://api.github.com',
+      describe: 'GitHub API endpoint URL'
+    },
     'a': {
       alias: 'assets',
       type: 'string',

@@ -79,6 +79,7 @@ Options:
   -p, --prerelease        publish as prerelease                [default: false]
   --dry-run               dry run (stops before release step)  [default: false]
   -w, --workpath          path to working directory            [default: "<current working directory>"]
+  -e, --endpoint          GitHub API endpoint URL              [default: "https://api.github.com"]
   -a, --assets            list of assets to upload to release  [default: false]
   -h, --help              Show help
   -v, --version           Show version number
@@ -98,7 +99,8 @@ var options = {
   draft: false,
   prerelease: false,
   repo: 'gh-release',
-  owner: 'ungoldman'
+  owner: 'ungoldman',
+  endpoint: 'https://api.github.com' // for GitHub enterprise, use http(s)://hostname/api/v3
 }
 
 // options can also be just an empty object
@@ -137,6 +139,7 @@ All default values taken from `package.json` unless specified otherwise.
 | `draft` | publish as draft | false |
 | `prerelease` | publish as prerelease | false |
 | `assets` | release assets to upload | false |
+| `endpoint` | GitHub API endpoint URL | https://api.github.com |
 
 Override defaults with flags (CLI) or the `options` object (node).
 
