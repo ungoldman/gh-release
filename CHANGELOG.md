@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+### Added
+
+- feature: add support for Github Enterprise (use `endpoint` option) ([#44](https://github.com/ungoldman/gh-release/issues/44))
+
+### Miscellaneous
+
 - site: add scripts for generating a gh-pages site
 
 ## [2.1.0] - 2016-07-01
