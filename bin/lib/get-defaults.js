@@ -1,6 +1,7 @@
 var path = require('path')
 var changelogParser = require('changelog-parser')
 var exec = require('shelljs').exec
+var parseRepo = require('github-url-to-object')
 
 function getDefaults (workPath, callback) {
   var pkg = require(path.resolve(workPath, 'package.json'))
@@ -10,9 +11,9 @@ function getDefaults (workPath, callback) {
   }
 
   var commit = getTargetCommitish()
-  var repoPath = pkg.repository.url.split('github.com')[1].slice(1).split('/')
-  var owner = repoPath[0]
-  var repo = repoPath[1].split('.git')[0]
+  var repoParts = parseRepo(pkg.repository)
+  var owner = repoParts.user
+  var repo = repoParts.repo
   var logPath = path.resolve(workPath, 'CHANGELOG.md')
 
   changelogParser(logPath, function (err, result) {
