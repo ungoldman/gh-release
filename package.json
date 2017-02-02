@@ -66,6 +66,7 @@
     "gh-pages": "npm run site && gh-pages -d site",
     "pretest": "standard | snazzy",
     "release": "./bin/cli.js && npm publish",
+    "serve": "run-p serve:*",
     "serve:site": "live-server site",
     "serve:watch": "npm run site:html -- -w",
     "site": "run-s site:*",
