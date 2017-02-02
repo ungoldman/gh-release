@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file. Project versioning adheres to [Semantic Versioning](http://semver.org/). Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
-## Unreleased
+## [2.2.1](https://github.com/ungoldman/gh-release/compare/v2.2.0...v2.2.1) - 2017-02-01
 
 ### Fixed
 
