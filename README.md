@@ -134,8 +134,8 @@ All default values taken from `package.json` unless specified otherwise.
 | `target_commitish` | commitish value to tag | HEAD of current branch |
 | `name` | release title | 'v' + `version` |
 | `body` | release text | `CHANGELOG.md` section matching `version` |
-| `owner` | repo owner | repo owner parsed out of `repository.url` |
-| `repo` | repo name | repo name parsed out of `repository.url` |
+| `owner` | repo owner | repo owner in `repository` |
+| `repo` | repo name | repo name in `repository` |
 | `draft` | publish as draft | false |
 | `prerelease` | publish as prerelease | false |
 | `assets` | release assets to upload | false |
