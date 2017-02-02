@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. Project versioning adheres to [Semantic Versioning](http://semver.org/). Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## Unreleased
+
+### Fixed
+
+- bug: support `package.json` files where `repository` is a string ([#44](https://github.com/ungoldman/gh-release/issues/48)) - thanks @zeke
+
 ## [2.2.0](https://github.com/ungoldman/gh-release/compare/v2.1.0...v2.2.0) - 2016-12-03
 
 ### Added
