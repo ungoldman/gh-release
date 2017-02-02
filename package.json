@@ -12,7 +12,11 @@
   "contributors": [
     "Nate Goldman <ungoldman@gmail.com>",
     "Bret Comnes <bcomnes@gmail.com>",
-    "Paul C Pederson <paul.c.pederson@gmail.com>"
+    "Paul C Pederson <paul.c.pederson@gmail.com>",
+    "John Gravois <me@johngravois.com>",
+    "Hawken MacKay Rives <hawkrives@gmail.com>",
+    "Henry Huang <h1886@outlook.com>",
+    "Zeke Sikelianos <zeke@sikelianos.com>"
   ],
   "dependencies": {
     "chalk": "^1.0.0",
@@ -61,6 +65,7 @@
   "scripts": {
     "gh-pages": "npm run site && gh-pages -d site",
     "pretest": "standard | snazzy",
+    "release": "./bin/cli.js && npm publish",
     "serve:site": "live-server site",
     "serve:watch": "npm run site:html -- -w",
     "site": "run-s site:*",
