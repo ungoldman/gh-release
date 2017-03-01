@@ -9,8 +9,8 @@ Create a release for a node package on GitHub.
 
 [npm-image]: https://img.shields.io/npm/v/gh-release.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/gh-release
-[travis-image]: https://img.shields.io/travis/ungoldman/gh-release.svg?style=flat-square
-[travis-url]: https://travis-ci.org/ungoldman/gh-release
+[travis-image]: https://img.shields.io/travis/hypermodules/gh-release.svg?style=flat-square
+[travis-url]: https://travis-ci.org/hypermodules/gh-release
 [standard-image]: https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square
 [standard-url]: http://standardjs.com/
 [downloads-img]: https://img.shields.io/npm/dm/gh-release.svg?style=flat-square
@@ -150,7 +150,7 @@ Override defaults with flags (CLI) or the `options` object (node).
 
 ## Example
 
-All [releases](https://github.com/ungoldman/gh-release/releases) of `gh-release` were created with `gh-release`.
+All [releases](https://github.com/hypermodules/gh-release/releases) of `gh-release` were created with `gh-release`.
 
 ## Config location
 
