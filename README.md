@@ -75,12 +75,12 @@ Options:
   -b, --body              text of release body
   -o, --owner             repo owner
   -r, --repo              repo name
-  -d, --draft             publish as draft                     [default: false]
-  -p, --prerelease        publish as prerelease                [default: false]
-  --dry-run               dry run (stops before release step)  [default: false]
-  -w, --workpath          path to working directory            [default: "<current working directory>"]
-  -e, --endpoint          GitHub API endpoint URL              [default: "https://api.github.com"]
-  -a, --assets            list of assets to upload to release  [default: false]
+  -d, --draft             publish as draft                          [default: false]
+  -p, --prerelease        publish as prerelease                     [default: false]
+  --dry-run               dry run (stops before release step)       [default: false]
+  -w, --workpath          path to working directory                 [default: "<current working directory>"]
+  -e, --endpoint          GitHub API endpoint URL                   [default: "https://api.github.com"]
+  -a, --assets            comma-delimited list of assets to upload  [default: false]
   -h, --help              Show help
   -v, --version           Show version number
 ```
