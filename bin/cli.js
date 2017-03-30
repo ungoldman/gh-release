@@ -33,7 +33,9 @@ var ghauthOpts = {
 }
 
 if (argv.assets) {
-  argv.assets = argv.assets.split(',')
+  argv.assets = argv.assets.split(',').map(function (asset) {
+    return asset.trim()
+  })
 }
 
 ghauth(ghauthOpts, function (err, auth) {
