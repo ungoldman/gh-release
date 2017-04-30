@@ -1,5 +1,7 @@
 # gh-release
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/hypermodules/gh-release.svg)](https://greenkeeper.io/)
+
 Create a release for a node package on GitHub.
 
 [![npm][npm-image]][npm-url]
