@@ -21,27 +21,27 @@
   "dependencies": {
     "chalk": "^1.0.0",
     "changelog-parser": "^2.0.0",
-    "deep-extend": "^0.3.3",
+    "deep-extend": "^0.4.1",
     "gh-release-assets": "^1.1.0",
     "ghauth": "^3.2.0",
     "github-url-to-object": "^3.0.0",
-    "inquirer": "^0.8.0",
+    "inquirer": "^3.0.6",
     "request": "^2.55.0",
-    "shelljs": "^0.3.0",
-    "yargs": "^2.1.1"
+    "shelljs": "^0.7.7",
+    "yargs": "^7.1.0"
   },
   "devDependencies": {
-    "gh-pages": "^0.11.0",
+    "gh-pages": "^0.12.0",
     "live-server": "^1.1.0",
-    "npm-run-all": "^3.1.0",
+    "npm-run-all": "^4.0.2",
     "quick-gits": "^1.0.4",
     "rimraf": "^2.2.8",
     "sitedown": "^3.1.0",
-    "snazzy": "^5.0.0",
-    "standard": "^8.1.0",
+    "snazzy": "^7.0.0",
+    "standard": "^10.0.2",
     "tap-spec": "^4.1.1",
     "tape": "^4.6.0",
-    "tmp": "0.0.25"
+    "tmp": "0.0.31"
   },
   "files": [
     "bin/",
