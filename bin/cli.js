@@ -43,7 +43,7 @@ ghauth(ghauthOpts, function (err, auth) {
 
   var options = {}
   options.auth = auth
-
+  options.cli = true
   // get defaults
 
   getDefaults(argv.workpath, function getDefaultsCallback (err, defaults) {
