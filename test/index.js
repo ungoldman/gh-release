@@ -8,7 +8,7 @@ test('should return err if no authentication is provided', function (t) {
   ghRelease({
     workpath: fixture('basic')
   }, function (err, result) {
-    t.deepEqual(err, new Error('missing auth info'))
+    t.deepEqual(err.message, 'missing required options: auth')
   })
 })
 
@@ -17,7 +17,7 @@ test('should return error if changelog version !== package.json version', functi
   ghRelease({
     workpath: fixture('mismatch')
   }, function (err, result) {
-    t.deepEqual(err, new Error('CHANGELOG.md out of sync with package.json (0.0.0 !== 0.0.1)'))
+    t.deepEqual(err.message, 'CHANGELOG.md out of sync with package.json (0.0.1 !== 0.0.0)')
   })
 })
 

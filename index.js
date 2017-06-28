@@ -4,6 +4,7 @@ var format = require('util').format
 var url = require('url')
 var path = require('path')
 var ghReleaseAssets = require('gh-release-assets')
+var getDefaults = require('./bin/lib/get-defaults')
 
 var OPTIONS = {
   required: [
@@ -40,16 +41,27 @@ var OPTIONS = {
   ]
 }
 
+function Release (options, callback) {
+  if (options.cli) {
+    return _Release(options, callback)
+  }
+  var workpath = options.workpath || OPTIONS.defaults.workpath
+  getDefaults(workpath, function (err, defaults) {
+    options = extend(defaults, options)
+    if (err) {
+      return callback(err)
+    }
+    return _Release(options, callback)
+  })
+}
+
 // attempt to create release
 // err if release already exists
 // return release url
-
-function Release (options, callback) {
+function _Release (options, callback) {
   // validate release options
-
   var errors = validate(options)
   var err
-
   if (errors.missing.length) {
     err = new Error('missing required options: ' + errors.missing.join(', '))
     return callback(err)
