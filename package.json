@@ -16,7 +16,8 @@
     "John Gravois <me@johngravois.com>",
     "Hawken MacKay Rives <hawkrives@gmail.com>",
     "Henry Huang <h1886@outlook.com>",
-    "Zeke Sikelianos <zeke@sikelianos.com>"
+    "Zeke Sikelianos <zeke@sikelianos.com>",
+    "Belikin Roman <roman.sstu@gmail.com>"
   ],
   "dependencies": {
     "chalk": "^1.0.0",
