@@ -65,7 +65,7 @@ module.exports = require('yargs')
       alias: 'assets',
       type: 'string',
       default: false,
-      describe: 'list of assets to upload to release'
+      describe: 'comma-delimited list of assets to upload'
     }
   })
   .example('$0 -n v' + version + ' -c master -d', 'create a draft release with title v' + version + ' tagged at HEAD of master')
