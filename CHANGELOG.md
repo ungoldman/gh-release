@@ -2,15 +2,27 @@
 
 All notable changes to this project will be documented in this file. Project versioning adheres to [Semantic Versioning](http://semver.org/). Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## [3.0.0](https://github.com/ungoldman/gh-release/compare/v2.2.1...v3.0.0) - 2017-06-28
+
+### Breaking Changes
+- get defaults in Node API using same method as CLI - thanks @roman0x58
+
+### Changes
+- allow spaces between asset filenames - thanks @zeke
+
+### Fixes
+- fixed false positives in a couple of error equality tests - thanks @roman0x58
+- updated repo URLs
+
 ## [2.2.1](https://github.com/ungoldman/gh-release/compare/v2.2.0...v2.2.1) - 2017-02-01
 
-### Fixed
+### Fixes
 
 - bug: support `package.json` files where `repository` is a string ([#44](https://github.com/ungoldman/gh-release/issues/48)) - thanks @zeke
 
 ## [2.2.0](https://github.com/ungoldman/gh-release/compare/v2.1.0...v2.2.0) - 2016-12-03
 
-### Added
+### Additions
 
 - feature: add support for Github Enterprise (use `endpoint` option) ([#44](https://github.com/ungoldman/gh-release/issues/44)) - thanks @henryhuang
 
@@ -20,24 +32,24 @@ All notable changes to this project will be documented in this file. Project ver
 
 ## [2.1.0] - 2016-07-01
 
-### Changed
+### Changes
 
 * Using `ghauth@^3.2.0` (better 2FA support). Config directory is now determined by [`application-config`](https://github.com/LinusU/node-application-config) and is OS-specific. You may want to delete your old config directory (`~/.config/gh-release`).
 
-### Fixed
+### Fixes
 
 * Trap failed authentication ([#41](https://github.com/ungoldman/gh-release/pull/41))
 
 ## [2.0.3] - 2016-03-22
 
-### Changed
+### Changes
 
 * improve cli body preview
   * no word-wrap
   * no window-size
   * show newlines
 
-### Fixed
+### Fixes
 
 * fix project URLs (ngoldman -> ungoldman)
 
@@ -52,26 +64,26 @@ All notable changes to this project will be documented in this file. Project ver
 
 ## [2.0.0] - 2015-04-28
 
-### Changed
+### Changes
 
 * **breaking:** changed API parameters from `options, auth, callback` to `options, callback`
   * `auth` is now in `options` as `options.auth`
 * moved all logging and CLI-related logic out of API and into CLI
 * no longer uses the `node-github` client
 
-### Added
+### Additions
 
 * `assets` option for uploading assets
 
 ## [1.1.8] - 2015-04-22
 
-### Fixed
+### Fixes
 
 * exit process with code 1 on aborted release or invalid directory ([#31](https://github.com/ungoldman/gh-release/issues/31))
 
 ## [1.1.7] - 2015-04-07
 
-### Fixed
+### Fixes
 
 * If cli is successful, should exit with code of 0
 
