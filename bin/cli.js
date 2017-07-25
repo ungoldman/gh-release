@@ -96,6 +96,11 @@ ghauth(ghauthOpts, function (err, auth) {
         // handle errors
         if (err) return handleError(err)
 
+        if (result.message === 'Moved Permanently') {
+          console.error('repository url in package.json is out of date and requires a redirect')
+          process.exit(1)
+        }
+
         if (!result || !result.html_url) {
           console.error('missing result info')
           process.exit(1)
