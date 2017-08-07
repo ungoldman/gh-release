@@ -44,11 +44,6 @@ module.exports = require('yargs')
       default: false,
       describe: 'publish as prerelease'
     },
-    'dry-run': {
-      type: 'boolean',
-      default: false,
-      describe: 'dry run (stops before release step)'
-    },
     'w': {
       alias: 'workpath',
       type: 'string',
@@ -66,6 +61,11 @@ module.exports = require('yargs')
       type: 'string',
       default: false,
       describe: 'comma-delimited list of assets to upload'
+    },
+    'dry-run': {
+      type: 'boolean',
+      default: false,
+      describe: 'dry run (stops before release step)'
     }
   })
   .example('$0 -n v' + version + ' -c master -d', 'create a draft release with title v' + version + ' tagged at HEAD of master')

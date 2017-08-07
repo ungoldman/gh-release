@@ -29,13 +29,13 @@ function getDefaults (workPath, callback) {
     var version = pkg.version ? 'v' + pkg.version : null
 
     callback(null, {
+      body: log.body,
       assets: false,
       owner: owner,
       repo: repo,
       dryRun: false,
       endpoint: 'https://api.github.com',
       workpath: process.cwd(),
-      body: log.body,
       prerelease: false,
       draft: false,
       target_commitish: commit,
