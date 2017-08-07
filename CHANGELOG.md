@@ -6,6 +6,15 @@ Project versioning adheres to [Semantic Versioning](http://semver.org/).
 Commit convention is based on [Conventional Commits](conventionalcommits.org).
 Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## [3.1.1](https://github.com/hypermodules/gh-release/compare/v3.1.0...v3.1.1) - 2017-08-06
+
+### Fixes
+- fix: update outdated link in error message
+
+### Changes
+- docs(site): update old link, freshen up style
+- docs(readme): shorten second feature line
+
 ## [3.1.0](https://github.com/hypermodules/gh-release/compare/v3.0.0...v3.1.0) - 2017-08-06
 
 ### Additions
