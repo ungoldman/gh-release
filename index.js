@@ -124,7 +124,7 @@ function _Release (options, callback) {
       }
 
       if (body.message === 'Bad credentials') {
-        return callback(new Error('GitHub says password is no beuno. please clear your cache manually. https://github.com/ungoldman/gh-release#config-location'))
+        return callback(new Error('GitHub says password is no beuno. please clear your cache manually. https://github.com/hypermodules/gh-release#config-location'))
       }
 
       if (options.assets) {
