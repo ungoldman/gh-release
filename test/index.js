@@ -21,11 +21,11 @@ test('should return error if changelog version !== package.json version', functi
   })
 })
 
-test('should ignore entries with invalid versions', function (t) {
+test('should return error if unreleased section exists', function (t) {
   t.plan(1)
   ghRelease({
-    workpath: fixture('mismatch')
+    workpath: fixture('unreleased')
   }, function (err, result) {
-    t.deepEqual(err, {})
+    t.deepEqual(err.message, 'Unreleased changes detected in CHANGELOG.md, aborting')
   })
 })

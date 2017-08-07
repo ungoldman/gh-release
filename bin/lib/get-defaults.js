@@ -18,6 +18,17 @@ function getDefaults (workPath, callback) {
 
   changelogParser(logPath, function (err, result) {
     if (err) return callback(err)
+
+    var unreleased = result.versions.filter(function (release) {
+      return release.title && release.title.toLowerCase
+        ? release.title.toLowerCase() === 'unreleased'
+        : false
+    })
+
+    if (unreleased.length > 0) {
+      return callback(new Error('Unreleased changes detected in CHANGELOG.md, aborting'))
+    }
+
     var log = result.versions.filter(function (release) { return release.version !== null })[0]
 
     if (log.version !== pkg.version) {
