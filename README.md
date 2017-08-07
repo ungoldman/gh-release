@@ -18,7 +18,7 @@ Create a release for a node package on GitHub.
 ## Features
 
 - Uses the [Github Releases API](https://developer.github.com/v3/repos/releases/) to create a new GitHub release.
-- Defaults to using information from `package.json` and a [keepachangelog.com](http://keepachangelog.com)-style `CHANGELOG.md`.
+- Defaults to using information from `package.json` and `CHANGELOG.md`.
 
 ![gh-release example](demo.gif)
 
