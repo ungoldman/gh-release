@@ -19,6 +19,7 @@ Create a release for a node package on GitHub.
 
 - Uses the [Github Releases API](https://developer.github.com/v3/repos/releases/) to create a new GitHub release.
 - Defaults to using information from `package.json` and `CHANGELOG.md`.
+- Supports uploading release assets.
 
 ![gh-release example](demo.gif)
 
@@ -173,6 +174,11 @@ Contributions welcome! Please read the [contributing guidelines](CONTRIBUTING.md
 ## Tests
 
 `gh-release` uses [`standard`][6] and [`tape`](https://github.com/substack/tape) for testing. You can run all tests with `npm test`.
+
+## See also
+
+- [gh-release-assets](https://github.com/hypermodules/gh-release-assets)
+- [maintenance-modules](https://github.com/maxogden/maintenance-modules)
 
 ## License
 
