@@ -171,6 +171,10 @@ There are packages that already do something like this, and they're great, but I
 
 Contributions welcome! Please read the [contributing guidelines](CONTRIBUTING.md) first.
 
+## History
+
+Please read the [change log](CHANGELOG.md) for a human-readable history of changes.
+
 ## Tests
 
 `gh-release` uses [`standard`][6] and [`tape`](https://github.com/substack/tape) for testing. You can run all tests with `npm test`.
