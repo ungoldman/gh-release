@@ -10,7 +10,13 @@ var ghRelease = require('../')
 var getDefaults = require('./lib/get-defaults')
 var preview = require('./lib/preview')
 var yargs = require('./lib/yargs')
+var updateNotifier = require('update-notifier')
+var pkg = require('../package.json')
 var argv = yargs.argv
+
+// notify of update if needed
+
+updateNotifier({ pkg: pkg }).notify()
 
 // check dir
 
