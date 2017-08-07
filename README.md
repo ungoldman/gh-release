@@ -2,22 +2,22 @@
 
 Create a release for a node package on GitHub.
 
-[![npm][npm-image]][npm-url]
-[![travis][travis-image]][travis-url]
-[![standard][standard-image]][standard-url]
-[![downloads][downloads-img]][npm-url]
+[![npm][1]][2]
+[![travis][3]][4]
+[![standard][5]][6]
+[![downloads][7]][2]
 
-[npm-image]: https://img.shields.io/npm/v/gh-release.svg?style=flat-square
-[npm-url]: https://www.npmjs.com/package/gh-release
-[travis-image]: https://img.shields.io/travis/hypermodules/gh-release/master.svg?style=flat-square
-[travis-url]: https://travis-ci.org/hypermodules/gh-release
-[standard-image]: https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square
-[standard-url]: http://standardjs.com/
-[downloads-img]: https://img.shields.io/npm/dm/gh-release.svg?style=flat-square
+[1]: https://img.shields.io/npm/v/gh-release.svg?style=flat-square
+[2]: https://www.npmjs.com/package/gh-release
+[3]: https://img.shields.io/travis/hypermodules/gh-release/master.svg?style=flat-square
+[4]: https://travis-ci.org/hypermodules/gh-release
+[5]: https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square
+[6]: http://standardjs.com/
+[7]: https://img.shields.io/npm/dm/gh-release.svg?style=flat-square
 
 ## Features
 
-- Uses the [Github Releases API](https://developer.github.com/v3/repos/releases/) to create a new github release.
+- Uses the [Github Releases API](https://developer.github.com/v3/repos/releases/) to create a new GitHub release.
 - Defaults to using information from `package.json` and a [keepachangelog.com](http://keepachangelog.com)-style `CHANGELOG.md`.
 
 ![gh-release example](demo.gif)
@@ -77,10 +77,10 @@ Options:
   -r, --repo              repo name
   -d, --draft             publish as draft                          [default: false]
   -p, --prerelease        publish as prerelease                     [default: false]
-  --dry-run               dry run (stops before release step)       [default: false]
-  -w, --workpath          path to working directory                 [default: "<current working directory>"]
+  -w, --workpath          path to working directory                 [default: "/Users/ng/dev/git/gh-release"]
   -e, --endpoint          GitHub API endpoint URL                   [default: "https://api.github.com"]
   -a, --assets            comma-delimited list of assets to upload  [default: false]
+  --dry-run               dry run (stops before release step)       [default: false]
   -h, --help              Show help
   -v, --version           Show version number
 ```
@@ -172,7 +172,7 @@ Contributions welcome! Please read the [contributing guidelines](CONTRIBUTING.md
 
 ## Tests
 
-`gh-release` uses [`standard`][standard-url] and [`tape`](https://github.com/substack/tape) for testing. You can run all tests with `npm test`.
+`gh-release` uses [`standard`][6] and [`tape`](https://github.com/substack/tape) for testing. You can run all tests with `npm test`.
 
 ## License
 
