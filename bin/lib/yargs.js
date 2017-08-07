@@ -58,6 +58,7 @@ module.exports = require('yargs')
     'e': {
       alias: 'endpoint',
       type: 'string',
+      default: 'https://api.github.com',
       describe: 'GitHub API endpoint URL'
     },
     'a': {
