@@ -33,6 +33,7 @@ function getDefaults (workPath, callback) {
       owner: owner,
       repo: repo,
       dryRun: false,
+      endpoint: 'https://api.github.com',
       workpath: process.cwd(),
       body: log.body,
       prerelease: false,
