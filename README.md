@@ -33,7 +33,7 @@ $ npm install gh-release
 
 ### Command-line interface
 
-```
+```console
 $ gh-release
 Your GitHub username: ungoldman
 Your GitHub password: ✔✔✔✔✔✔✔✔
@@ -61,7 +61,7 @@ Uses [`ghauth`](https://github.com/rvagg/ghauth) for authentication with Github.
 
 Get usage info by running with `--help` or `-h`.
 
-```
+```console
 $ gh-release --help
 Usage: gh-release [options]
 
