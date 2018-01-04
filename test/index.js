@@ -21,16 +21,22 @@ test('should return error if changelog version !== package.json version', functi
   })
 })
 
-test('should return error if unreleased section exists', function (t) {
-  t.plan(2)
+test('should return error if a non-empty unreleased section exists', function (t) {
+  var errStr = 'Unreleased changes detected in CHANGELOG.md, aborting'
+  t.plan(1)
   ghRelease({
     workpath: fixture('unreleased')
   }, function (err, result) {
-    t.deepEqual(err.message, 'Unreleased changes detected in CHANGELOG.md, aborting')
+    t.deepEqual(err.message, errStr)
   })
+})
+
+test('should allow empty unreleased sections', function (t) {
+  var errStr = 'Unreleased changes detected in CHANGELOG.md, aborting'
+  t.plan(1)
   ghRelease({
     workpath: fixture('unreleased-alt')
   }, function (err, result) {
-    t.deepEqual(err.message, 'Unreleased changes detected in CHANGELOG.md, aborting')
+    t.notEqual(err.message, errStr)
   })
 })
