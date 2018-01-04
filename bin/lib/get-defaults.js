@@ -19,10 +19,14 @@ function getDefaults (workPath, callback) {
   changelogParser(logPath, function (err, result) {
     if (err) return callback(err)
 
+    // check for 'unreleased' section in CHANGELOG: allow sections which do not include a body (eg. 'Added', 'Changed', etc.)
+
     var unreleased = result.versions.filter(function (release) {
       return release.title && release.title.toLowerCase
         ? release.title.toLowerCase().indexOf('unreleased') !== -1
         : false
+    }).filter(function (release) {
+      return !!release.body
     })
 
     if (unreleased.length > 0) {
