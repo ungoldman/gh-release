@@ -21,7 +21,7 @@ function getDefaults (workPath, callback) {
 
     var unreleased = result.versions.filter(function (release) {
       return release.title && release.title.toLowerCase
-        ? release.title.toLowerCase() === 'unreleased'
+        ? release.title.toLowerCase().indexOf('unreleased') !== -1
         : false
     })
 

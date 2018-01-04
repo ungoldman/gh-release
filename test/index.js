@@ -22,9 +22,14 @@ test('should return error if changelog version !== package.json version', functi
 })
 
 test('should return error if unreleased section exists', function (t) {
-  t.plan(1)
+  t.plan(2)
   ghRelease({
     workpath: fixture('unreleased')
+  }, function (err, result) {
+    t.deepEqual(err.message, 'Unreleased changes detected in CHANGELOG.md, aborting')
+  })
+  ghRelease({
+    workpath: fixture('unreleased-alt')
   }, function (err, result) {
     t.deepEqual(err.message, 'Unreleased changes detected in CHANGELOG.md, aborting')
   })
