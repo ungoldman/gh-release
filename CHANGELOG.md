@@ -6,6 +6,12 @@ Project versioning adheres to [Semantic Versioning](http://semver.org/).
 Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
 Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+
+## [3.2.1](https://github.com/hypermodules/gh-release/compare/v3.2.0...v3.2.1) - 2018-04-27
+
+### Fixes
+- update `request` dependency (#72)
+
 ## [3.2.0](https://github.com/hypermodules/gh-release/compare/v3.1.2...v3.2.0) - 2018-01-04
 
 ### Features
