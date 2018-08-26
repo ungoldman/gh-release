@@ -6,6 +6,10 @@ Project versioning adheres to [Semantic Versioning](http://semver.org/).
 Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
 Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## [3.2.2](https://github.com/hypermodules/gh-release/compare/v3.2.1...v3.2.2) - 2018-08-26
+
+### Fixes
+- Fix enterprise github API access (#73) - thanks @tjaneczko
 
 ## [3.2.1](https://github.com/hypermodules/gh-release/compare/v3.2.0...v3.2.1) - 2018-04-27
 
