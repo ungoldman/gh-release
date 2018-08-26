@@ -1,7 +1,6 @@
 var extend = require('deep-extend')
 var request = require('request')
 var format = require('util').format
-var url = require('url')
 var path = require('path')
 var ghReleaseAssets = require('gh-release-assets')
 var getDefaults = require('./bin/lib/get-defaults')
@@ -76,7 +75,7 @@ function _Release (options, callback) {
   if (!getAuth(options)) return callback(new Error('missing auth info'))
 
   var commitOptsPath = format('/repos/%s/%s/commits/%s', options.owner, options.repo, options.target_commitish)
-  var commitOptsUri = url.resolve(options.endpoint, commitOptsPath)
+  var commitOptsUri = options.endpoint.replace(/\/+$/, '') + commitOptsPath
 
   // check if commit exists on remote
   var commitOpts = extend(getAuth(options), {
@@ -91,7 +90,7 @@ function _Release (options, callback) {
     }
 
     var releaseOptsPath = format('/repos/%s/%s/releases', options.owner, options.repo)
-    var releaseOptsUri = url.resolve(options.endpoint, releaseOptsPath)
+    var releaseOptsUri = options.endpoint.replace(/\/+$/, '') + releaseOptsPath
 
     var releaseOpts = extend(getAuth(options), {
       uri: releaseOptsUri,
