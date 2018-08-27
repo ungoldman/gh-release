@@ -23,14 +23,14 @@ test('get-defaults', function (t) {
   t.plan(2)
   var commitish = getDefaults.getTargetCommitish()
   t.ok(commitish, 'Check for commitish')
-  getDefaults(tmpDir.name, function (err, defaults) {
+  getDefaults(tmpDir.name, false, function (err, defaults) {
     t.error(err, 'Got the defaults from the test repo')
   })
 })
 
 test('get-defaults supports package.json with a `repository` object', function (t) {
   t.plan(3)
-  getDefaults(path.join(__dirname, 'fixtures/basic'), function (err, defaults) {
+  getDefaults(path.join(__dirname, 'fixtures/basic'), false, function (err, defaults) {
     t.equal(err, null, 'error should be null')
     t.equal(defaults.owner, 'bcomnes', 'gets owner from package.json')
     t.equal(defaults.repo, 'gh-release-test', 'gets repo from package.json')
@@ -39,7 +39,16 @@ test('get-defaults supports package.json with a `repository` object', function (
 
 test('get-defaults supports package.json with a `repository` string', function (t) {
   t.plan(3)
-  getDefaults(path.join(__dirname, 'fixtures/stringy-repo'), function (err, defaults) {
+  getDefaults(path.join(__dirname, 'fixtures/stringy-repo'), false, function (err, defaults) {
+    t.equal(err, null, 'error should be null')
+    t.equal(defaults.owner, 'stringy', 'gets owner from package.json')
+    t.equal(defaults.repo, 'repo', 'gets repo from package.json')
+  })
+})
+
+test('get-defaults supports package.json with an enterprise repo', function (t) {
+  t.plan(3)
+  getDefaults(path.join(__dirname, 'fixtures/enterprise-repo'), true, function (err, defaults) {
     t.equal(err, null, 'error should be null')
     t.equal(defaults.owner, 'stringy', 'gets owner from package.json')
     t.equal(defaults.repo, 'repo', 'gets repo from package.json')
