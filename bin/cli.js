@@ -35,7 +35,8 @@ var ghauthOpts = {
   configName: 'gh-release',
   scopes: ['repo'],
   note: 'gh-release',
-  userAgent: 'gh-release'
+  userAgent: 'gh-release',
+  authUrl: argv.endpoint ? argv.endpoint.replace(/\/+$/, '') + '/authorizations' : null
 }
 
 if (argv.assets) {
