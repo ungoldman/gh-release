@@ -29,13 +29,16 @@ if (!pkgExists || !logExists) {
   process.exit(1)
 }
 
+var isEnterprise = !!argv.endpoint && argv.endpoint !== 'https://api.github.com'
+
 // get auth
 
 var ghauthOpts = {
   configName: 'gh-release',
   scopes: ['repo'],
   note: 'gh-release',
-  userAgent: 'gh-release'
+  userAgent: 'gh-release',
+  authUrl: isEnterprise ? argv.endpoint.replace(/\/+$/, '') + '/authorizations' : null
 }
 
 if (argv.assets) {
@@ -52,7 +55,7 @@ ghauth(ghauthOpts, function (err, auth) {
   options.cli = true
   // get defaults
 
-  getDefaults(argv.workpath, function getDefaultsCallback (err, defaults) {
+  getDefaults(argv.workpath, isEnterprise, function getDefaultsCallback (err, defaults) {
     if (err) return handleError(err)
 
     // merge defaults and command line arguments into options

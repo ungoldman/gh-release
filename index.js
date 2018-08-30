@@ -45,7 +45,8 @@ function Release (options, callback) {
     return _Release(options, callback)
   }
   var workpath = options.workpath || OPTIONS.defaults.workpath
-  getDefaults(workpath, function (err, defaults) {
+  var isEnterprise = !!options.endpoint && options.endpoint !== OPTIONS.defaults.endpoint
+  getDefaults(workpath, isEnterprise, function (err, defaults) {
     options = extend(defaults, options)
     if (err) {
       return callback(err)

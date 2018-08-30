@@ -3,7 +3,7 @@ var changelogParser = require('changelog-parser')
 var exec = require('shelljs').exec
 var parseRepo = require('github-url-to-object')
 
-function getDefaults (workPath, callback) {
+function getDefaults (workPath, isEnterprise, callback) {
   var pkg = require(path.resolve(workPath, 'package.json'))
 
   if (!pkg.hasOwnProperty('repository')) {
@@ -11,7 +11,9 @@ function getDefaults (workPath, callback) {
   }
 
   var commit = getTargetCommitish()
-  var repoParts = parseRepo(pkg.repository)
+  var repoParts = parseRepo(pkg.repository, {
+    enterprise: isEnterprise
+  })
   var owner = repoParts.user
   var repo = repoParts.repo
   var logPath = path.resolve(workPath, 'CHANGELOG.md')
