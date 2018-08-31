@@ -24,6 +24,7 @@ function formatOptions (options) {
   delete copy.owner
   delete copy.repo
   delete copy.dryRun
+  delete copy.noconfirm
   delete copy.workpath
 
   var keys = Object.keys(copy).reverse()

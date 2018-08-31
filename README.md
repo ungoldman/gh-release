@@ -57,7 +57,7 @@ Expects a `package.json` and `CHANGELOG.md` in the working directory.
 
 Prints release URL to `stdout` on success.
 
-Uses [`ghauth`](https://github.com/rvagg/ghauth) for authentication with Github. A Github API OAuth token is saved to the `gh-release` config directory after the first time authenticating. Note that the config directory is determined by [`application-config`](https://github.com/LinusU/node-application-config) and is OS-specific.
+Uses [`ghauth`](https://github.com/rvagg/ghauth) for authentication with Github. A Github API OAuth token is saved to the `gh-release` config directory after the first time authenticating. Note that the config directory is determined by [`application-config`](https://github.com/LinusU/node-application-config) and is OS-specific. gh-release will alternatively use the token specified in the `GH_RELEASE_GITHUB_API_TOKEN` environment variable if it exists. This allows it to be used in continuous deployment systems, which can inject different GitHub API tokens depending on the location of the project.
 
 Get usage info by running with `--help` or `-h`.
 
@@ -82,6 +82,7 @@ Options:
   -e, --endpoint          GitHub API endpoint URL                   [default: "https://api.github.com"]
   -a, --assets            comma-delimited list of assets to upload  [default: false]
   --dry-run               dry run (stops before release step)       [default: false]
+  --noconfirm             bypass confirmation prompt for release    [default: false]
   -h, --help              Show help
   -v, --version           Show version number
 ```
