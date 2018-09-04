@@ -51,7 +51,7 @@ function getDefaults (workPath, isEnterprise, callback) {
       owner: owner,
       repo: repo,
       dryRun: false,
-      noconfirm: false,
+      yes: false,
       endpoint: 'https://api.github.com',
       workpath: process.cwd(),
       prerelease: false,

@@ -10,7 +10,7 @@ Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Additions
 
-- `--noconfirm` CLI option to skip the release confirmation prompt
+- `--yes` CLI option to skip the release confirmation prompt
 - Support for reading the GitHub access token from the `GH_RELEASE_GITHUB_API_TOKEN` environment variable
 
 ## [3.2.3](https://github.com/hypermodules/gh-release/compare/v3.2.2...v3.2.3) - 2018-08-30

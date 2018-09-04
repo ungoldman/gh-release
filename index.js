@@ -18,7 +18,7 @@ var OPTIONS = {
   valid: [],
   defaults: {
     'dryRun': false,
-    'noconfirm': false,
+    'yes': false,
     'draft': false,
     'endpoint': 'https://api.github.com',
     'prerelease': false,
@@ -33,7 +33,7 @@ var OPTIONS = {
     'tag_name',
     'name',
     'dryRun',
-    'noconfirm',
+    'yes',
     'draft',
     'endpoint',
     'prerelease',
