@@ -66,6 +66,12 @@ module.exports = require('yargs')
       type: 'boolean',
       default: false,
       describe: 'dry run (stops before release step)'
+    },
+    'y': {
+      alias: 'yes',
+      type: 'boolean',
+      default: false,
+      describe: 'bypass confirmation prompt for release'
     }
   })
   .example('$0 -n v' + version + ' -c master -d', 'create a draft release with title v' + version + ' tagged at HEAD of master')

@@ -47,9 +47,18 @@ if (argv.assets) {
   })
 }
 
-ghauth(ghauthOpts, function (err, auth) {
-  if (err) return handleError(err)
+if (process.env.GH_RELEASE_GITHUB_API_TOKEN) {
+  releaseWithAuth({
+    token: process.env.GH_RELEASE_GITHUB_API_TOKEN
+  })
+} else {
+  ghauth(ghauthOpts, function (err, auth) {
+    if (err) return handleError(err)
+    releaseWithAuth(auth)
+  })
+}
 
+function releaseWithAuth (auth) {
   var options = {}
   options.auth = auth
   options.cli = true
@@ -83,6 +92,9 @@ ghauth(ghauthOpts, function (err, auth) {
 
     if (options.dryRun) process.exit(0)
 
+    if (options.yes) {
+      return performRelease(options)
+    }
     // confirm & release
 
     var confirmation = [{
@@ -98,30 +110,33 @@ ghauth(ghauthOpts, function (err, auth) {
 
     inquirer.prompt(confirmation, function (answers) {
       if (!answers.confirm) return process.exit(1)
-
-      // pass options to api
-
-      ghRelease(options, function ghReleaseCallback (err, result) {
-        // handle errors
-        if (err) return handleError(err)
-
-        if (result.message === 'Moved Permanently') {
-          console.error('repository url in package.json is out of date and requires a redirect')
-          process.exit(1)
-        }
-
-        if (!result || !result.html_url) {
-          console.error('missing result info')
-          process.exit(1)
-        }
-
-        // log release url & exit 0
-        console.log(result.html_url)
-        process.exit(0)
-      })
+      performRelease(options)
     })
   })
-})
+}
+
+function performRelease (options) {
+  // pass options to api
+
+  ghRelease(options, function ghReleaseCallback (err, result) {
+    // handle errors
+    if (err) return handleError(err)
+
+    if (result.message === 'Moved Permanently') {
+      console.error('repository url in package.json is out of date and requires a redirect')
+      process.exit(1)
+    }
+
+    if (!result || !result.html_url) {
+      console.error('missing result info')
+      process.exit(1)
+    }
+
+    // log release url & exit 0
+    console.log(result.html_url)
+    process.exit(0)
+  })
+}
 
 function handleError (err) {
   var msg = err.msg || err
