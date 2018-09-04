@@ -6,12 +6,11 @@ Project versioning adheres to [Semantic Versioning](http://semver.org/).
 Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
 Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
-## Unreleased
+## [3.3.0](https://github.com/hypermodules/gh-release/compare/v3.2.3...v3.3.0) - 2018-09-04
 
 ### Additions
-
-- `--yes` CLI option to skip the release confirmation prompt
-- Support for reading the GitHub access token from the `GH_RELEASE_GITHUB_API_TOKEN` environment variable
+- `--yes` CLI option to skip the release confirmation prompt (#76)
+- Support for reading the GitHub access token from the `GH_RELEASE_GITHUB_API_TOKEN` environment variable (#76)
 
 ## [3.2.3](https://github.com/hypermodules/gh-release/compare/v3.2.2...v3.2.3) - 2018-08-30
 
