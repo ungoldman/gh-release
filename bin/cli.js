@@ -92,7 +92,7 @@ function releaseWithAuth (auth) {
 
     if (options.dryRun) process.exit(0)
 
-    if (options.noconfirm) {
+    if (options.yes) {
       return performRelease(options)
     }
     // confirm & release

@@ -82,7 +82,7 @@ Options:
   -e, --endpoint          GitHub API endpoint URL                   [default: "https://api.github.com"]
   -a, --assets            comma-delimited list of assets to upload  [default: false]
   --dry-run               dry run (stops before release step)       [default: false]
-  --noconfirm             bypass confirmation prompt for release    [default: false]
+  -y, --yes               bypass confirmation prompt for release    [default: false]
   -h, --help              Show help
   -v, --version           Show version number
 ```

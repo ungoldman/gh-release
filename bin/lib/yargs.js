@@ -67,7 +67,8 @@ module.exports = require('yargs')
       default: false,
       describe: 'dry run (stops before release step)'
     },
-    'noconfirm': {
+    'y': {
+      alias: 'yes',
       type: 'boolean',
       default: false,
       describe: 'bypass confirmation prompt for release'
