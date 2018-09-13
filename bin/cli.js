@@ -108,7 +108,7 @@ function releaseWithAuth (auth) {
       }
     }]
 
-    inquirer.prompt(confirmation, function (answers) {
+    inquirer.prompt(confirmation).then(function (answers) {
       if (!answers.confirm) return process.exit(1)
       performRelease(options)
     })
