@@ -12,6 +12,7 @@ var preview = require('./lib/preview')
 var yargs = require('./lib/yargs')
 var updateNotifier = require('update-notifier')
 var pkg = require('../package.json')
+var Gauge = require('gauge')
 var argv = yargs.argv
 
 // notify of update if needed
@@ -118,7 +119,7 @@ function releaseWithAuth (auth) {
 function performRelease (options) {
   // pass options to api
 
-  ghRelease(options, function ghReleaseCallback (err, result) {
+  var release = ghRelease(options, function ghReleaseCallback (err, result) {
     // handle errors
     if (err) return handleError(err)
 
@@ -135,6 +136,21 @@ function performRelease (options) {
     // log release url & exit 0
     console.log(result.html_url)
     process.exit(0)
+  })
+  var gauge = new Gauge(process.stderr, {
+    updateInterval: 50,
+    theme: 'colorBrailleSpinner'
+  })
+  release.on('upload-asset', function (name) {
+    gauge.show(name + ': 0.0%', 0)
+  })
+  release.on('upload-progress', function (name, progress) {
+    gauge.show(name + ': ' + progress.percentage.toFixed(1) + '% ETA: ' + progress.eta + 's', progress.percentage / 100)
+    gauge.pulse()
+  })
+  release.on('uploaded-asset', function (name) {
+    gauge.hide()
+    console.log('Uploaded ' + name)
   })
 }
 
