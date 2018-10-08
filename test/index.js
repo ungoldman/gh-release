@@ -31,6 +31,15 @@ test('should return error if a non-empty unreleased section exists', function (t
   })
 })
 
+test('should return error if no versions exist', function (t) {
+  t.plan(1)
+  ghRelease({
+    workpath: fixture('no-versions')
+  }, function (err, result) {
+    t.deepEqual(err.message, 'CHANGELOG.md does not contain any versions')
+  })
+})
+
 test('should allow empty unreleased sections', function (t) {
   var errStr = 'Unreleased changes detected in CHANGELOG.md, aborting'
   t.plan(1)
