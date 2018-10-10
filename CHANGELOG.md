@@ -6,10 +6,15 @@ Project versioning adheres to [Semantic Versioning](http://semver.org/).
 Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
 Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## [3.4.0](https://github.com/hypermodules/gh-release/compare/v3.3.4...v3.4.0) - 2018-10-10
+
+### Features
+- Add asset upload progress indicator (#80) - thanks @tjaneczko
+
 ## [3.3.4](https://github.com/hypermodules/gh-release/compare/v3.3.3...v3.3.4) - 2018-10-10
 
 ### Fixes
-Fix unhandled invalid repository URL error (#83) - thanks @tjaneczko
+- Fix unhandled invalid repository URL error (#83) - thanks @tjaneczko
 
 ## [3.3.3](https://github.com/hypermodules/gh-release/compare/v3.3.2...v3.3.3) - 2018-10-08
 
