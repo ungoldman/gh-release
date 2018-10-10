@@ -55,6 +55,13 @@ test('get-defaults supports package.json with an enterprise repo', function (t) 
   })
 })
 
+test('get-defaults errors out with an invalid repository URL', function (t) {
+  t.plan(1)
+  getDefaults(path.join(__dirname, 'fixtures/invalid-repo'), false, function (err, defaults) {
+    t.deepEqual(err.message, 'The repository defined in your package.json is invalid => https://docs.npmjs.com/files/package.json#repository')
+  })
+})
+
 test('Clean up tests', function (t) {
   t.plan(1)
   rimraf(tmpDir.name, function (err) {

@@ -14,6 +14,9 @@ function getDefaults (workPath, isEnterprise, callback) {
   var repoParts = parseRepo(pkg.repository, {
     enterprise: isEnterprise
   })
+  if (!repoParts) {
+    return callback(new Error('The repository defined in your package.json is invalid => https://docs.npmjs.com/files/package.json#repository'))
+  }
   var owner = repoParts.user
   var repo = repoParts.repo
   var logPath = path.resolve(workPath, 'CHANGELOG.md')
