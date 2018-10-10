@@ -4,6 +4,7 @@ var format = require('util').format
 var path = require('path')
 var ghReleaseAssets = require('gh-release-assets')
 var getDefaults = require('./bin/lib/get-defaults')
+var Emitter = require('events').EventEmitter
 
 var OPTIONS = {
   required: [
@@ -43,8 +44,10 @@ var OPTIONS = {
 }
 
 function Release (options, callback) {
+  var emitter = new Emitter()
   if (options.cli) {
-    return _Release(options, callback)
+    _Release(options, emitter, callback)
+    return emitter
   }
   var workpath = options.workpath || OPTIONS.defaults.workpath
   var isEnterprise = !!options.endpoint && options.endpoint !== OPTIONS.defaults.endpoint
@@ -53,14 +56,15 @@ function Release (options, callback) {
     if (err) {
       return callback(err)
     }
-    return _Release(options, callback)
+    return _Release(options, emitter, callback)
   })
+  return emitter
 }
 
 // attempt to create release
 // err if release already exists
 // return release url
-function _Release (options, callback) {
+function _Release (options, emitter, callback) {
   // validate release options
   var errors = validate(options)
   var err
@@ -145,9 +149,18 @@ function _Release (options, callback) {
           assetOptions.auth = options.auth
         }
 
-        ghReleaseAssets(assetOptions, function (err) {
+        var assetUpload = ghReleaseAssets(assetOptions, function (err) {
           if (err) return callback(err)
           return callback(null, body)
+        })
+        assetUpload.on('upload-asset', function (name) {
+          emitter.emit('upload-asset', name)
+        })
+        assetUpload.on('upload-progress', function (name, progress) {
+          emitter.emit('upload-progress', name, progress)
+        })
+        assetUpload.on('uploaded-asset', function (name) {
+          emitter.emit('uploaded-asset', name)
         })
       } else {
         callback(null, body)
