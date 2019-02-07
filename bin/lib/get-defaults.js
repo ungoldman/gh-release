@@ -58,7 +58,7 @@ function getDefaults (workPath, isEnterprise, callback) {
       return callback(new Error(errStr))
     }
 
-    var version = pkg.version ? 'v' + pkg.version : null
+    var version = pkg.version ? 'v' + pkg.version : lerna.version ? 'v' + lerna.version : null
 
     callback(null, {
       body: log.body,
