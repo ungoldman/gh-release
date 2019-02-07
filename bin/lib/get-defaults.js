@@ -1,10 +1,12 @@
 var path = require('path')
+var fs = require('fs')
 var changelogParser = require('changelog-parser')
 var exec = require('shelljs').exec
 var parseRepo = require('github-url-to-object')
 
 function getDefaults (workPath, isEnterprise, callback) {
   var pkg = require(path.resolve(workPath, 'package.json'))
+  var lernaPath = path.resolve(workPath, 'lerna.json')
 
   if (!pkg.hasOwnProperty('repository')) {
     return callback(new Error('You must define a repository for your module => https://docs.npmjs.com/files/package.json#repository'))
@@ -43,8 +45,15 @@ function getDefaults (workPath, isEnterprise, callback) {
     if (!log) {
       return callback(new Error('CHANGELOG.md does not contain any versions'))
     }
-    if (log.version !== pkg.version) {
-      var errStr = 'CHANGELOG.md out of sync with package.json '
+    if (fs.existsSync(lernaPath)) {
+      var lerna = require(lernaPath)
+      if (log.version !== lerna.version) {
+        var errStr = 'CHANGELOG.md out of sync with lerna.json '
+        errStr += '(' + (log.version || log.title) + ' !== ' + lerna.version + ')'
+        return callback(new Error(errStr))
+      }
+    } else if (log.version !== pkg.version) {
+      errStr = 'CHANGELOG.md out of sync with package.json '
       errStr += '(' + (log.version || log.title) + ' !== ' + pkg.version + ')'
       return callback(new Error(errStr))
     }
