@@ -48,7 +48,7 @@ function getDefaults (workPath, isEnterprise, callback) {
 
     var lerna = {}
     if (fs.existsSync(lernaPath)) {
-      lerna = require(lernaPath) /*|| {}*/ // 👈 though I prefer this expression
+      lerna = require(lernaPath) /* || {} */ // 👈 though I prefer this expression
       if (log.version !== lerna.version) {
         var errStr = 'CHANGELOG.md out of sync with lerna.json '
         errStr += '(' + (log.version || log.title) + ' !== ' + lerna.version + ')'
