@@ -45,8 +45,10 @@ function getDefaults (workPath, isEnterprise, callback) {
     if (!log) {
       return callback(new Error('CHANGELOG.md does not contain any versions'))
     }
+
+    var lerna = {}
     if (fs.existsSync(lernaPath)) {
-      var lerna = require(lernaPath)
+      lerna = require(lernaPath) /*|| {}*/ // 👈 though I prefer this expression
       if (log.version !== lerna.version) {
         var errStr = 'CHANGELOG.md out of sync with lerna.json '
         errStr += '(' + (log.version || log.title) + ' !== ' + lerna.version + ')'
