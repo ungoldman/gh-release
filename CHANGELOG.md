@@ -6,6 +6,11 @@ Project versioning adheres to [Semantic Versioning](http://semver.org/).
 Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
 Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## [3.5.0](https://github.com/hypermodules/gh-release/compare/v3.4.0...v3.5.0) - 2019-02-14
+
+### Features
+- Add support for lerna (#85) - thanks @DrSensor
+
 ## [3.4.0](https://github.com/hypermodules/gh-release/compare/v3.3.4...v3.4.0) - 2018-10-10
 
 ### Features
