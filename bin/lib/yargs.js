@@ -1,5 +1,9 @@
-var pkg = require('../../package.json')
-var version = pkg.version
+var version
+try {
+  version = require('../../lerna.json').version
+} catch (_) {
+  version = require('../../package.json').version
+}
 
 module.exports = require('yargs')
   .usage('Usage: $0 [options]')

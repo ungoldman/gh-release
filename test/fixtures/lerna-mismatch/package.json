@@ -1,0 +1,7 @@
+{
+  "name": "gh-release-test",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bcomnes/gh-release-test.git"
+  }
+}

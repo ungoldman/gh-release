@@ -21,6 +21,15 @@ test('should return error if changelog version !== package.json version', functi
   })
 })
 
+test('should return error if changelog version !== lerna.json version', function (t) {
+  t.plan(1)
+  ghRelease({
+    workpath: fixture('lerna-mismatch')
+  }, function (err, result) {
+    t.deepEqual(err.message, 'CHANGELOG.md out of sync with lerna.json (0.0.1 !== 0.0.0)')
+  })
+})
+
 test('should return error if a non-empty unreleased section exists', function (t) {
   var errStr = 'Unreleased changes detected in CHANGELOG.md, aborting'
   t.plan(1)
