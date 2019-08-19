@@ -91,7 +91,9 @@ function _Release (options, emitter, callback) {
   })
 
   request(commitOpts, function (err, res, body) {
-    if (err || res.statusCode === 404) {
+    if (err) {
+      return callback(new Error(err))
+    } else if (res && res.statusCode === 404) {
       var errorMessage = format('Target commitish %s not found in %s/%s', options.target_commitish, options.owner, options.repo)
       return callback(new Error(errorMessage))
     }
