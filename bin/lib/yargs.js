@@ -76,6 +76,12 @@ module.exports = require('yargs')
       type: 'boolean',
       default: false,
       describe: 'bypass confirmation prompt for release'
+    },
+    's': {
+      alias: 'skipcertcheck',
+      type: 'boolean',
+      default: false,
+      describe: 'skip node request cert check'
     }
   })
   .example('$0 -n v' + version + ' -c master -d', 'create a draft release with title v' + version + ' tagged at HEAD of master')

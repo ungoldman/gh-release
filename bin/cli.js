@@ -42,6 +42,10 @@ var ghauthOpts = {
   authUrl: isEnterprise ? argv.endpoint.replace(/\/+$/, '') + '/authorizations' : null
 }
 
+if (argv.skipcertcheck) {
+  process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0
+}
+
 if (argv.assets) {
   argv.assets = argv.assets.split(',').map(function (asset) {
     return asset.trim()

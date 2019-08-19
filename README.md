@@ -85,6 +85,7 @@ Options:
   -y, --yes               bypass confirmation prompt for release    [default: false]
   -h, --help              Show help
   -v, --version           Show version number
+  -s, --skipcertcheck     Skip SSL cert check in npm request        [default: false]
 ```
 
 ### Node API
