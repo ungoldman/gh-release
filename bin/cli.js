@@ -155,7 +155,7 @@ function performRelease (options) {
 }
 
 function handleError (err) {
-  var msg = err.msg || err
+  var msg = err.msg || JSON.stringify(err)
   console.log(chalk.red(msg))
   process.exit(1)
 }
