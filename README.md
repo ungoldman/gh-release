@@ -23,6 +23,12 @@ Create a release for a node package on GitHub.
 
 ![gh-release example](demo.gif)
 
+## ⚠️ Important ⚠️
+
+This library abides by the well-established and widely adopted changelog conventions set forth in http://keepachangelog.com.
+
+Any other conventions (autochangelog, standard-version, your favorite thing) are not supported, and support will not be added for them. This library is several years old and well into maintenance mode.
+
 ## Install
 
 ```
