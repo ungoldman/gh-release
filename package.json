@@ -21,10 +21,10 @@
     "Ted Janeczko <tjaneczko@brightcove.com>"
   ],
   "dependencies": {
-    "chalk": "^1.0.0",
+    "chalk": "^4.1.0",
     "changelog-parser": "^2.0.0",
     "deep-extend": "^0.6.0",
-    "gauge": "^2.7.4",
+    "gauge": "^3.0.0",
     "gh-release-assets": "^1.1.0",
     "ghauth": "^3.2.0",
     "github-url-to-object": "^3.0.0",
