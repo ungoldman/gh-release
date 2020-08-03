@@ -18,12 +18,12 @@ var OPTIONS = {
   ],
   valid: [],
   defaults: {
-    'dryRun': false,
-    'yes': false,
-    'draft': false,
-    'endpoint': 'https://api.github.com',
-    'prerelease': false,
-    'workpath': process.cwd()
+    dryRun: false,
+    yes: false,
+    draft: false,
+    endpoint: 'https://api.github.com',
+    prerelease: false,
+    workpath: process.cwd()
   },
   whitelist: [
     'auth',
