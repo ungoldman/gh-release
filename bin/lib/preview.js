@@ -38,7 +38,7 @@ function formatOptions (options) {
       var body = formatBody(copy.body)
       formatted.push.apply(formatted, body)
     } else {
-      formatted.push({column1: justify(key), column2: copy[key]})
+      formatted.push({ column1: justify(key), column2: copy[key] })
     }
   })
 

@@ -8,7 +8,7 @@ function getDefaults (workPath, isEnterprise, callback) {
   var pkg = require(path.resolve(workPath, 'package.json'))
   var lernaPath = path.resolve(workPath, 'lerna.json')
 
-  if (!pkg.hasOwnProperty('repository')) {
+  if (!Object.hasOwnProperty.call(pkg, 'repository')) {
     return callback(new Error('You must define a repository for your module => https://docs.npmjs.com/files/package.json#repository'))
   }
 
