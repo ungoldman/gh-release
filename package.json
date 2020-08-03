@@ -42,7 +42,7 @@
     "rimraf": "^3.0.2",
     "sitedown": "^4.0.0",
     "snazzy": "^8.0.0",
-    "standard": "^8.1.0",
+    "standard": "^14.3.4",
     "tap-spec": "^5.0.0",
     "tape": "^5.0.1",
     "tmp": "v0.2.1"
