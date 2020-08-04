@@ -67,7 +67,7 @@
     "url": "git+https://github.com/hypermodules/gh-release.git"
   },
   "engines" : {
-    "node" : ">=12.0.0"
+    "node" : ">=10.0.0"
   },
   "scripts": {
     "gh-pages": "npm run site && gh-pages -d site",
