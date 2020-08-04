@@ -81,7 +81,7 @@ function getDefaults (workPath, isEnterprise, callback) {
 }
 
 function getTargetCommitish () {
-  var commit = exec('git rev-parse HEAD', { silent: true }).output.split('\n')[0]
+  var commit = exec('git rev-parse HEAD', { silent: true }).split('\n')[0]
   if (commit.indexOf('fatal') === -1) return commit
   return 'master'
 }
