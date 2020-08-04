@@ -32,7 +32,7 @@
     "request": "^2.82.0",
     "shelljs": "^0.3.0",
     "update-notifier": "^4.1.0",
-    "yargs": "^2.1.1"
+    "yargs": "^15.4.1"
   },
   "devDependencies": {
     "gh-pages": "^3.1.0",
