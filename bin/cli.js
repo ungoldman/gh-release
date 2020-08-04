@@ -53,9 +53,10 @@ if (process.env.GH_RELEASE_GITHUB_API_TOKEN) {
     token: process.env.GH_RELEASE_GITHUB_API_TOKEN
   })
 } else {
-  ghauth(ghauthOpts, function (err, auth) {
-    if (err) return handleError(err)
+  ghauth(ghauthOpts).then(function (auth) {
     releaseWithAuth(auth)
+  }).catch(function (err) {
+    return handleError(err)
   })
 }
 
