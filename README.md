@@ -115,15 +115,16 @@ var options = {
 var options = {}
 
 // auth is required
-// it can either be a username & password...
+// it can be an API token...
+options.auth = {
+  token: 'XXXXXXXX'
+}
+
+// or it can either be a username & password
+// (But only for GitHub Enterprise when endpoint is set)
 options.auth = {
   username: 'ungoldman',
   password: 'XXXXXXXX'
-}
-
-// or an API token
-options.auth = {
-  token: 'XXXXXXXX'
 }
 
 ghRelease(options, function (err, result) {
