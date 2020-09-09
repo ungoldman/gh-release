@@ -135,6 +135,13 @@ function _Release (options, emitter, callback) {
 
       if (options.assets) {
         var assets = options.assets.map(function (asset) {
+          if (typeof asset === 'object') {
+            return {
+              name: asset.name,
+              path: path.join(options.workpath, asset.path)
+            }
+          }
+
           return path.join(options.workpath, asset)
         })
 
