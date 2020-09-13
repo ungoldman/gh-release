@@ -35,7 +35,7 @@ var isEnterprise = !!argv.endpoint && argv.endpoint !== 'https://api.github.com'
 // get auth
 
 var ghauthOpts = {
-  clientId: '04dac3c40b7e49b11f38',
+  clientId: ghRelease.clientId,
   configName: 'gh-release',
   scopes: ['repo'],
   note: 'gh-release',
