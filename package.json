@@ -21,31 +21,31 @@
     "Ted Janeczko <tjaneczko@brightcove.com>"
   ],
   "dependencies": {
-    "chalk": "^1.0.0",
+    "chalk": "^4.1.0",
     "changelog-parser": "^2.0.0",
     "deep-extend": "^0.6.0",
-    "gauge": "^2.7.4",
+    "gauge": "^3.0.0",
     "gh-release-assets": "^1.1.0",
-    "ghauth": "^3.2.0",
-    "github-url-to-object": "^3.0.0",
-    "inquirer": "^6.2.0",
+    "@bret/ghauth": "^5.0.0",
+    "github-url-to-object": "^4.0.4",
+    "inquirer": "^7.3.3",
     "request": "^2.82.0",
-    "shelljs": "^0.3.0",
-    "update-notifier": "^2.2.0",
-    "yargs": "^2.1.1"
+    "shelljs": "^0.8.4",
+    "update-notifier": "^4.1.0",
+    "yargs": "^15.4.1"
   },
   "devDependencies": {
-    "gh-pages": "^0.11.0",
+    "gh-pages": "^3.1.0",
+    "git-pull-or-clone": "^2.0.1",
     "live-server": "^1.1.0",
-    "npm-run-all": "^3.1.0",
-    "quick-gits": "^1.0.4",
-    "rimraf": "^2.2.8",
-    "sitedown": "^3.1.0",
-    "snazzy": "^5.0.0",
-    "standard": "^8.1.0",
-    "tap-spec": "^4.1.1",
-    "tape": "^4.6.0",
-    "tmp": "0.0.25"
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2",
+    "sitedown": "^4.0.0",
+    "snazzy": "^8.0.0",
+    "standard": "^14.3.4",
+    "tap-spec": "^5.0.0",
+    "tape": "^5.0.1",
+    "tmp": "v0.2.1"
   },
   "files": [
     "bin/",
@@ -65,6 +65,9 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hypermodules/gh-release.git"
+  },
+  "engines": {
+    "node": ">=10.0.0"
   },
   "scripts": {
     "gh-pages": "npm run site && gh-pages -d site",

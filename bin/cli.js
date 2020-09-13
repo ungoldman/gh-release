@@ -4,7 +4,7 @@ var extend = require('deep-extend')
 var fs = require('fs')
 var path = require('path')
 var chalk = require('chalk')
-var ghauth = require('ghauth')
+var ghauth = require('@bret/ghauth')
 var inquirer = require('inquirer')
 var ghRelease = require('../')
 var getDefaults = require('./lib/get-defaults')
@@ -35,6 +35,7 @@ var isEnterprise = !!argv.endpoint && argv.endpoint !== 'https://api.github.com'
 // get auth
 
 var ghauthOpts = {
+  clientId: ghRelease.clientId,
   configName: 'gh-release',
   scopes: ['repo'],
   note: 'gh-release',
@@ -53,9 +54,10 @@ if (process.env.GH_RELEASE_GITHUB_API_TOKEN) {
     token: process.env.GH_RELEASE_GITHUB_API_TOKEN
   })
 } else {
-  ghauth(ghauthOpts, function (err, auth) {
-    if (err) return handleError(err)
+  ghauth(ghauthOpts).then(function (auth) {
     releaseWithAuth(auth)
+  }).catch(function (err) {
+    return handleError(err)
   })
 }
 
@@ -155,7 +157,7 @@ function performRelease (options) {
 }
 
 function handleError (err) {
-  var msg = err.msg || JSON.stringify(err)
+  var msg = err.message || JSON.stringify(err)
   console.log(chalk.red(msg))
   process.exit(1)
 }

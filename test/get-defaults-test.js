@@ -1,20 +1,20 @@
 var test = require('tape')
 var path = require('path')
 var tmp = require('tmp')
-var gits = require('quick-gits')
+var gitPullOrClone = require('git-pull-or-clone')
 var rimraf = require('rimraf')
 
 var getDefaults = require('../bin/lib/get-defaults')
 var remote = 'https://github.com/bcomnes/gh-release-test.git'
 
-var tmpDir, repo
+var repoDir, tmpDir
 
 test('Set up test environment', function (t) {
   t.plan(2)
   tmpDir = tmp.dirSync({ unsafeCleanup: true })
+  repoDir = path.join(tmpDir.name, 'test-repo')
   t.ok(tmpDir.name, 'valid tmp dir exists')
-  repo = gits(tmpDir.name)
-  repo.clone(remote, function (err) {
+  gitPullOrClone(remote, repoDir, function (err) {
     t.error(err, 'cloned test repo')
   })
 })
@@ -23,7 +23,7 @@ test('get-defaults', function (t) {
   t.plan(2)
   var commitish = getDefaults.getTargetCommitish()
   t.ok(commitish, 'Check for commitish')
-  getDefaults(tmpDir.name, false, function (err, defaults) {
+  getDefaults(repoDir, false, function (err, defaults) {
     t.error(err, 'Got the defaults from the test repo')
   })
 })

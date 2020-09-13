@@ -6,6 +6,8 @@ var ghReleaseAssets = require('gh-release-assets')
 var getDefaults = require('./bin/lib/get-defaults')
 var Emitter = require('events').EventEmitter
 
+var clientId = '04dac3c40b7e49b11f38'
+
 var OPTIONS = {
   required: [
     'auth',
@@ -18,12 +20,12 @@ var OPTIONS = {
   ],
   valid: [],
   defaults: {
-    'dryRun': false,
-    'yes': false,
-    'draft': false,
-    'endpoint': 'https://api.github.com',
-    'prerelease': false,
-    'workpath': process.cwd()
+    dryRun: false,
+    yes: false,
+    draft: false,
+    endpoint: 'https://api.github.com',
+    prerelease: false,
+    workpath: process.cwd()
   },
   whitelist: [
     'auth',
@@ -118,6 +120,11 @@ function _Release (options, emitter, callback) {
     request(releaseOpts, function (err, res, body) {
       if (err) {
         return callback(err)
+      }
+
+      if (res.statusCode === 404) {
+        var authErrorMessage = format('404 Not Found.  Review gh-release oAuth Organization access: https://github.com/settings/connections/applications/%s', clientId)
+        return callback(new Error(authErrorMessage))
       }
 
       if (body.errors) {
@@ -221,5 +228,6 @@ function getAuth (options) {
 
 Release.OPTIONS = OPTIONS
 Release.validate = validate
+Release.clientId = clientId
 
 module.exports = Release
