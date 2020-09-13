@@ -6,6 +6,23 @@ Project versioning adheres to [Semantic Versioning](http://semver.org/).
 Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
 Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## [4.0.0](https://github.com/hypermodules/gh-release/compare/v3.5.0...v4.0.0) - 2020-09-13
+
+- Better error handling (#88) - thanks @jgravois
+- Fix typos (#95) - thanks @jcfranco
+- allow passing asset object as gh-release-assets supports #96 - thanks @jcfranco
+- Update all dependencies #93 - thanks @bcomnes
+- Support Github oAuth device flow and oAuth tokens #94 - thanks @bcomnes
+
+BREAKING CHANGES:
+
+- Remove support for Github basic (password) auth.
+- Add support for oAuth [Device flow tokens](https://github.blog/changelog/2020-07-27-oauth-2-0-device-authorization-flow/).
+- Existing tokens should still work fine.  Basic auth generated Personal Access tokens which will work as long as you don't revoke them.
+- Updated dependencies bring with it newer Node.js requirements.  Run LTS or Latest.
+- The `--endpoint` flag only works on Github Enterprise now.
+- Github enterprise still uses basic auth, since it does not support the new device flow yet.
+
 ## [3.5.0](https://github.com/hypermodules/gh-release/compare/v3.4.0...v3.5.0) - 2019-02-14
 
 ### Features
