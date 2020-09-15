@@ -6,6 +6,14 @@ Project versioning adheres to [Semantic Versioning](http://semver.org/).
 Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
 Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## [4.0.1](https://github.com/hypermodules/gh-release/compare/v4.0.0...v4.0.1) - 2020-09-15
+
+- Replace `request` with `simple-get`.
+- Roll back `gauge` version due to [upstream bug](https://github.com/npm/gauge/pull/126).
+- Yargs updates.
+- gh-release-assets 2.0.0
+- Switch back to unforked ghauth.
+
 ## [4.0.0](https://github.com/hypermodules/gh-release/compare/v3.5.0...v4.0.0) - 2020-09-13
 
 - Better error handling (#88) - thanks @jgravois
