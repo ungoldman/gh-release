@@ -25,7 +25,7 @@
     "chalk": "^4.1.0",
     "changelog-parser": "^2.0.0",
     "deep-extend": "^0.6.0",
-    "gauge": "^3.0.0",
+    "gauge": "^v2.7.4",
     "gh-release-assets": "^1.1.0",
     "github-url-to-object": "^4.0.4",
     "inquirer": "^7.3.3",
