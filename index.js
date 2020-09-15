@@ -1,5 +1,5 @@
 var extend = require('deep-extend')
-var request = require('request')
+var get = require('simple-get')
 var format = require('util').format
 var path = require('path')
 var ghReleaseAssets = require('gh-release-assets')
@@ -84,25 +84,25 @@ function _Release (options, emitter, callback) {
   if (!getAuth(options)) return callback(new Error('missing auth info'))
 
   var commitOptsPath = format('/repos/%s/%s/commits/%s', options.owner, options.repo, options.target_commitish)
-  var commitOptsUri = options.endpoint.replace(/\/+$/, '') + commitOptsPath
+  var commitOptsUrl = options.endpoint.replace(/\/+$/, '') + commitOptsPath
 
   // check if commit exists on remote
   var commitOpts = extend(getAuth(options), {
     method: 'GET',
-    uri: commitOptsUri
+    url: commitOptsUrl
   })
 
-  request(commitOpts, function (err, res, body) {
+  get.concat(commitOpts, function (err, res, body) {
     if (err || res.statusCode === 404) {
       var errorMessage = format('Target commitish %s not found in %s/%s', options.target_commitish, options.owner, options.repo)
       return callback(new Error(errorMessage))
     }
 
     var releaseOptsPath = format('/repos/%s/%s/releases', options.owner, options.repo)
-    var releaseOptsUri = options.endpoint.replace(/\/+$/, '') + releaseOptsPath
+    var releaseOptsUrl = options.endpoint.replace(/\/+$/, '') + releaseOptsPath
 
     var releaseOpts = extend(getAuth(options), {
-      uri: releaseOptsUri,
+      url: releaseOptsUrl,
       body: {
         tag_name: options.tag_name,
         target_commitish: options.target_commitish,
@@ -117,7 +117,7 @@ function _Release (options, emitter, callback) {
 
     if (options.dryRun) return callback(null, options)
 
-    request(releaseOpts, function (err, res, body) {
+    get.concat(releaseOpts, function (err, res, body) {
       if (err) {
         return callback(err)
       }
