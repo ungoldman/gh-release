@@ -6,6 +6,10 @@ Project versioning adheres to [Semantic Versioning](http://semver.org/).
 Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
 Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## [4.0.2](https://github.com/hypermodules/gh-release/compare/v4.0.0...v4.0.1) - 2020-09-15
+
+- Fix bad import path.
+
 ## [4.0.1](https://github.com/hypermodules/gh-release/compare/v4.0.0...v4.0.1) - 2020-09-15
 
 - Replace `request` with `simple-get`.
