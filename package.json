@@ -21,7 +21,7 @@
     "Ted Janeczko <tjaneczko@brightcove.com>"
   ],
   "dependencies": {
-    "@bret/ghauth": "^5.0.0",
+    "ghauth": "^5.0.0",
     "chalk": "^4.1.0",
     "changelog-parser": "^2.0.0",
     "deep-extend": "^0.6.0",
