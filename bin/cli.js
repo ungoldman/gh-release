@@ -1,19 +1,19 @@
 #!/usr/bin/env node
 
-var extend = require('deep-extend')
-var fs = require('fs')
-var path = require('path')
-var chalk = require('chalk')
-var ghauth = require('ghauth')
-var inquirer = require('inquirer')
-var ghRelease = require('../')
-var getDefaults = require('./lib/get-defaults')
-var preview = require('./lib/preview')
-var yargs = require('./lib/yargs')
-var updateNotifier = require('update-notifier')
-var pkg = require('../package.json')
-var Gauge = require('gauge')
-var argv = yargs.argv
+const extend = require('deep-extend')
+const fs = require('fs')
+const path = require('path')
+const chalk = require('chalk')
+const ghauth = require('ghauth')
+const inquirer = require('inquirer')
+const ghRelease = require('../')
+const getDefaults = require('./lib/get-defaults')
+const preview = require('./lib/preview')
+const yargs = require('./lib/yargs')
+const updateNotifier = require('update-notifier')
+const pkg = require('../package.json')
+const Gauge = require('gauge')
+const argv = yargs.argv
 
 // notify of update if needed
 
@@ -21,8 +21,8 @@ updateNotifier({ pkg: pkg }).notify()
 
 // check dir
 
-var pkgExists = fs.existsSync(path.resolve(argv.workpath, 'package.json'))
-var logExists = fs.existsSync(path.resolve(argv.workpath, 'CHANGELOG.md'))
+const pkgExists = fs.existsSync(path.resolve(argv.workpath, 'package.json'))
+const logExists = fs.existsSync(path.resolve(argv.workpath, 'CHANGELOG.md'))
 
 if (!pkgExists || !logExists) {
   console.log('Must be run in a directory with package.json and CHANGELOG.md')
@@ -30,11 +30,11 @@ if (!pkgExists || !logExists) {
   process.exit(1)
 }
 
-var isEnterprise = !!argv.endpoint && argv.endpoint !== 'https://api.github.com'
+const isEnterprise = !!argv.endpoint && argv.endpoint !== 'https://api.github.com'
 
 // get auth
 
-var ghauthOpts = {
+const ghauthOpts = {
   clientId: ghRelease.clientId,
   configName: 'gh-release',
   scopes: ['repo'],
@@ -62,7 +62,7 @@ if (process.env.GH_RELEASE_GITHUB_API_TOKEN) {
 }
 
 function releaseWithAuth (auth) {
-  var options = {}
+  const options = {}
   options.auth = auth
   options.cli = true
   // get defaults
@@ -76,7 +76,7 @@ function releaseWithAuth (auth) {
 
     // filter options through whitelist
 
-    var whitelist = ghRelease.OPTIONS.whitelist
+    const whitelist = ghRelease.OPTIONS.whitelist
 
     Object.keys(options).forEach(function (key) {
       if (whitelist.indexOf(key) === -1) delete options[key]
@@ -100,7 +100,7 @@ function releaseWithAuth (auth) {
     }
     // confirm & release
 
-    var confirmation = [{
+    const confirmation = [{
       type: 'confirm',
       name: 'confirm',
       message: 'publish release to github?',
@@ -121,7 +121,7 @@ function releaseWithAuth (auth) {
 function performRelease (options) {
   // pass options to api
 
-  var release = ghRelease(options, function ghReleaseCallback (err, result) {
+  const release = ghRelease(options, function ghReleaseCallback (err, result) {
     // handle errors
     if (err) return handleError(err)
 
@@ -139,7 +139,7 @@ function performRelease (options) {
     console.log(result.html_url)
     process.exit(0)
   })
-  var gauge = new Gauge(process.stderr, {
+  const gauge = new Gauge(process.stderr, {
     updateInterval: 50,
     theme: 'colorBrailleSpinner'
   })
@@ -157,7 +157,7 @@ function performRelease (options) {
 }
 
 function handleError (err) {
-  var msg = err.message || JSON.stringify(err)
+  const msg = err.message || JSON.stringify(err)
   console.log(chalk.red(msg))
   process.exit(1)
 }

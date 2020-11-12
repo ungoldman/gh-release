@@ -1,7 +1,7 @@
-var path = require('path')
-var test = require('tape')
-var ghRelease = require('../')
-var fixture = path.join.bind(null, __dirname, 'fixtures')
+const path = require('path')
+const test = require('tape')
+const ghRelease = require('../')
+const fixture = path.join.bind(null, __dirname, 'fixtures')
 
 test('should return err if no authentication is provided', function (t) {
   t.plan(1)
@@ -31,7 +31,7 @@ test('should return error if changelog version !== lerna.json version', function
 })
 
 test('should return error if a non-empty unreleased section exists', function (t) {
-  var errStr = 'Unreleased changes detected in CHANGELOG.md, aborting'
+  const errStr = 'Unreleased changes detected in CHANGELOG.md, aborting'
   t.plan(1)
   ghRelease({
     workpath: fixture('unreleased')
@@ -50,7 +50,7 @@ test('should return error if no versions exist', function (t) {
 })
 
 test('should allow empty unreleased sections', function (t) {
-  var errStr = 'Unreleased changes detected in CHANGELOG.md, aborting'
+  const errStr = 'Unreleased changes detected in CHANGELOG.md, aborting'
   t.plan(1)
   ghRelease({
     workpath: fixture('unreleased-alt')

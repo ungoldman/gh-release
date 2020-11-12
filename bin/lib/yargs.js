@@ -1,4 +1,4 @@
-var version
+let version
 try {
   version = require('../../lerna.json').version
 } catch (_) {

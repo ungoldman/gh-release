@@ -1,34 +1,34 @@
-var path = require('path')
-var fs = require('fs')
-var changelogParser = require('changelog-parser')
-var exec = require('shelljs').exec
-var parseRepo = require('github-url-to-object')
+const path = require('path')
+const fs = require('fs')
+const changelogParser = require('changelog-parser')
+const exec = require('shelljs').exec
+const parseRepo = require('github-url-to-object')
 
 function getDefaults (workPath, isEnterprise, callback) {
-  var pkg = require(path.resolve(workPath, 'package.json'))
-  var lernaPath = path.resolve(workPath, 'lerna.json')
+  const pkg = require(path.resolve(workPath, 'package.json'))
+  const lernaPath = path.resolve(workPath, 'lerna.json')
 
   if (!Object.hasOwnProperty.call(pkg, 'repository')) {
     return callback(new Error('You must define a repository for your module => https://docs.npmjs.com/files/package.json#repository'))
   }
 
-  var commit = getTargetCommitish()
-  var repoParts = parseRepo(pkg.repository, {
+  const commit = getTargetCommitish()
+  const repoParts = parseRepo(pkg.repository, {
     enterprise: isEnterprise
   })
   if (!repoParts) {
     return callback(new Error('The repository defined in your package.json is invalid => https://docs.npmjs.com/files/package.json#repository'))
   }
-  var owner = repoParts.user
-  var repo = repoParts.repo
-  var logPath = path.resolve(workPath, 'CHANGELOG.md')
+  const owner = repoParts.user
+  const repo = repoParts.repo
+  const logPath = path.resolve(workPath, 'CHANGELOG.md')
 
   changelogParser(logPath, function (err, result) {
     if (err) return callback(err)
 
     // check for 'unreleased' section in CHANGELOG: allow sections which do not include a body (eg. 'Added', 'Changed', etc.)
 
-    var unreleased = result.versions.filter(function (release) {
+    const unreleased = result.versions.filter(function (release) {
       return release.title && release.title.toLowerCase
         ? release.title.toLowerCase().indexOf('unreleased') !== -1
         : false
@@ -40,17 +40,18 @@ function getDefaults (workPath, isEnterprise, callback) {
       return callback(new Error('Unreleased changes detected in CHANGELOG.md, aborting'))
     }
 
-    var log = result.versions.filter(function (release) { return release.version !== null })[0]
+    const log = result.versions.filter(function (release) { return release.version !== null })[0]
 
     if (!log) {
       return callback(new Error('CHANGELOG.md does not contain any versions'))
     }
 
-    var lerna = {}
+    let lerna = {}
+    let errStr
     if (fs.existsSync(lernaPath)) {
       lerna = require(lernaPath) /* || {} */ // 👈 though I prefer this expression
       if (log.version !== lerna.version) {
-        var errStr = 'CHANGELOG.md out of sync with lerna.json '
+        errStr = 'CHANGELOG.md out of sync with lerna.json '
         errStr += '(' + (log.version || log.title) + ' !== ' + lerna.version + ')'
         return callback(new Error(errStr))
       }
@@ -60,7 +61,7 @@ function getDefaults (workPath, isEnterprise, callback) {
       return callback(new Error(errStr))
     }
 
-    var version = pkg.version ? 'v' + pkg.version : lerna.version ? 'v' + lerna.version : null
+    const version = pkg.version ? 'v' + pkg.version : lerna.version ? 'v' + lerna.version : null
 
     callback(null, {
       body: log.body,
@@ -81,7 +82,7 @@ function getDefaults (workPath, isEnterprise, callback) {
 }
 
 function getTargetCommitish () {
-  var commit = exec('git rev-parse HEAD', { silent: true }).split('\n')[0]
+  const commit = exec('git rev-parse HEAD', { silent: true }).split('\n')[0]
   if (commit.indexOf('fatal') === -1) return commit
   return 'master'
 }
