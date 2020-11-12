@@ -1,14 +1,14 @@
-var extend = require('deep-extend')
-var get = require('simple-get')
-var format = require('util').format
-var path = require('path')
-var ghReleaseAssets = require('gh-release-assets')
-var getDefaults = require('./bin/lib/get-defaults')
-var Emitter = require('events').EventEmitter
+const extend = require('deep-extend')
+const get = require('simple-get')
+const format = require('util').format
+const path = require('path')
+const ghReleaseAssets = require('gh-release-assets')
+const getDefaults = require('./bin/lib/get-defaults')
+const Emitter = require('events').EventEmitter
 
-var clientId = '04dac3c40b7e49b11f38'
+const clientId = '04dac3c40b7e49b11f38'
 
-var OPTIONS = {
+const OPTIONS = {
   required: [
     'auth',
     'owner',
@@ -46,13 +46,13 @@ var OPTIONS = {
 }
 
 function Release (options, callback) {
-  var emitter = new Emitter()
+  const emitter = new Emitter()
   if (options.cli) {
     _Release(options, emitter, callback)
     return emitter
   }
-  var workpath = options.workpath || OPTIONS.defaults.workpath
-  var isEnterprise = !!options.endpoint && options.endpoint !== OPTIONS.defaults.endpoint
+  const workpath = options.workpath || OPTIONS.defaults.workpath
+  const isEnterprise = !!options.endpoint && options.endpoint !== OPTIONS.defaults.endpoint
   getDefaults(workpath, isEnterprise, function (err, defaults) {
     options = extend(defaults, options)
     if (err) {
@@ -68,8 +68,8 @@ function Release (options, callback) {
 // return release url
 function _Release (options, emitter, callback) {
   // validate release options
-  var errors = validate(options)
-  var err
+  const errors = validate(options)
+  let err
   if (errors.missing.length) {
     err = new Error('missing required options: ' + errors.missing.join(', '))
     return callback(err)
@@ -83,25 +83,25 @@ function _Release (options, emitter, callback) {
   // err if auth info not provided (token or user/pass)
   if (!getAuth(options)) return callback(new Error('missing auth info'))
 
-  var commitOptsPath = format('/repos/%s/%s/commits/%s', options.owner, options.repo, options.target_commitish)
-  var commitOptsUrl = options.endpoint.replace(/\/+$/, '') + commitOptsPath
+  const commitOptsPath = format('/repos/%s/%s/commits/%s', options.owner, options.repo, options.target_commitish)
+  const commitOptsUrl = options.endpoint.replace(/\/+$/, '') + commitOptsPath
 
   // check if commit exists on remote
-  var commitOpts = extend(getAuth(options), {
+  const commitOpts = extend(getAuth(options), {
     method: 'GET',
     url: commitOptsUrl
   })
 
   get.concat(commitOpts, function (err, res, body) {
     if (err || res.statusCode === 404) {
-      var errorMessage = format('Target commitish %s not found in %s/%s', options.target_commitish, options.owner, options.repo)
+      const errorMessage = format('Target commitish %s not found in %s/%s', options.target_commitish, options.owner, options.repo)
       return callback(new Error(errorMessage))
     }
 
-    var releaseOptsPath = format('/repos/%s/%s/releases', options.owner, options.repo)
-    var releaseOptsUrl = options.endpoint.replace(/\/+$/, '') + releaseOptsPath
+    const releaseOptsPath = format('/repos/%s/%s/releases', options.owner, options.repo)
+    const releaseOptsUrl = options.endpoint.replace(/\/+$/, '') + releaseOptsPath
 
-    var releaseOpts = extend(getAuth(options), {
+    const releaseOpts = extend(getAuth(options), {
       url: releaseOptsUrl,
       body: {
         tag_name: options.tag_name,
@@ -123,7 +123,7 @@ function _Release (options, emitter, callback) {
       }
 
       if (res.statusCode === 404) {
-        var authErrorMessage = format('404 Not Found.  Review gh-release oAuth Organization access: https://github.com/settings/connections/applications/%s', clientId)
+        const authErrorMessage = format('404 Not Found.  Review gh-release oAuth Organization access: https://github.com/settings/connections/applications/%s', clientId)
         return callback(new Error(authErrorMessage))
       }
 
@@ -132,7 +132,7 @@ function _Release (options, emitter, callback) {
           return callback(body.errors)
         }
 
-        var errorMessage = format('Release already exists for tag %s in %s/%s', options.tag_name, options.owner, options.repo)
+        const errorMessage = format('Release already exists for tag %s in %s/%s', options.tag_name, options.owner, options.repo)
         return callback(new Error(errorMessage))
       }
 
@@ -141,7 +141,7 @@ function _Release (options, emitter, callback) {
       }
 
       if (options.assets) {
-        var assets = options.assets.map(function (asset) {
+        const assets = options.assets.map(function (asset) {
           if (typeof asset === 'object') {
             return {
               name: asset.name,
@@ -152,7 +152,7 @@ function _Release (options, emitter, callback) {
           return path.join(options.workpath, asset)
         })
 
-        var assetOptions = {
+        const assetOptions = {
           url: body.upload_url,
           assets: assets
         }
@@ -163,7 +163,7 @@ function _Release (options, emitter, callback) {
           assetOptions.auth = options.auth
         }
 
-        var assetUpload = ghReleaseAssets(assetOptions, function (err) {
+        const assetUpload = ghReleaseAssets(assetOptions, function (err) {
           if (err) return callback(err)
           return callback(null, body)
         })
@@ -184,8 +184,8 @@ function _Release (options, emitter, callback) {
 }
 
 function validate (options) {
-  var missing = []
-  var invalid = []
+  const missing = []
+  const invalid = []
 
   function checkMissing (opt) {
     if (!options[opt]) missing.push(opt)
@@ -207,7 +207,7 @@ function validate (options) {
 }
 
 function getAuth (options) {
-  var defaultRequest = {
+  const defaultRequest = {
     method: 'POST',
     json: true,
     headers: {

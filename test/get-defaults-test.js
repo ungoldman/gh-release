@@ -1,13 +1,13 @@
-var test = require('tape')
-var path = require('path')
-var tmp = require('tmp')
-var gitPullOrClone = require('git-pull-or-clone')
-var rimraf = require('rimraf')
+const test = require('tape')
+const path = require('path')
+const tmp = require('tmp')
+const gitPullOrClone = require('git-pull-or-clone')
+const rimraf = require('rimraf')
 
-var getDefaults = require('../bin/lib/get-defaults')
-var remote = 'https://github.com/bcomnes/gh-release-test.git'
+const getDefaults = require('../bin/lib/get-defaults')
+const remote = 'https://github.com/bcomnes/gh-release-test.git'
 
-var repoDir, tmpDir
+let repoDir, tmpDir
 
 test('Set up test environment', function (t) {
   t.plan(2)
@@ -21,7 +21,7 @@ test('Set up test environment', function (t) {
 
 test('get-defaults', function (t) {
   t.plan(2)
-  var commitish = getDefaults.getTargetCommitish()
+  const commitish = getDefaults.getTargetCommitish()
   t.ok(commitish, 'Check for commitish')
   getDefaults(repoDir, false, function (err, defaults) {
     t.error(err, 'Got the defaults from the test repo')
