@@ -21,16 +21,16 @@
     "Ted Janeczko <tjaneczko@brightcove.com>"
   ],
   "dependencies": {
-    "ghauth": "^5.0.0",
+    "@octokit/rest": "^18.0.9",
     "chalk": "^4.1.0",
     "changelog-parser": "^2.0.0",
     "deep-extend": "^0.6.0",
     "gauge": "^v2.7.4",
     "gh-release-assets": "^2.0.0",
+    "ghauth": "^5.0.0",
     "github-url-to-object": "^4.0.4",
     "inquirer": "^7.3.3",
     "shelljs": "^0.8.4",
-    "simple-get": "^4.0.0",
     "update-notifier": "^5.0.0",
     "yargs": "^16.0.3"
   },
