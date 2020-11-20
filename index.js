@@ -145,6 +145,7 @@ function _Release (options, emitter, callback) {
         callback(null, results.data)
       }
     }).catch(err => {
+      // Create Release error handling
       if (err.status === 404) {
         const notFoundError = new Error(format('404 Not Found.  Review gh-release oAuth Organization access: https://github.com/settings/connections/applications/%s', clientId))
         notFoundError.wrapped = err
@@ -158,9 +159,7 @@ function _Release (options, emitter, callback) {
         const errorMessage = format('Release already exists for tag %s in %s/%s', options.tag_name, options.owner, options.repo)
         return callback(new Error(errorMessage))
       }
-
-      // Create Release error handling
-      callback(err)
+      return callback(err)
     })
   }).catch(err => {
     // Check target error handling
