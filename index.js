@@ -1,10 +1,10 @@
 const extend = require('deep-extend')
-const get = require('simple-get')
 const format = require('util').format
 const path = require('path')
 const ghReleaseAssets = require('gh-release-assets')
 const getDefaults = require('./bin/lib/get-defaults')
 const Emitter = require('events').EventEmitter
+const { Octokit } = require('@octokit/rest')
 
 const clientId = '04dac3c40b7e49b11f38'
 
@@ -81,65 +81,30 @@ function _Release (options, emitter, callback) {
   }
 
   // err if auth info not provided (token or user/pass)
-  if (!getAuth(options)) return callback(new Error('missing auth info'))
+  if (!getToken(options)) return callback(new Error('missing auth info'))
 
-  const commitOptsPath = format('/repos/%s/%s/commits/%s', options.owner, options.repo, options.target_commitish)
-  const commitOptsUrl = options.endpoint.replace(/\/+$/, '') + commitOptsPath
-
-  // check if commit exists on remote
-  const commitOpts = extend(getAuth(options), {
-    method: 'GET',
-    url: commitOptsUrl
+  const octokit = new Octokit({
+    auth: getToken(options),
+    baseUrl: options.endpoint
   })
 
-  get.concat(commitOpts, function (err, res, body) {
-    if (err || res.statusCode === 404) {
-      const errorMessage = format('Target commitish %s not found in %s/%s', options.target_commitish, options.owner, options.repo)
-      return callback(new Error(errorMessage))
-    }
-
-    const releaseOptsPath = format('/repos/%s/%s/releases', options.owner, options.repo)
-    const releaseOptsUrl = options.endpoint.replace(/\/+$/, '') + releaseOptsPath
-
-    const releaseOpts = extend(getAuth(options), {
-      url: releaseOptsUrl,
-      body: {
-        tag_name: options.tag_name,
-        target_commitish: options.target_commitish,
-        name: options.name,
-        body: options.body,
-        draft: options.draft,
-        prerelease: options.prerelease,
-        repo: options.repo,
-        owner: options.owner
-      }
-    })
-
+  octokit.repos.getCommit({
+    owner: options.owner,
+    repo: options.repo,
+    ref: options.target_commitish
+  }).then(results => {
     if (options.dryRun) return callback(null, options)
 
-    get.concat(releaseOpts, function (err, res, body) {
-      if (err) {
-        return callback(err)
-      }
-
-      if (res.statusCode === 404) {
-        const authErrorMessage = format('404 Not Found.  Review gh-release oAuth Organization access: https://github.com/settings/connections/applications/%s', clientId)
-        return callback(new Error(authErrorMessage))
-      }
-
-      if (body.errors) {
-        if (body.errors[0].code !== 'already_exists') {
-          return callback(body.errors)
-        }
-
-        const errorMessage = format('Release already exists for tag %s in %s/%s', options.tag_name, options.owner, options.repo)
-        return callback(new Error(errorMessage))
-      }
-
-      if (body.message === 'Bad credentials') {
-        return callback(new Error('GitHub says password is no bueno. please clear your cache manually. https://github.com/hypermodules/gh-release#config-location'))
-      }
-
+    octokit.repos.createRelease({
+      tag_name: options.tag_name,
+      target_commitish: options.target_commitish,
+      name: options.name,
+      body: options.body,
+      draft: options.draft,
+      prerelease: options.prerelease,
+      repo: options.repo,
+      owner: options.owner
+    }).then(results => {
       if (options.assets) {
         const assets = options.assets.map(function (asset) {
           if (typeof asset === 'object') {
@@ -153,7 +118,7 @@ function _Release (options, emitter, callback) {
         })
 
         const assetOptions = {
-          url: body.upload_url,
+          url: results.data.upload_url,
           assets: assets
         }
 
@@ -165,7 +130,7 @@ function _Release (options, emitter, callback) {
 
         const assetUpload = ghReleaseAssets(assetOptions, function (err) {
           if (err) return callback(err)
-          return callback(null, body)
+          return callback(null, results.data)
         })
         assetUpload.on('upload-asset', function (name) {
           emitter.emit('upload-asset', name)
@@ -177,9 +142,34 @@ function _Release (options, emitter, callback) {
           emitter.emit('uploaded-asset', name)
         })
       } else {
-        callback(null, body)
+        callback(null, results.data)
       }
+    }).catch(err => {
+      if (err.status === 404) {
+        const notFoundError = new Error(format('404 Not Found.  Review gh-release oAuth Organization access: https://github.com/settings/connections/applications/%s', clientId))
+        notFoundError.wrapped = err
+        return callback(notFoundError)
+      }
+      if (err.errors) {
+        if (err.errors[0].code !== 'already_exists') {
+          return callback(err)
+        }
+
+        const errorMessage = format('Release already exists for tag %s in %s/%s', options.tag_name, options.owner, options.repo)
+        return callback(new Error(errorMessage))
+      }
+
+      // Create Release error handling
+      callback(err)
     })
+  }).catch(err => {
+    // Check target error handling
+    if (err.status === 404) {
+      const errorMessage = format('Target commitish %s not found in %s/%s', options.target_commitish, options.owner, options.repo)
+      return callback(new Error(errorMessage))
+    } else {
+      return callback(err)
+    }
   })
 }
 
@@ -206,24 +196,14 @@ function validate (options) {
   }
 }
 
-function getAuth (options) {
-  const defaultRequest = {
-    method: 'POST',
-    json: true,
-    headers: {
-      'User-Agent': 'gh-release'
-    }
-  }
-
+function getToken (options) {
   if (options.auth.token) {
-    defaultRequest.headers.Authorization = 'token ' + options.auth.token
+    return options.auth.token
   } else if (options.auth.username && options.auth.password) {
-    defaultRequest.auth = options.auth
+    return options.auth
   } else {
     return false
   }
-
-  return defaultRequest
 }
 
 Release.OPTIONS = OPTIONS
