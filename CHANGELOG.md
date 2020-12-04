@@ -6,6 +6,10 @@ Project versioning adheres to [Semantic Versioning](http://semver.org/).
 Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
 Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## [4.0.4-beta.0](https://github.com/hypermodules/gh-release/compare/v4.0.3...v4.0.4-beta.0) - 2020-12-04
+
+- Replace `simple-get` with `@octokit/rest`. This should fix some spurious timeout bugs.
+
 ## [4.0.3](https://github.com/hypermodules/gh-release/compare/v4.0.2...v4.0.3) - 2020-09-30
 
 - update-notifier version 5.0.0 (drops old node, and bugfixes)
