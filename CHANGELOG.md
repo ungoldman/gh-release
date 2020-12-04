@@ -10,6 +10,10 @@ Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 - Republish of 4.0.3 due to a bad beta version publish on the latest npm tag.
 
+## [4.0.4-beta.0](https://github.com/hypermodules/gh-release/compare/v4.0.3...v4.0.4-beta.0) - 2020-12-04
+
+- Replace `simple-get` with `@octokit/rest`. This should fix some spurious timeout bugs.
+
 ## [4.0.3](https://github.com/hypermodules/gh-release/compare/v4.0.2...v4.0.3) - 2020-09-30
 
 - update-notifier version 5.0.0 (drops old node, and bugfixes)
