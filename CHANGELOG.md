@@ -6,9 +6,18 @@ Project versioning adheres to [Semantic Versioning](http://semver.org/).
 Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
 Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## [4.0.5-beta.0](https://github.com/hypermodules/gh-release/compare/v4.0.4...v4.0.5-beta.0) - 2020-12-04
+
+- Replace `simple-get` with `@octokit/rest`. This should fix some spurious timeout bugs.
+- Republish on correct npm channel.
+
 ## [4.0.4](https://github.com/hypermodules/gh-release/compare/v4.0.3...v4.0.4) - 2020-12-04
 
 - Republish of 4.0.3 due to a bad beta version publish on the latest npm tag.
+
+## [4.0.4-beta.0](https://github.com/hypermodules/gh-release/compare/v4.0.3...v4.0.4-beta.0) - 2020-12-04
+
+- Replace `simple-get` with `@octokit/rest`. This should fix some spurious timeout bugs.
 
 ## [4.0.3](https://github.com/hypermodules/gh-release/compare/v4.0.2...v4.0.3) - 2020-09-30
 
