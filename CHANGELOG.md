@@ -6,6 +6,12 @@ Project versioning adheres to [Semantic Versioning](http://semver.org/).
 Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
 Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## [5.0.0](https://github.com/hypermodules/gh-release/compare/v4.0.5-beta.0...v5.0.0) - 2021-01-16
+
+- A release of 4.0.5-beta.0 as a breaking change
+- BREAKING CHANGE: new underlying request library (@octokit/rest) in use to fix edge case where releases would time out.
+- No API changes, it should be safe to upgrade, but there is a risk of new bugs.  Please update at your convenience.
+
 ## [4.0.5-beta.0](https://github.com/hypermodules/gh-release/compare/v4.0.4...v4.0.5-beta.0) - 2020-12-04
 
 - Replace `simple-get` with `@octokit/rest`. This should fix some spurious timeout bugs.
