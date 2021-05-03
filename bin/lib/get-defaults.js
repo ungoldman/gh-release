@@ -33,7 +33,7 @@ function getDefaults (workPath, isEnterprise, callback) {
         ? release.title.toLowerCase().indexOf('unreleased') !== -1
         : false
     }).filter(function (release) {
-      return !!release.body
+      return Object.values(release.parsed).flat().length > 0
     })
 
     if (unreleased.length > 0) {
