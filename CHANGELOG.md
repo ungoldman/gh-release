@@ -9,7 +9,11 @@ Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 ## [Unreleased]
 
 ### Changed
-- Allow unreleased CHANGELOG section if all subsections are empty
+
+## [5.0.1](https://github.com/hypermodules/gh-release/compare/v5.0.0...v5.0.1) - 2021-05-18
+
+### Changed
+- Allow unreleased CHANGELOG section if all subsections are empty (#128) - thanks @leviathan747
 
 ## [5.0.0](https://github.com/hypermodules/gh-release/compare/v4.0.5-beta.0...v5.0.0) - 2021-01-16
 
