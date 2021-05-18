@@ -58,3 +58,13 @@ test('should allow empty unreleased sections', function (t) {
     t.notEqual(err.message, errStr)
   })
 })
+
+test('should allow empty unreleased sub-sections', function (t) {
+  const errStr = 'Unreleased changes detected in CHANGELOG.md, aborting'
+  t.plan(1)
+  ghRelease({
+    workpath: fixture('unreleased-empty-subsections')
+  }, function (err, result) {
+    t.notEqual(err.message, errStr)
+  })
+})

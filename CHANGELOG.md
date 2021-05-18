@@ -6,6 +6,11 @@ Project versioning adheres to [Semantic Versioning](http://semver.org/).
 Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
 Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## [Unreleased]
+
+### Changed
+- Allow unreleased CHANGELOG section if all subsections are empty
+
 ## [5.0.0](https://github.com/hypermodules/gh-release/compare/v4.0.5-beta.0...v5.0.0) - 2021-01-16
 
 - A release of 4.0.5-beta.0 as a breaking change

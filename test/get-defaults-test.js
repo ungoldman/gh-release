@@ -55,6 +55,15 @@ test('get-defaults supports package.json with an enterprise repo', function (t) 
   })
 })
 
+test('get-defaults allows CHANGELOGs with empty fixtures', function (t) {
+  t.plan(3)
+  getDefaults(path.join(__dirname, 'fixtures/unreleased-empty-subsections'), true, function (err, defaults) {
+    t.equal(err, null, 'error should be null')
+    t.equal(defaults.owner, 'bcomnes', 'gets owner from package.json')
+    t.equal(defaults.repo, 'gh-release-test', 'gets repo from package.json')
+  })
+})
+
 test('get-defaults errors out with an invalid repository URL', function (t) {
   t.plan(1)
   getDefaults(path.join(__dirname, 'fixtures/invalid-repo'), false, function (err, defaults) {
