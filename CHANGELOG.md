@@ -8,7 +8,10 @@ Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [5.0.2](https://github.com/hypermodules/gh-release/compare/v5.0.1...v5.0.2) - 2021-05-20
+
 ### Changed
+- Roll back to yargs@16 due to introduced breaking changes.
 
 ## [5.0.1](https://github.com/hypermodules/gh-release/compare/v5.0.0...v5.0.1) - 2021-05-18
 
