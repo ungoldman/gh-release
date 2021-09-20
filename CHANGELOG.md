@@ -8,6 +8,12 @@ Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [6.0.1](https://github.com/hypermodules/gh-release/compare/v6.0.0...v6.0.1) - 2021-09-20
+
+### Changed
+- Re-read package.json when creating releases. https://github.com/hypermodules/gh-release/pull/137
+- Update gauge to ^3. https://github.com/hypermodules/gh-release/pull/136
+
 ## [6.0.0](https://github.com/hypermodules/gh-release/compare/v5.0.2...v6.0.0) - 2021-05-20
 
 ### Changed
