@@ -87,7 +87,7 @@ function getTargetCommitish () {
   return 'master'
 }
 
-function readJson(filePath) {
+function readJson (filePath) {
   return JSON.parse(fs.readFileSync(filePath))
 }
 
