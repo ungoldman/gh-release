@@ -5,7 +5,7 @@ const exec = require('shelljs').exec
 const parseRepo = require('github-url-to-object')
 
 function getDefaults (workPath, isEnterprise, callback) {
-  const pkg = require(path.resolve(workPath, 'package.json'))
+  const pkg = readJson(path.resolve(workPath, 'package.json'))
   const lernaPath = path.resolve(workPath, 'lerna.json')
 
   if (!Object.hasOwnProperty.call(pkg, 'repository')) {
@@ -49,7 +49,7 @@ function getDefaults (workPath, isEnterprise, callback) {
     let lerna = {}
     let errStr
     if (fs.existsSync(lernaPath)) {
-      lerna = require(lernaPath) /* || {} */ // 👈 though I prefer this expression
+      lerna = readJson(lernaPath) /* || {} */ // 👈 though I prefer this expression
       if (log.version !== lerna.version) {
         errStr = 'CHANGELOG.md out of sync with lerna.json '
         errStr += '(' + (log.version || log.title) + ' !== ' + lerna.version + ')'
@@ -85,6 +85,10 @@ function getTargetCommitish () {
   const commit = exec('git rev-parse HEAD', { silent: true }).split('\n')[0]
   if (commit.indexOf('fatal') === -1) return commit
   return 'master'
+}
+
+function readJson(filePath) {
+  return JSON.parse(fs.readFileSync(filePath))
 }
 
 module.exports = getDefaults
