@@ -2,18 +2,15 @@
 
 Create a release for a node package on GitHub.
 
-[![npm][1]][2]
-[![travis][3]][4]
-[![standard][5]][6]
-[![downloads][7]][2]
+[![npm][npm-image]][npm-url]
+[![build][build-image]][build-url]
+[![downloads][downloads-image]][npm-url]
 
-[1]: https://img.shields.io/npm/v/gh-release.svg?style=flat-square
-[2]: https://www.npmjs.com/package/gh-release
-[3]: https://img.shields.io/travis/hypermodules/gh-release/master.svg?style=flat-square
-[4]: https://travis-ci.org/hypermodules/gh-release
-[5]: https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square
-[6]: http://standardjs.com/
-[7]: https://img.shields.io/npm/dm/gh-release.svg?style=flat-square
+[npm-image]: https://img.shields.io/npm/v/gh-release.svg
+[npm-url]: https://www.npmjs.com/package/gh-release
+[build-image]: https://github.com/ungoldman/gh-release/actions/workflows/tests.yml/badge.svg
+[build-url]: https://github.com/ungoldman/gh-release/actions/workflows/tests.yml
+[downloads-image]: https://img.shields.io/npm/dm/gh-release.svg
 
 ## Features
 
@@ -159,7 +156,7 @@ Override defaults with flags (CLI) or the `options` object (node).
 
 ## Example
 
-All [releases](https://github.com/hypermodules/gh-release/releases) of `gh-release` were created with `gh-release`.
+All [releases](https://github.com/ungoldman/gh-release/releases) of `gh-release` were created with `gh-release`.
 
 ## Config location
 
@@ -189,7 +186,7 @@ Please read the [change log](CHANGELOG.md) for a human-readable history of chang
 
 ## See also
 
-- [gh-release-assets](https://github.com/hypermodules/gh-release-assets)
+- [gh-release-assets](https://github.com/ungoldman/gh-release-assets)
 - [maintenance-modules](https://github.com/maxogden/maintenance-modules)
 
 ## License
