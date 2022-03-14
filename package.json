@@ -7,7 +7,7 @@
     "gh-release": "./bin/cli.js"
   },
   "bugs": {
-    "url": "https://github.com/hypermodules/gh-release/issues"
+    "url": "https://github.com/ungoldman/gh-release/issues"
   },
   "contributors": [
     "Nate Goldman <ungoldman@gmail.com>",
@@ -52,7 +52,7 @@
     "lib/",
     "index.js"
   ],
-  "homepage": "https://github.com/hypermodules/gh-release",
+  "homepage": "https://github.com/ungoldman/gh-release",
   "keywords": [
     "changelog",
     "github",
@@ -64,7 +64,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hypermodules/gh-release.git"
+    "url": "git+https://github.com/ungoldman/gh-release.git"
   },
   "engines": {
     "node": ">=10.0.0"
