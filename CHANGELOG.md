@@ -6,7 +6,16 @@ Project versioning adheres to [Semantic Versioning](http://semver.org/).
 Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
 Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
-## [Unreleased]
+## [6.0.2](https://github.com/ungoldman/gh-release/compare/v6.0.1...v6.0.2) - 2022-03-14
+
+**Note:** this repo has moved from https://github.com/hypermodules/gh-release to
+https://github.com/ungoldman/gh-release. @ungoldman is the original author and
+the same people that have been maintaining gh-release will continue to do so.
+The move was made because the hypermodules org is being retired.
+
+### Changed
+- Repo ownership changed! Updated links. https://github.com/ungoldman/gh-release/pull/161
+- Update gauge to ^4. https://github.com/ungoldman/gh-release/pull/147
 
 ## [6.0.1](https://github.com/ungoldman/gh-release/compare/v6.0.0...v6.0.1) - 2021-09-20
 
