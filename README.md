@@ -182,7 +182,7 @@ Please read the [change log](CHANGELOG.md) for a human-readable history of chang
 
 ## Tests
 
-`gh-release` uses [`standard`][6] and [`tape`](https://github.com/substack/tape) for testing. You can run all tests with `npm test`.
+`gh-release` uses [`standard`](https://standardjs.com) and [`tape`](https://github.com/substack/tape) for testing. You can run all tests with `npm test`.
 
 ## See also
 
