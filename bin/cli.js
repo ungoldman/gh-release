@@ -3,7 +3,6 @@
 const extend = require('deep-extend')
 const fs = require('fs')
 const path = require('path')
-const chalk = require('chalk')
 const ghauth = require('ghauth')
 const inquirer = require('inquirer')
 const ghRelease = require('../')
@@ -158,6 +157,6 @@ function performRelease (options) {
 
 function handleError (err) {
   const msg = err.message || JSON.stringify(err, null, 2)
-  console.log(chalk.red(msg))
+  console.log(msg)
   process.exit(1)
 }
