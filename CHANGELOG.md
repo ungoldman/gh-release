@@ -6,6 +6,13 @@ Project versioning adheres to [Semantic Versioning](http://semver.org/).
 Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
 Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## [6.0.3](https://github.com/ungoldman/gh-release/compare/v6.0.2...v6.0.3) - 2022-03-15
+
+### Changed
+
+- deps: rm chalk (#163)
+- deps(dev): rm live-server, tap-spec, use serve (#162)
+
 ## [6.0.2](https://github.com/ungoldman/gh-release/compare/v6.0.1...v6.0.2) - 2022-03-14
 
 **Note:** this repo has moved from https://github.com/hypermodules/gh-release to
