@@ -1,16 +1,15 @@
-const chalk = require('chalk')
 const extend = require('deep-extend')
 const columnWidth = 20
 
 function preview (options) {
-  const intro = '\ncreating release ' + chalk.bold(options.tag_name) +
-    ' for ' + chalk.bold(options.owner + '/' + options.repo) + '\n'
+  const intro = '\ncreating release ' + options.tag_name +
+    ' for ' + options.owner + '/' + options.repo + '\n'
   const prettyOptions = formatOptions(options)
 
   console.log(intro)
 
   prettyOptions.forEach(function (option) {
-    console.log(chalk.cyan(option.column1) + option.column2)
+    console.log(option.column1 + option.column2)
   })
 
   console.log('')
