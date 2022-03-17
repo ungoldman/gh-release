@@ -1,3 +1,7 @@
+<div align="center">
+
+<img src="./rocket.png">
+
 # gh-release
 
 Create a release for a node package on GitHub.
@@ -11,6 +15,8 @@ Create a release for a node package on GitHub.
 [build-image]: https://github.com/ungoldman/gh-release/actions/workflows/tests.yml/badge.svg
 [build-url]: https://github.com/ungoldman/gh-release/actions/workflows/tests.yml
 [downloads-image]: https://img.shields.io/npm/dm/gh-release.svg
+
+</div>
 
 ## Features
 
@@ -192,3 +198,5 @@ Please read the [change log](CHANGELOG.md) for a human-readable history of chang
 ## License
 
 [ISC](LICENSE.md)
+
+Rocket image is from [emojipedia](https://emojipedia.org/rocket/).
