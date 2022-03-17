@@ -1,4 +1,4 @@
-<div align="center">
+<div class="hero" align="center">
 
 <img src="./rocket.png">
 
@@ -25,12 +25,6 @@ Create a release for a node package on GitHub.
 - Supports uploading release assets.
 
 ![gh-release example](demo.gif)
-
-## ⚠️ Important ⚠️
-
-This library abides by the well-established and widely adopted changelog conventions set forth in http://keepachangelog.com.
-
-Any other conventions (autochangelog, standard-version, your favorite thing) are not supported, and support will not be added for them. This library is several years old and well into maintenance mode.
 
 ## Install
 
@@ -181,6 +175,12 @@ There are packages that already do something like this, and they're great, but I
 ## Contributing
 
 Contributions welcome! Please read the [contributing guidelines](CONTRIBUTING.md) first.
+
+**⚠️ Important Note ⚠️**
+
+This library abides by the well-established and widely adopted changelog conventions set forth in http://keepachangelog.com.
+
+Any other conventions (autochangelog, standard-version, etc.) are not currently supported, and support will likely not be added for them in the future. This library is several years old and well into maintenance mode.
 
 ## History
 

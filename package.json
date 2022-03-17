@@ -77,7 +77,7 @@
     "site": "run-s site:*",
     "site:clean": "rm -rf site",
     "site:html": "sitedown -b site -l docs/layout.html",
-    "site:img": "cp demo.gif site/",
+    "site:img": "cp demo.gif rocket.png site/",
     "start": "npm-run-all site --parallel serve:*",
     "test": "tape test/*.js"
   }
