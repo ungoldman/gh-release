@@ -1,6 +1,6 @@
 <div class="hero" align="center">
 
-<img src="./rocket.png">
+<img src="./rocket.png" width="120" height="120" alt="rocket">
 
 # gh-release
 
@@ -24,7 +24,11 @@ Create a release for a node package on GitHub.
 - Defaults to using information from `package.json` and `CHANGELOG.md`.
 - Supports uploading release assets.
 
-![gh-release example](demo.gif)
+<div align="center">
+
+<img src="./demo.png" width="690" height="540" alt="example CLI output">
+
+</div>
 
 ## Install
 
