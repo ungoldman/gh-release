@@ -24,12 +24,6 @@ Create a release for a node package on GitHub.
 - Defaults to using information from `package.json` and `CHANGELOG.md`.
 - Supports uploading release assets.
 
-<div align="center">
-
-<img src="./demo.png" width="690" height="540" alt="example CLI output">
-
-</div>
-
 ## Install
 
 ```
@@ -45,17 +39,23 @@ $ gh-release
 Your GitHub username: ungoldman
 Your GitHub password: ✔✔✔✔✔✔✔✔
 
-creating release v1.0.0 for ungoldman/cool-project
+creating release v1.0.9 for ungoldman/gh-release-test
 
-name:               v1.0.0
-tag_name:           v1.0.0
-target_commitish:   9561804a4d1fca2525d3207bec4907dd5ec7a705
+name:               v1.0.9
+tag_name:           v1.0.9
+target_commitish:   3b06705e43be83363f063966f36ede3990a2842a
+endpoint:           https://api.github.com
 body:
 
-* engage
+### Maintenance
+* test: testing latest CLI output
+* deps: gh-release@6
+* pkg: set package to private
+* pkg: update repo URLS
+* misc: ignore package-lock.json
 
 ? publish release to github? Yes
-https://github.com/ungoldman/cool-project/releases/tag/v1.0.0
+https://github.com/ungoldman/gh-release-test/releases/tag/v1.0.9
 ```
 
 Should be run at the root of the project to be released.
