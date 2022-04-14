@@ -66,7 +66,7 @@
     "url": "git+https://github.com/ungoldman/gh-release.git"
   },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=12"
   },
   "scripts": {
     "gh-pages": "npm run site && gh-pages -d site",
