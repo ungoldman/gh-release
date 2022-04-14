@@ -6,6 +6,16 @@ Project versioning adheres to [Semantic Versioning](http://semver.org/).
 Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
 Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## [6.0.4](https://github.com/ungoldman/gh-release/compare/v6.0.2...v6.0.3) - 2022-03-15
+
+### Changed
+
+- pkg(engines): set min node to 12
+- deps: gauge@^v4.0.4 (#169)
+
+### Misc
+- minor (cosmetic) doc updates
+
 ## [6.0.3](https://github.com/ungoldman/gh-release/compare/v6.0.2...v6.0.3) - 2022-03-15
 
 ### Changed
