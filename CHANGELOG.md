@@ -6,7 +6,7 @@ Project versioning adheres to [Semantic Versioning](http://semver.org/).
 Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
 Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
-## [6.0.4](https://github.com/ungoldman/gh-release/compare/v6.0.2...v6.0.3) - 2022-03-15
+## [6.0.4](https://github.com/ungoldman/gh-release/compare/v6.0.3...v6.0.4) - 2022-04-14
 
 ### Changed
 
