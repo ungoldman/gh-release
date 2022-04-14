@@ -42,6 +42,7 @@
     "sitedown": "^5.0.0",
     "snazzy": "^9.0.0",
     "standard": "^16.0.2",
+    "tap-arc": "^0.3.4",
     "tape": "^5.0.1",
     "tmp": "v0.2.1"
   },
@@ -78,7 +79,7 @@
     "site:clean": "rm -rf site",
     "site:html": "sitedown -b site -l docs/layout.html",
     "site:img": "cp *.png site/",
-    "start": "npm-run-all site --parallel serve:*",
-    "test": "tape test/*.js"
+    "start": "run-s site serve",
+    "test": "tape test/*.js | tap-arc"
   }
 }
