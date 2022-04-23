@@ -66,8 +66,8 @@ function getDefaults (workPath, isEnterprise, callback) {
     callback(null, {
       body: log.body,
       assets: false,
-      owner: owner,
-      repo: repo,
+      owner,
+      repo,
       dryRun: false,
       yes: false,
       endpoint: 'https://api.github.com',

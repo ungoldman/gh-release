@@ -119,7 +119,7 @@ function _Release (options, emitter, callback) {
 
         const assetOptions = {
           url: results.data.upload_url,
-          assets: assets
+          assets
         }
 
         if (options.auth.token) {
@@ -190,8 +190,8 @@ function validate (options) {
   Object.keys(OPTIONS.valid).forEach(validateInput)
 
   return {
-    invalid: invalid,
-    missing: missing
+    invalid,
+    missing
   }
 }
 

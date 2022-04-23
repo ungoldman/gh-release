@@ -16,7 +16,7 @@ const argv = yargs.argv
 
 // notify of update if needed
 
-updateNotifier({ pkg: pkg }).notify()
+updateNotifier({ pkg }).notify()
 
 // check dir
 
