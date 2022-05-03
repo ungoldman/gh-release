@@ -34,11 +34,11 @@
     "yargs": "^17.0.0"
   },
   "devDependencies": {
+    "@ungoldman/serve": "^14.1.0",
     "gh-pages": "^3.1.0",
     "git-pull-or-clone": "^2.0.1",
     "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2",
-    "serve": "^13.0.2",
     "sitedown": "^5.0.0",
     "snazzy": "^9.0.0",
     "standard": "^17.0.0",
