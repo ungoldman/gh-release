@@ -2,7 +2,7 @@
   "name": "gh-release",
   "description": "Create a release for a node package on github.",
   "version": "6.0.4",
-  "author": "Nate Goldman <ungoldman@gmail.com> (http://ungoldman.com/)",
+  "author": "Nate Goldman <ungoldman@gmail.com> (https://ungoldman.com)",
   "bin": {
     "gh-release": "./bin/cli.js"
   },
