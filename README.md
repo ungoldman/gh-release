@@ -4,7 +4,7 @@
 
 # gh-release
 
-Create a release for a node package on GitHub.
+Create a GitHub Release for a Node package.
 
 [![npm][npm-image]][npm-url]
 [![build][build-image]][build-url]

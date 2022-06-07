@@ -1,6 +1,6 @@
 {
   "name": "gh-release",
-  "description": "Create a release for a node package on github.",
+  "description": "Create a GitHub Release for a Node package",
   "version": "6.0.4",
   "author": "Nate Goldman <ungoldman@gmail.com> (https://ungoldman.com)",
   "bin": {
