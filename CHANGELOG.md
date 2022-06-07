@@ -6,6 +6,11 @@ Project versioning adheres to [Semantic Versioning](http://semver.org/).
 Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
 Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## Unreleased
+
+### Misc
+- removed npm scripts, dev dependencies, and source files related to deprecated doc site
+
 ## [6.0.4](https://github.com/ungoldman/gh-release/compare/v6.0.3...v6.0.4) - 2022-04-14
 
 ### Changed

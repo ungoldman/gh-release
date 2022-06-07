@@ -34,12 +34,9 @@
     "yargs": "^17.0.0"
   },
   "devDependencies": {
-    "gh-pages": "^4.0.0",
     "git-pull-or-clone": "^2.0.1",
     "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2",
-    "serve": "^13.0.2",
-    "sitedown": "^5.0.0",
     "snazzy": "^9.0.0",
     "standard": "^17.0.0",
     "tap-arc": "^0.3.4",
@@ -69,17 +66,8 @@
     "node": ">=12"
   },
   "scripts": {
-    "gh-pages": "npm run site && gh-pages -d site",
     "pretest": "standard | snazzy",
     "release": "./bin/cli.js && npm publish",
-    "serve": "run-p serve:*",
-    "serve:site": "serve site",
-    "serve:watch": "npm run site:html -- -w",
-    "site": "run-s site:*",
-    "site:clean": "rm -rf site",
-    "site:html": "sitedown -b site -l docs/layout.html",
-    "site:img": "cp *.png site/",
-    "start": "run-s site serve",
     "test": "tape test/*.js | tap-arc"
   }
 }
