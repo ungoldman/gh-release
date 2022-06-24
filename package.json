@@ -30,7 +30,7 @@
     "github-url-to-object": "^4.0.4",
     "inquirer": "^8.0.0",
     "shelljs": "^0.8.4",
-    "update-notifier": "^5.0.0",
+    "update-notifier": "^6.0.1",
     "yargs": "^17.0.0"
   },
   "devDependencies": {
