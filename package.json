@@ -21,7 +21,7 @@
     "Ted Janeczko <tjaneczko@brightcove.com>"
   ],
   "dependencies": {
-    "@octokit/rest": "^18.0.9",
+    "@octokit/rest": "^19.0.3",
     "changelog-parser": "^2.0.0",
     "deep-extend": "^0.6.0",
     "gauge": "^v4.0.4",
