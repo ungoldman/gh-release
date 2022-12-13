@@ -2,14 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
-Project versioning adheres to [Semantic Versioning](http://semver.org/).
-Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
-Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
+- Project versioning adheres to [Semantic Versioning](http://semver.org).
+- Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
+- Change log format is based on [Keep a Changelog](http://keepachangelog.com).
 
-## Unreleased
+## [7.0.0](https://github.com/ungoldman/gh-release/compare/v6.0.4...v7.0.0) - 2022-12-13
+
+### Breaking
+- drop support for Node 12 (EOL)
 
 ### Misc
-- removed npm scripts, dev dependencies, and source files related to deprecated doc site
+- add Node 18 to test matrix
+- deps: @octokit/rest@^19.0.5
+- deps: gauge@^5.0.0
+- remove npm scripts, dev dependencies, and source files related to deprecated doc site
 
 ## [6.0.4](https://github.com/ungoldman/gh-release/compare/v6.0.3...v6.0.4) - 2022-04-14
 
