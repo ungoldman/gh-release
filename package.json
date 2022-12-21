@@ -22,7 +22,7 @@
   ],
   "dependencies": {
     "@octokit/rest": "^19.0.5",
-    "changelog-parser": "^2.0.0",
+    "changelog-parser": "^3.0.0",
     "deep-extend": "^0.6.0",
     "gauge": "^v5.0.0",
     "gh-release-assets": "^2.0.0",
