@@ -6,6 +6,11 @@ All notable changes to this project will be documented in this file.
 - Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
 - Change log format is based on [Keep a Changelog](http://keepachangelog.com).
 
+## [7.0.1](https://github.com/ungoldman/gh-release/compare/v7.0.0...v7.0.1) - 2022-12-23
+
+### Fixes
+- fix(pkg): update minimum supported node version to 14
+
 ## [7.0.0](https://github.com/ungoldman/gh-release/compare/v6.0.4...v7.0.0) - 2022-12-13
 
 ### Breaking
