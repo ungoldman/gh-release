@@ -43,6 +43,9 @@
     "tape": "^5.0.1",
     "tmp": "v0.2.1"
   },
+  "engines": {
+    "node": ">=14"
+  },
   "files": [
     "bin/",
     "lib/",
@@ -61,9 +64,6 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ungoldman/gh-release.git"
-  },
-  "engines": {
-    "node": ">=14"
   },
   "scripts": {
     "pretest": "standard | snazzy",
