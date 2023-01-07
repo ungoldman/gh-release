@@ -2,7 +2,11 @@
 
 ## Code of Conduct
 
-This project is intended to be a safe, welcoming space for collaboration. All contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct. Thank you for being kind to each other!
+This project is intended to be a safe, welcoming space for collaboration.
+
+All contributors are expected to adhere to the [Contributor Covenant](https://contributor-covenant.org) code of conduct.
+
+Thank you for being kind to each other!
 
 ## Contributions welcome!
 
@@ -18,20 +22,7 @@ This project welcomes any kind of contribution! Here are a few suggestions:
 - **Formatting**: help keep content easy to read with consistent formatting.
 - **Code**: help maintain and improve the project codebase.
 
-## Code Style
-
-[![standard][standard-image]][standard-url]
-
-This repository uses [`standard`][standard-url] to maintain code style and consistency, and to avoid style arguments.
-
-[standard-image]: https://cdn.rawgit.com/feross/standard/master/badge.svg
-[standard-url]: https://github.com/feross/standard
-[semistandard-image]: https://cdn.rawgit.com/flet/semistandard/master/badge.svg
-[semistandard-url]: https://github.com/Flet/semistandard
-
 ## Project Governance
-
-**This is an [OPEN Open Source Project](http://openopensource.org/).**
 
 Individuals making significant and valuable contributions are given commit access to the project to contribute as they see fit. This project is more like an open wiki than a standard guarded open source project.
 
@@ -48,7 +39,3 @@ There are a few basic ground rules for collaborators:
 ### Releases
 
 Declaring formal releases remains the prerogative of the project maintainer.
-
-### Changes to this arrangement
-
-This is an experiment and feedback is welcome! This document may also be subject to pull requests or changes by contributors where you believe you have something valuable to add or change.
