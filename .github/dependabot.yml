@@ -10,6 +10,8 @@ updates:
     # Check the npm registry for updates every day (weekdays)
     schedule:
       interval: "daily"
+    versioning-strategy: "increase"
+
   # Enable updates to github actions
   - package-ecosystem: "github-actions"
     directory: "/"
