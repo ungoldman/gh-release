@@ -5,6 +5,7 @@ const ghReleaseAssets = require('gh-release-assets')
 const getDefaults = require('./bin/lib/get-defaults')
 const Emitter = require('events').EventEmitter
 const { Octokit } = require('@octokit/rest')
+const { fetch: undiciFetch, EnvHttpProxyAgent } = require('undici')
 
 const clientId = '04dac3c40b7e49b11f38'
 
@@ -24,6 +25,7 @@ const OPTIONS = {
     yes: false,
     draft: false,
     endpoint: 'https://api.github.com',
+    proxy: false,
     prerelease: false,
     workpath: process.cwd()
   },
@@ -39,6 +41,7 @@ const OPTIONS = {
     'yes',
     'draft',
     'endpoint',
+    'proxy',
     'prerelease',
     'workpath',
     'assets'
@@ -83,10 +86,27 @@ function _Release (options, emitter, callback) {
   // err if auth info not provided (token or user/pass)
   if (!getToken(options)) return callback(new Error('missing auth info'))
 
-  const octokit = new Octokit({
+  const octokitOptions = {
     auth: getToken(options),
     baseUrl: options.endpoint
-  })
+  }
+
+  if (options.proxy) {
+    const proxyFetch = (url, requestInit) => {
+      return undiciFetch(url, {
+        ...requestInit,
+        dispatcher: new EnvHttpProxyAgent({
+          keepAliveTimeout: 10,
+          keepAliveMaxTimeout: 10
+        })
+      })
+    }
+    octokitOptions.request = {
+      fetch: proxyFetch
+    }
+  }
+
+  const octokit = new Octokit(octokitOptions)
 
   octokit.repos.getCommit({
     owner: options.owner,
