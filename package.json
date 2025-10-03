@@ -31,7 +31,7 @@
     "inquirer": "^8.2.6",
     "shelljs": "^0.10.0",
     "update-notifier": "^5.1.0",
-    "yargs": "^17.7.2"
+    "yargs": "^18.0.0"
   },
   "devDependencies": {
     "git-pull-or-clone": "^2.0.2",
