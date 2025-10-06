@@ -60,6 +60,11 @@ module.exports = require('yargs')
       default: 'https://api.github.com',
       describe: 'GitHub API endpoint URL'
     },
+    proxy: {
+      type: 'boolean',
+      default: false,
+      description: 'Use a proxy, uses your environment variables'
+    },
     a: {
       alias: 'assets',
       type: 'string',

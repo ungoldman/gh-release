@@ -83,13 +83,14 @@ Options:
   -b, --body              text of release body
   -o, --owner             repo owner
   -r, --repo              repo name
-  -d, --draft             publish as draft                          [default: false]
-  -p, --prerelease        publish as prerelease                     [default: false]
-  -w, --workpath          path to working directory                 [default: current directory]
-  -e, --endpoint          GitHub API endpoint URL                   [default: "https://api.github.com"]
-  -a, --assets            comma-delimited list of assets to upload  [default: false]
-  --dry-run               dry run (stops before release step)       [default: false]
-  -y, --yes               bypass confirmation prompt for release    [default: false]
+  -d, --draft             publish as draft                            [default: false]
+  -p, --prerelease        publish as prerelease                       [default: false]
+  -w, --workpath          path to working directory                   [default: current directory]
+  -e, --endpoint          GitHub API endpoint URL                     [default: "https://api.github.com"]
+  --proxy                 Use a proxy with your environment variables [default: false]
+  -a, --assets            comma-delimited list of assets to upload    [default: false]
+  --dry-run               dry run (stops before release step)         [default: false]
+  -y, --yes               bypass confirmation prompt for release      [default: false]
   -h, --help              Show help
   -v, --version           Show version number
 ```
@@ -109,7 +110,8 @@ var options = {
   prerelease: false,
   repo: 'gh-release',
   owner: 'ungoldman',
-  endpoint: 'https://api.github.com' // for GitHub enterprise, use http(s)://hostname/api/v3
+  endpoint: 'https://api.github.com', // for GitHub enterprise, use http(s)://hostname/api/v3
+  proxy: true // true will use environment variables
 }
 
 // options can also be just an empty object
@@ -152,6 +154,10 @@ All default values taken from `package.json` unless specified otherwise.
 | `endpoint` | GitHub API endpoint URL | https://api.github.com |
 
 Override defaults with flags (CLI) or the `options` object (node).
+
+## Proxy
+
+If this option is specified, a proxied fetch client will be created using the `EnvHttpProxyAgent` class from [undici](https://github.com/nodejs/undici). This class will make use of your environment variables (for instance `http_proxy`) when making the fetch call. More information about this class and how it functions can be found [here](https://undici.nodejs.org/#/docs/api/EnvHttpProxyAgent.md).
 
 ## Standards
 
