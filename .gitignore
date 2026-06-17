@@ -1,5 +1,4 @@
 node_modules
+dist
+coverage
 *.log
-site
-yarn.lock
-package-lock.json
