@@ -1,7 +1,7 @@
 {
   "name": "gh-release",
   "description": "Create a GitHub Release for a Node package",
-  "version": "8.0.0",
+  "version": "8.1.0",
   "author": "Nate Goldman <ungoldman@gmail.com> (https://ungoldman.com)",
   "bin": {
     "gh-release": "./dist/bin.js"
