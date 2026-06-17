@@ -72,7 +72,15 @@ test('errors when the target commitish is not found', async () => {
   })
 })
 
-test('passes through a non-404 getCommit error', async () => {
+test('treats a 422 from getCommit as a missing commitish', async () => {
+  // GitHub returns 422 (not 404) for a ref/SHA that does not resolve
+  await withServer({ getCommit: { status: 422 } }, async (url) => {
+    const { err } = await release(baseOptions(url))
+    assert.equal(err?.message, 'Target commitish main not found in o/r')
+  })
+})
+
+test('passes through any other getCommit error', async () => {
   await withServer({ getCommit: { status: 500, body: { message: 'boom' } } }, async (url) => {
     const { err } = await release(baseOptions(url))
     assert.equal((err as { status?: number }).status, 500)
