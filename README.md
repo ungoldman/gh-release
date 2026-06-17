@@ -68,7 +68,7 @@ body:
 * test: testing latest CLI output
 * deps: gh-release@8
 
-? publish release to github? yes
+publish release to github? (Y/n)
 https://github.com/ungoldman/gh-release-test/releases/tag/v1.0.9
 ```
 
