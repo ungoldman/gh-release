@@ -1,4 +1,4 @@
-<div class="hero" align="center">
+<div align="center">
 
 <img src="./rocket.png" width="120" height="120" alt="rocket">
 
@@ -20,24 +20,41 @@ Create a GitHub Release for a Node package.
 
 ## Features
 
-- Uses the [Github Releases API](https://developer.github.com/v3/repos/releases/) to create a new GitHub release.
-- Defaults to using information from `package.json` and `CHANGELOG.md`.
-- Supports uploading release assets.
+- Creates a GitHub release via the [Releases API](https://docs.github.com/en/rest/releases/releases).
+- Defaults to information from `package.json` and `CHANGELOG.md`.
+- Uploads release assets.
+- Works as a CLI tool or programmatically.
 
 ## Install
 
 ```
-$ npm install gh-release
+npm install gh-release
 ```
 
 ## Usage
+
+This package is ESM-only and ships TypeScript types. It requires Node 22.12 or newer.
+
+Run it at the root of the project to be released. It expects a `package.json` and a `CHANGELOG.md` in the working directory, and prints the release URL to `stdout` on success.
+
+### Authentication
+
+Authentication is token-only. gh-release resolves a GitHub token in this order:
+
+1. the `--token` flag,
+2. the `GH_RELEASE_GITHUB_API_TOKEN` environment variable,
+3. the `GITHUB_TOKEN` environment variable.
+
+If none is set it exits with an error. The token needs the `repo` scope. A convenient way to provide one locally:
+
+```
+export GH_RELEASE_GITHUB_API_TOKEN=$(gh auth token)
+```
 
 ### Command-line interface
 
 ```console
 $ gh-release
-Your GitHub username: ungoldman
-Your GitHub password: ✔✔✔✔✔✔✔✔
 
 creating release v1.0.9 for ungoldman/gh-release-test
 
@@ -49,94 +66,76 @@ body:
 
 ### Maintenance
 * test: testing latest CLI output
-* deps: gh-release@6
-* pkg: set package to private
-* pkg: update repo URLS
-* misc: ignore package-lock.json
+* deps: gh-release@8
 
-? publish release to github? Yes
+? publish release to github? yes
 https://github.com/ungoldman/gh-release-test/releases/tag/v1.0.9
 ```
 
-Should be run at the root of the project to be released.
-
-Expects a `package.json` and `CHANGELOG.md` in the working directory.
-
-Prints release URL to `stdout` on success.
-
-Uses [`ghauth`](https://github.com/rvagg/ghauth) for authentication with Github. A Github API OAuth token is saved to the `gh-release` config directory after the first time authenticating. Note that the config directory is determined by [`application-config`](https://github.com/LinusU/node-application-config) and is OS-specific. gh-release will alternatively use the token specified in the `GH_RELEASE_GITHUB_API_TOKEN` environment variable if it exists. This allows it to be used in continuous deployment systems, which can inject different GitHub API tokens depending on the location of the project.
-
-Get usage info by running with `--help` or `-h`.
+Get usage info with `--help` or `-h`:
 
 ```console
 $ gh-release --help
 Usage: gh-release [options]
 
-Examples:
-  gh-release -n v2.0.3 -c master -d    create a draft release with title v2.0.3 tagged at HEAD of master
-
+Create a GitHub Release for a Node package.
 
 Options:
-  -t, --tag_name          tag for this release
-  -c, --target_commitish  commitish value for tag
-  -n, --name              text of release title
-  -b, --body              text of release body
-  -o, --owner             repo owner
-  -r, --repo              repo name
-  -d, --draft             publish as draft                          [default: false]
-  -p, --prerelease        publish as prerelease                     [default: false]
-  -w, --workpath          path to working directory                 [default: current directory]
-  -e, --endpoint          GitHub API endpoint URL                   [default: "https://api.github.com"]
-  -a, --assets            comma-delimited list of assets to upload  [default: false]
-  --dry-run               dry run (stops before release step)       [default: false]
-  -y, --yes               bypass confirmation prompt for release    [default: false]
-  -h, --help              Show help
-  -v, --version           Show version number
+  -t, --tag_name <tag>          tag for this release
+  -c, --target_commitish <ref>  commitish value for tag
+  -n, --name <name>             text of release title
+  -b, --body <body>             text of release body
+  -o, --owner <owner>           repo owner
+  -r, --repo <repo>             repo name
+  -d, --draft                   publish as draft
+  -p, --prerelease              publish as prerelease
+  -w, --workpath <path>         path to working directory
+  -e, --endpoint <url>          GitHub API endpoint URL
+  -a, --assets <list>           comma-delimited list of assets to upload
+      --dry-run                 dry run (stops before release step)
+      --token <token>           GitHub token (defaults to $GH_RELEASE_GITHUB_API_TOKEN or $GITHUB_TOKEN)
+  -y, --yes                     bypass confirmation prompt for release
+  -h, --help                    show help
+  -v, --version                 show version number
 ```
 
 ### Node API
 
-```js
-var ghRelease = require('gh-release')
+Import the named `ghRelease` export. The default export remains available for backwards compatibility.
 
-// all options have defaults and can be omitted
-var options = {
+```js
+import { ghRelease } from 'gh-release'
+// backwards-compatible alternative: import ghRelease from 'gh-release'
+
+// all options except auth have defaults and can be omitted
+const options = {
   tag_name: 'v1.0.0',
-  target_commitish: 'master',
+  target_commitish: 'main',
   name: 'v1.0.0',
   body: '* init\n',
   draft: false,
   prerelease: false,
   repo: 'gh-release',
   owner: 'ungoldman',
-  endpoint: 'https://api.github.com' // for GitHub enterprise, use http(s)://hostname/api/v3
+  endpoint: 'https://api.github.com', // for GitHub Enterprise, use http(s)://hostname/api/v3
+  // auth is required and must be a token
+  auth: { token: process.env.GH_RELEASE_GITHUB_API_TOKEN }
 }
 
-// options can also be just an empty object
-var options = {}
-
-// auth is required
-// it can be an API token...
-options.auth = {
-  token: 'XXXXXXXX'
-}
-
-// or it can either be a username & password
-// (But only for GitHub Enterprise when endpoint is set)
-options.auth = {
-  username: 'ungoldman',
-  password: 'XXXXXXXX'
-}
-
-ghRelease(options, function (err, result) {
+const release = ghRelease(options, (err, result) => {
   if (err) throw err
-  console.log(result) // create release response: https://developer.github.com/v3/repos/releases/#response-4
+  console.log(result.html_url)
 })
+
+// when uploading assets, the returned EventEmitter relays progress
+release.on('upload-asset', (name) => {})
+release.on('upload-progress', (name, progress) => {})
+release.on('uploaded-asset', (name) => {})
 ```
 
 ## Defaults
 
-All default values taken from `package.json` unless specified otherwise.
+All default values are taken from `package.json` unless specified otherwise.
 
 | name | description | default |
 | ---: | ----------- | ------- |
@@ -151,7 +150,7 @@ All default values taken from `package.json` unless specified otherwise.
 | `assets` | release assets to upload | false |
 | `endpoint` | GitHub API endpoint URL | https://api.github.com |
 
-Override defaults with flags (CLI) or the `options` object (node).
+Override defaults with flags (CLI) or the `options` object (Node).
 
 ## Standards
 
@@ -162,19 +161,9 @@ Override defaults with flags (CLI) or the `options` object (node).
 
 All [releases](https://github.com/ungoldman/gh-release/releases) of `gh-release` were created with `gh-release`.
 
-## Config location
-
-Platform | Location
---- | ---
-OS X | `~/Library/Application Support/gh-release/config.json`
-Linux (XDG) | `$XDG_CONFIG_HOME/gh-release/config.json`
-Linux (Legacy) | `~/.config/gh-release/config.json`
-Windows (> Vista) | `%LOCALAPPDATA%/gh-release/config.json`
-Windows (XP, 2000) | `%USERPROFILE%/Local Settings/Application Data/gh-release/config.json`
-
 ## Motivation
 
-There are packages that already do something like this, and they're great, but I want something that does this one thing really well and nothing else, leans heavily on standards in `package.json` and `CHANGELOG.md`, and can work both as a CLI tool and programmatically in node.
+There are packages that already do something like this, and they're great, but I want something that does this one thing really well and nothing else, leans heavily on standards in `package.json` and `CHANGELOG.md`, and works both as a CLI tool and programmatically in Node.
 
 ## Contributing
 
@@ -192,12 +181,12 @@ Please read the [change log](CHANGELOG.md) for a human-readable history of chang
 
 ## Tests
 
-`gh-release` uses [`standard`](https://standardjs.com) and [`tape`](https://github.com/substack/tape) for testing. You can run all tests with `npm test`.
+`gh-release` uses [Biome](https://biomejs.dev) for linting and formatting and Node's built-in test runner. Run everything with `npm test`, and check coverage with `npm run coverage`.
 
 ## See also
 
 - [gh-release-assets](https://github.com/ungoldman/gh-release-assets)
-- [maintenance-modules](https://github.com/maxogden/maintenance-modules)
+- [changelog-parser](https://github.com/ungoldman/changelog-parser)
 
 ## License
 
