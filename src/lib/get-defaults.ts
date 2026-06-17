@@ -27,7 +27,11 @@ function readJson(filePath: string): Record<string, unknown> {
 /** Current HEAD commit, or `master` when not in a git repo. */
 export function getTargetCommitish(): string {
   try {
-    return execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).split('\n')[0]
+    // ignore stderr so git's own "fatal: not a git repository" is not surfaced before the fallback
+    return execFileSync('git', ['rev-parse', 'HEAD'], {
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore']
+    }).split('\n')[0]
   } catch {
     return 'master'
   }
