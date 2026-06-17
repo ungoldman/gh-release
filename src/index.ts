@@ -58,6 +58,9 @@ const OPTIONS: OptionsSpec = {
   }
 }
 
+/** Shared no-op used to silence Octokit's logger. */
+const noop = (): void => {}
+
 /** Report any required options that are missing. */
 function validate(options: ReleaseOptions): { missing: string[] } {
   const opts = options as Record<string, unknown>
@@ -103,7 +106,12 @@ async function runRelease(
   const token = (options.auth as Auth).token
   if (!token) return callback(new Error('missing auth info'))
 
-  const octokit = new Octokit({ auth: token, baseUrl: options.endpoint })
+  const octokit = new Octokit({
+    auth: token,
+    baseUrl: options.endpoint,
+    // gh-release surfaces errors via the callback; silence Octokit's own request logging
+    log: { debug: noop, info: noop, warn: noop, error: noop }
+  })
   const owner = options.owner as string
   const repo = options.repo as string
 
@@ -111,7 +119,8 @@ async function runRelease(
     await octokit.repos.getCommit({ owner, repo, ref: options.target_commitish as string })
   } catch (err) {
     const e = err as HttpError
-    if (e.status === 404) {
+    // GitHub returns 404 when the repo is unreachable and 422 for a ref/SHA that does not resolve
+    if (e.status === 404 || e.status === 422) {
       return callback(
         new Error(`Target commitish ${options.target_commitish} not found in ${owner}/${repo}`)
       )
