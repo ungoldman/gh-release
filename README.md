@@ -35,7 +35,7 @@ npm install gh-release
 
 This package is ESM-only and ships TypeScript types. It requires Node 22.12 or newer.
 
-Run it at the root of the project to be released. It expects a `package.json` and a `CHANGELOG.md` in the working directory, and prints the release URL to `stdout` on success.
+Run it at the root of the project to be released. It expects a `package.json` (and optionally a `CHANGELOG.md`) in the working directory, and prints the release URL to `stdout` on success.
 
 ### Authentication
 
@@ -45,7 +45,7 @@ Authentication is token-only. gh-release resolves a GitHub token in this order:
 2. the `GH_RELEASE_GITHUB_API_TOKEN` environment variable,
 3. the `GITHUB_TOKEN` environment variable.
 
-If none is set it exits with an error. The token needs the `repo` scope. A convenient way to provide one locally:
+If none is set it exits with an error. The token needs the `repo` scope. If you use the [GitHub CLI](https://cli.github.com) (`gh`), its `gh auth token` command prints a token for the account you are signed in as, which is a convenient way to provide one locally:
 
 ```
 export GH_RELEASE_GITHUB_API_TOKEN=$(gh auth token)
@@ -93,6 +93,7 @@ Options:
   -e, --endpoint <url>          GitHub API endpoint URL
   -a, --assets <list>           comma-delimited list of assets to upload
       --dry-run                 dry run (stops before release step)
+      --generate-notes          let GitHub generate the release notes
       --token <token>           GitHub token (defaults to $GH_RELEASE_GITHUB_API_TOKEN or $GITHUB_TOKEN)
   -y, --yes                     bypass confirmation prompt for release
   -h, --help                    show help
@@ -142,7 +143,7 @@ All default values are taken from `package.json` unless specified otherwise.
 | `tag_name` | release tag | 'v' + `version` |
 | `target_commitish` | commitish value to tag | HEAD of current branch |
 | `name` | release title | 'v' + `version` |
-| `body` | release text | `CHANGELOG.md` section matching `version` |
+| `body` | release text | `CHANGELOG.md` section matching `version` (empty if no changelog) |
 | `owner` | repo owner | repo owner in `repository` |
 | `repo` | repo name | repo name in `repository` |
 | `draft` | publish as draft | false |
@@ -152,14 +153,19 @@ All default values are taken from `package.json` unless specified otherwise.
 
 Override defaults with flags (CLI) or the `options` object (Node).
 
+`CHANGELOG.md` is optional. Without it, gh-release tags from the `package.json` version with an empty body. When it is present, the matching section is used, and that section may itself be empty. Either way the CLI prints a warning when the body ends up empty.
+
+To fill the body without a changelog, pass `--generate-notes` (CLI) or set `generate_release_notes: true` (Node). This enables GitHub's [automatically generated release notes](https://docs.github.com/en/repositories/releasing-projects-on-github/automatically-generated-release-notes), which GitHub builds server-side from the merged pull requests and commits since the previous release. The option name matches the [GitHub API field](https://docs.github.com/en/rest/releases/releases#create-a-release) it sets.
+
 ## Standards
 
-* `CHANGELOG.md`: http://keepachangelog.com
+* `CHANGELOG.md`: any changelog format recognized by [changelog-parser](https://github.com/ungoldman/changelog-parser#supported-formats):
+  * [Keep a Changelog](https://keepachangelog.com/)
+  * [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog)
+  * [Release Please](https://github.com/googleapis/release-please)
+  * [Standard Version](https://github.com/conventional-changelog/standard-version)
+  * [auto-changelog](https://github.com/CookPete/auto-changelog)
 * `package.json`: https://docs.npmjs.com/files/package.json
-
-## Example
-
-All [releases](https://github.com/ungoldman/gh-release/releases) of `gh-release` were created with `gh-release`.
 
 ## Motivation
 
@@ -168,12 +174,6 @@ There are packages that already do something like this, and they're great, but I
 ## Contributing
 
 Contributions welcome! Please read the [contributing guidelines](CONTRIBUTING.md) first.
-
-**⚠️ Important Note ⚠️**
-
-This library abides by the well-established and widely adopted changelog conventions set forth in http://keepachangelog.com.
-
-Any other conventions (autochangelog, standard-version, etc.) are not currently supported, and support will likely not be added for them in the future. This library is several years old and well into maintenance mode.
 
 ## History
 
