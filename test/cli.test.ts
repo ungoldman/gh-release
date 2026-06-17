@@ -3,7 +3,7 @@ import { mkdtempSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { test } from 'node:test'
-import { type CliDeps, run } from '../src/cli.js'
+import { type CliDeps, isConfirmed, run } from '../src/cli.js'
 import Release from '../src/index.js'
 import { type MockConfig, startMockServer } from './helpers/mock-server.js'
 
@@ -50,6 +50,11 @@ function makeWorkdir(): string {
   writeFileSync(join(dir, 'CHANGELOG.md'), '## 1.0.0\n- a change\n')
   return dir
 }
+
+test('isConfirmed defaults to yes, declining only on an explicit no', () => {
+  for (const yes of ['', 'y', 'Y', 'yes', 'YES', 'sure']) assert.equal(isConfirmed(yes), true)
+  for (const no of ['n', 'N', 'no', 'NO', '  no  ']) assert.equal(isConfirmed(no), false)
+})
 
 test('--help prints usage and exits 0', async () => {
   const { deps, out, exits } = makeDeps()

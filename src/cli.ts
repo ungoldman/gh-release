@@ -22,6 +22,11 @@ function resolveToken(token: string | undefined, env: NodeJS.ProcessEnv): string
   return token ?? env.GH_RELEASE_GITHUB_API_TOKEN ?? env.GITHUB_TOKEN
 }
 
+/** Interpret a confirmation answer with a default of yes: only an explicit `n`/`no` declines. */
+export function isConfirmed(answer: string): boolean {
+  return !/^n(o)?$/i.test(answer.trim())
+}
+
 /** Run the CLI. Resolves once the release completes (or the process is told to exit). */
 export async function run(argv: string[], deps: CliDeps): Promise<void> {
   let values: ReturnType<typeof parseCliArgs>

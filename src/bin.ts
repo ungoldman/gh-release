@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { stdin, stdout } from 'node:process'
 import { createInterface } from 'node:readline/promises'
-import { type CliDeps, run } from './cli.js'
+import { type CliDeps, isConfirmed, run } from './cli.js'
 import Release from './index.js'
 
 const deps: CliDeps = {
@@ -12,9 +12,9 @@ const deps: CliDeps = {
   progress: (line) => process.stderr.write(`${process.stderr.isTTY ? '\r' : ''}${line}`),
   confirm: async (question) => {
     const rl = createInterface({ input: stdin, output: stdout })
-    const answer = await rl.question(`${question} `)
+    const answer = await rl.question(`${question} (Y/n) `)
     rl.close()
-    return /^y(es)?$/i.test(answer.trim())
+    return isConfirmed(answer)
   },
   exit: (code) => process.exit(code),
   release: Release
