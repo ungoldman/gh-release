@@ -82,6 +82,7 @@ Create a GitHub Release for a Node package.
 
 Options:
   -t, --tag_name <tag>          tag for this release
+      --tag-prefix <prefix>     prefix for the derived tag and title (default "v")
   -c, --target_commitish <ref>  commitish value for tag
   -n, --name <name>             text of release title
   -b, --body <body>             text of release body
@@ -140,9 +141,9 @@ All default values are taken from `package.json` unless specified otherwise.
 
 | name | description | default |
 | ---: | ----------- | ------- |
-| `tag_name` | release tag | 'v' + `version` |
+| `tag_name` | release tag | tag prefix + `version` |
 | `target_commitish` | commitish value to tag | HEAD of current branch |
-| `name` | release title | 'v' + `version` |
+| `name` | release title | tag prefix + `version` |
 | `body` | release text | `CHANGELOG.md` section matching `version` (empty if no changelog) |
 | `owner` | repo owner | repo owner in `repository` |
 | `repo` | repo name | repo name in `repository` |
@@ -152,6 +153,15 @@ All default values are taken from `package.json` unless specified otherwise.
 | `endpoint` | GitHub API endpoint URL | https://api.github.com |
 
 Override defaults with flags (CLI) or the `options` object (Node).
+
+The tag and title are the `version` prefixed with `v`. Change the prefix with `--tag-prefix <prefix>` (CLI) or `tagPrefix` (Node), and pass an empty string to drop it (so the tag is the bare `version`). Override the tag or title outright with `--tag_name`/`--name`.
+
+```
+gh-release --tag-prefix ''               # 1.2.3 instead of v1.2.3
+gh-release --tag-prefix 'service/env/'   # service/env/1.2.3, for scoped or monorepo tags
+```
+
+Git allows slashes in tag names, so a prefix like `service/env/` produces the tag `service/env/1.2.3`. The title takes the same value, so pair it with `--name` if you want a cleaner one.
 
 `CHANGELOG.md` is optional. Without it, gh-release tags from the `package.json` version with an empty body. When it is present, the matching section is used, and that section may itself be empty. Either way the CLI prints a warning when the body ends up empty.
 
