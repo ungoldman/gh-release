@@ -100,40 +100,22 @@ export async function getDefaults(workPath: string, isEnterprise: boolean): Prom
   }
   const { owner, repo } = repoParts
 
-  const result = await parseChangelog(resolve(workPath, 'CHANGELOG.md'))
-
-  // an 'unreleased' heading is allowed only if it carries no list items
-  const unreleased = result.versions
-    .filter((release) => String(release.title).toLowerCase().includes('unreleased'))
-    .filter((release) => Object.values(release.parsed).flat().length > 0)
-  if (unreleased.length > 0) {
-    throw new Error('Unreleased changes detected in CHANGELOG.md, aborting')
-  }
-
-  const log = result.versions.filter((release) => release.version !== null)[0]
-  if (!log) {
-    throw new Error('CHANGELOG.md does not contain any versions')
-  }
-
+  // the release version comes from lerna.json in a monorepo, otherwise package.json
   const lernaPath = resolve(workPath, 'lerna.json')
-  if (existsSync(lernaPath)) {
-    const lerna = readJson(lernaPath) as { version?: string }
-    if (log.version !== lerna.version) {
-      throw new Error(
-        `CHANGELOG.md out of sync with lerna.json (${log.version} !== ${lerna.version})`
-      )
-    }
-  } else if (log.version !== pkg.version) {
-    throw new Error(
-      `CHANGELOG.md out of sync with package.json (${log.version} !== ${pkg.version})`
-    )
-  }
+  const usingLerna = existsSync(lernaPath)
+  const sourceLabel = usingLerna ? 'lerna.json' : 'package.json'
+  const sourceVersion = (
+    usingLerna ? (readJson(lernaPath) as { version?: string }) : (pkg as { version?: string })
+  ).version
 
-  // log.version was confirmed equal to the package or lerna version above
-  const version = `v${log.version}`
+  const { body, version } = await resolveRelease(
+    resolve(workPath, 'CHANGELOG.md'),
+    sourceVersion,
+    sourceLabel
+  )
 
   return {
-    body: log.body,
+    body,
     assets: false,
     owner,
     repo,
@@ -147,4 +129,50 @@ export async function getDefaults(workPath: string, isEnterprise: boolean): Prom
     tag_name: version,
     name: version
   }
+}
+
+/**
+ * Resolve the release body and tag. When CHANGELOG.md is absent, release from the
+ * source version with an empty body. When present, it must be readable, carry a
+ * recognized version entry, and match the source version.
+ */
+async function resolveRelease(
+  changelogPath: string,
+  sourceVersion: string | undefined,
+  sourceLabel: string
+): Promise<{ body: string; version: string }> {
+  if (!existsSync(changelogPath)) {
+    if (!sourceVersion) {
+      throw new Error(`${sourceLabel} has no version to release`)
+    }
+    return { body: '', version: `v${sourceVersion}` }
+  }
+
+  let result: Awaited<ReturnType<typeof parseChangelog>>
+  try {
+    result = await parseChangelog(changelogPath)
+  } catch (err) {
+    throw new Error(`Could not read CHANGELOG.md: ${(err as Error).message}`, { cause: err })
+  }
+
+  // an 'unreleased' heading is allowed only if it carries no list items
+  const unreleased = result.versions
+    .filter((release) => String(release.title).toLowerCase().includes('unreleased'))
+    .filter((release) => Object.values(release.parsed).flat().length > 0)
+  if (unreleased.length > 0) {
+    throw new Error('Unreleased changes detected in CHANGELOG.md, aborting')
+  }
+
+  const log = result.versions.filter((release) => release.version !== null)[0]
+  if (!log) {
+    throw new Error('CHANGELOG.md has no recognized version entries => https://keepachangelog.com')
+  }
+
+  if (log.version !== sourceVersion) {
+    throw new Error(
+      `CHANGELOG.md out of sync with ${sourceLabel} (${log.version} !== ${sourceVersion})`
+    )
+  }
+
+  return { body: log.body, version: `v${log.version}` }
 }

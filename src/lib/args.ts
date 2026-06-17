@@ -25,6 +25,7 @@ Options:
   -e, --endpoint <url>          GitHub API endpoint URL
   -a, --assets <list>           comma-delimited list of assets to upload
       --dry-run                 dry run (stops before release step)
+      --generate-notes          let GitHub generate the release notes
       --token <token>           GitHub token (defaults to $GH_RELEASE_GITHUB_API_TOKEN or $GITHUB_TOKEN)
   -y, --yes                     bypass confirmation prompt for release
   -h, --help                    show help
@@ -48,6 +49,7 @@ export function parseCliArgs(argv: string[]) {
       endpoint: { type: 'string', short: 'e' },
       assets: { type: 'string', short: 'a' },
       'dry-run': { type: 'boolean' },
+      'generate-notes': { type: 'boolean' },
       token: { type: 'string' },
       yes: { type: 'boolean', short: 'y' },
       help: { type: 'boolean', short: 'h' },

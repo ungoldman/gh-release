@@ -43,8 +43,8 @@ export async function run(argv: string[], deps: CliDeps): Promise<void> {
   }
 
   const workpath = values.workpath ?? deps.cwd
-  if (!existsSync(join(workpath, 'package.json')) || !existsSync(join(workpath, 'CHANGELOG.md'))) {
-    deps.stdout('Must be run in a directory with package.json and CHANGELOG.md')
+  if (!existsSync(join(workpath, 'package.json'))) {
+    deps.stdout('Must be run in a directory with a package.json')
     deps.stdout(usage)
     return deps.exit(1)
   }
@@ -79,7 +79,14 @@ export async function run(argv: string[], deps: CliDeps): Promise<void> {
   if (values.prerelease) options.prerelease = true
   if (values['dry-run']) options.dryRun = true
   if (values.yes) options.yes = true
+  if (values['generate-notes']) options.generate_release_notes = true
   if (values.assets) options.assets = values.assets.split(',').map((asset) => asset.trim())
+
+  if (!existsSync(join(workpath, 'CHANGELOG.md'))) {
+    deps.stderr('warning: no CHANGELOG.md found, releasing from package.json')
+  } else if (!options.body && !options.generate_release_notes) {
+    deps.stderr('warning: the release body is empty')
+  }
 
   preview(options as Record<string, unknown>, deps.stdout)
 

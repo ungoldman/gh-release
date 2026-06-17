@@ -23,6 +23,7 @@ export interface ReleaseOptions {
   name?: string
   draft?: boolean
   prerelease?: boolean
+  generate_release_notes?: boolean
   endpoint?: string
   dryRun?: boolean
   yes?: boolean
@@ -45,7 +46,8 @@ interface HttpError extends Error {
 }
 
 const OPTIONS: OptionsSpec = {
-  required: ['auth', 'owner', 'repo', 'body', 'target_commitish', 'tag_name', 'name'],
+  // `body` is intentionally not required: an empty release body is allowed
+  required: ['auth', 'owner', 'repo', 'target_commitish', 'tag_name', 'name'],
   defaults: {
     dryRun: false,
     yes: false,
@@ -129,7 +131,8 @@ async function runRelease(
       name: options.name,
       body: options.body,
       draft: options.draft,
-      prerelease: options.prerelease
+      prerelease: options.prerelease,
+      generate_release_notes: options.generate_release_notes
     })
   } catch (err) {
     const e = err as HttpError
