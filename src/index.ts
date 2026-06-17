@@ -30,6 +30,8 @@ export interface ReleaseOptions {
   workpath?: string
   assets?: AssetInput[] | false
   cli?: boolean
+  /** Prefix for the derived tag and title (default `v`; `''` for none). */
+  tagPrefix?: string
 }
 
 /** Completion callback. `result` is the GitHub createRelease response data. */
@@ -88,7 +90,7 @@ function Release(options: ReleaseOptions, callback: ReleaseCallback): EventEmitt
 
   const workpath = options.workpath ?? (OPTIONS.defaults.workpath as string)
   const isEnterprise = !!options.endpoint && options.endpoint !== OPTIONS.defaults.endpoint
-  getDefaults(workpath, isEnterprise)
+  getDefaults(workpath, isEnterprise, options.tagPrefix)
     .then((defaults) => runRelease({ ...defaults, ...options }, emitter, callback))
     .catch((err: Error) => callback(err))
 
