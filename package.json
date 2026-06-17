@@ -22,7 +22,7 @@
   ],
   "dependencies": {
     "@octokit/rest": "^22.0.1",
-    "changelog-parser": "^4.0.0",
+    "changelog-parser": "^4.1.0",
     "gh-release-assets": "^3.0.0"
   },
   "devDependencies": {
