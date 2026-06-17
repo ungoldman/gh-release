@@ -6,6 +6,13 @@ All notable changes to this project will be documented in this file.
 - Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
 - Change log format is based on [Keep a Changelog](http://keepachangelog.com).
 
+## [8.1.0](https://github.com/ungoldman/gh-release/compare/v8.0.0...v8.1.0) (2026-06-17)
+
+
+### Features
+
+* add --tag-prefix option ([#224](https://github.com/ungoldman/gh-release/issues/224)) ([380851c](https://github.com/ungoldman/gh-release/commit/380851c2b072606fed90c4554b554b695ef03f35))
+
 ## [8.0.0](https://github.com/ungoldman/gh-release/compare/v7.0.2...v8.0.0) (2026-06-17)
 
 
