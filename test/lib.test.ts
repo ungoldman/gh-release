@@ -210,6 +210,13 @@ test('rejects a non-empty unreleased section', async () => {
   await assert.rejects(getDefaults(fixture('unreleased'), false), /Unreleased changes detected/)
 })
 
+test('applies a custom tag prefix to the tag and title', async () => {
+  assert.equal((await getDefaults(fixture('basic'), false, '')).tag_name, '0.0.0')
+  const prefixed = await getDefaults(fixture('basic'), false, 'release-')
+  assert.equal(prefixed.tag_name, 'release-0.0.0')
+  assert.equal(prefixed.name, 'release-0.0.0')
+})
+
 test('getTargetCommitish returns the current HEAD', () => {
   assert.match(getTargetCommitish(), /^[0-9a-f]{7,40}$/)
 })
@@ -277,6 +284,11 @@ test('parses flags and short aliases', () => {
 
 test('throws on an unknown flag', () => {
   assert.throws(() => parseCliArgs(['--nope']))
+})
+
+test('parses the --tag-prefix option', () => {
+  assert.equal(parseCliArgs(['--tag-prefix', ''])['tag-prefix'], '')
+  assert.equal(parseCliArgs(['--tag-prefix', 'rel-'])['tag-prefix'], 'rel-')
 })
 
 test('parses the --generate-notes flag', () => {

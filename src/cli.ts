@@ -67,7 +67,7 @@ export async function run(argv: string[], deps: CliDeps): Promise<void> {
 
   let defaults: Awaited<ReturnType<typeof getDefaults>>
   try {
-    defaults = await getDefaults(workpath, isEnterprise)
+    defaults = await getDefaults(workpath, isEnterprise, values['tag-prefix'])
   } catch (err) {
     deps.stderr((err as Error).message)
     return deps.exit(1)

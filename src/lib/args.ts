@@ -14,6 +14,7 @@ Create a GitHub Release for a Node package.
 
 Options:
   -t, --tag_name <tag>          tag for this release
+      --tag-prefix <prefix>     prefix for the derived tag and title (default "v")
   -c, --target_commitish <ref>  commitish value for tag
   -n, --name <name>             text of release title
   -b, --body <body>             text of release body
@@ -38,6 +39,7 @@ export function parseCliArgs(argv: string[]) {
     allowPositionals: false,
     options: {
       tag_name: { type: 'string', short: 't' },
+      'tag-prefix': { type: 'string' },
       target_commitish: { type: 'string', short: 'c' },
       name: { type: 'string', short: 'n' },
       body: { type: 'string', short: 'b' },

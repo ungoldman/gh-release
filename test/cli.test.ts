@@ -275,6 +275,24 @@ test('--generate-notes requests generated notes and skips the empty-body warning
   }
 })
 
+test('--tag-prefix changes the derived tag', async () => {
+  const server = await startMockServer({})
+  try {
+    const { deps, exits } = makeDeps()
+    await run(
+      ['-w', fixture('basic'), '-e', server.url, '--token', 'x', '-y', '--tag-prefix', ''],
+      deps
+    )
+    assert.deepEqual(exits, [0])
+    const createReq = server.requests.find(
+      (r) => r.method === 'POST' && r.url.endsWith('/releases')
+    )
+    assert.ok(createReq && createReq.body.includes('"tag_name":"0.0.0"'))
+  } finally {
+    await server.close()
+  }
+})
+
 test('uploads assets and reports progress', async () => {
   const dir = makeWorkdir()
   writeFileSync(join(dir, 'a.txt'), 'aaa')

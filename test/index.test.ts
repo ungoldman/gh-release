@@ -181,6 +181,25 @@ test('non-cli path derives defaults then creates a release', async () => {
   })
 })
 
+test('non-cli path applies the tagPrefix option', async () => {
+  const server = await startMockServer({})
+  try {
+    const { err } = await release({
+      workpath: join(import.meta.dirname, 'fixtures', 'basic'),
+      auth: { token: 'test-token' },
+      endpoint: server.url,
+      tagPrefix: ''
+    })
+    assert.equal(err, null)
+    const createReq = server.requests.find(
+      (r) => r.method === 'POST' && r.url.endsWith('/releases')
+    )
+    assert.ok(createReq && createReq.body.includes('"tag_name":"0.0.0"'))
+  } finally {
+    await server.close()
+  }
+})
+
 test('non-cli path falls back to the default workpath (cwd)', async () => {
   await withServer({}, async (url) => {
     // no workpath: derives defaults from this package's own root

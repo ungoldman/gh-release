@@ -86,8 +86,15 @@ function parseRepo(
   return { owner, repo }
 }
 
-/** Derive release defaults for a package directory. Throws on validation failure. */
-export async function getDefaults(workPath: string, isEnterprise: boolean): Promise<Defaults> {
+/**
+ * Derive release defaults for a package directory. `tagPrefix` is prepended to the
+ * derived tag and title (default `v`; pass `''` for none). Throws on validation failure.
+ */
+export async function getDefaults(
+  workPath: string,
+  isEnterprise: boolean,
+  tagPrefix = 'v'
+): Promise<Defaults> {
   const pkg = readJson(resolve(workPath, 'package.json'))
   if (!Object.hasOwn(pkg, 'repository')) {
     throw new Error(
@@ -115,7 +122,8 @@ export async function getDefaults(workPath: string, isEnterprise: boolean): Prom
   const { body, version } = await resolveRelease(
     resolve(workPath, 'CHANGELOG.md'),
     sourceVersion,
-    sourceLabel
+    sourceLabel,
+    tagPrefix
   )
 
   return {
@@ -143,13 +151,14 @@ export async function getDefaults(workPath: string, isEnterprise: boolean): Prom
 async function resolveRelease(
   changelogPath: string,
   sourceVersion: string | undefined,
-  sourceLabel: string
+  sourceLabel: string,
+  tagPrefix: string
 ): Promise<{ body: string; version: string }> {
   if (!existsSync(changelogPath)) {
     if (!sourceVersion) {
       throw new Error(`${sourceLabel} has no version to release`)
     }
-    return { body: '', version: `v${sourceVersion}` }
+    return { body: '', version: `${tagPrefix}${sourceVersion}` }
   }
 
   let result: Awaited<ReturnType<typeof parseChangelog>>
@@ -178,5 +187,5 @@ async function resolveRelease(
     )
   }
 
-  return { body: log.body, version: `v${log.version}` }
+  return { body: log.body, version: `${tagPrefix}${log.version}` }
 }
