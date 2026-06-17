@@ -6,6 +6,50 @@ All notable changes to this project will be documented in this file.
 - Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
 - Change log format is based on [Keep a Changelog](http://keepachangelog.com).
 
+## [8.0.0](https://github.com/ungoldman/gh-release/compare/v7.0.2...v8.0.0) (2026-06-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* the "publish release to github?" confirmation now defaults to yes. Pressing Enter, or any answer that is not `n`/`no`, publishes the release; previously only `y`/`yes` published and an empty answer declined.
+* gh-release no longer requires a CHANGELOG.md.
+    - A missing CHANGELOG.md is no longer an error; gh-release tags from the package.json version with an empty body.
+    - An empty matching changelog section is no longer an error; it produces an empty-body release instead of failing with `missing required options: body`.
+    - `body` is no longer a required option: it is removed from `OPTIONS.required`, and `validate()` no longer reports it missing.
+    - To populate the body without changelog notes, pass `--generate-notes` (or `generate_release_notes: true`).
+* This package is now ESM-only.
+    - ESM: import the named export, `import { ghRelease } from 'gh-release'`. The default export, `import ghRelease from 'gh-release'`, remains available for backwards compatibility.
+    - CommonJS: on Node 22.12+, `require('gh-release')` works (`require(esm)` is unflagged there) but returns the module namespace rather than the function, so `const ghRelease = require('gh-release')` no longer works. Use `const { ghRelease } = require('gh-release')` or `const ghRelease = require('gh-release').default`.
+    - The minimum supported Node.js version is now 22.12.0.
+    - Authentication is now token-only: the interactive ghauth login and its OAuth app are removed, username/password (HTTP basic auth) is removed, and the Release.clientId static is removed. GitHub disabled password authentication for its API in 2020.
+* drop support for Node versions <20, update deps, patch sec vulns ([#196](https://github.com/ungoldman/gh-release/issues/196))
+* drop node 14, 16, add 20
+
+### Features
+
+* default the publish prompt to yes ([#222](https://github.com/ungoldman/gh-release/issues/222)) ([6aaa08e](https://github.com/ungoldman/gh-release/commit/6aaa08e7e2325cabaf211dfd8a06dbdadc6d6cb3))
+* relax changelog and body requirements ([#221](https://github.com/ungoldman/gh-release/issues/221)) ([62fa42c](https://github.com/ungoldman/gh-release/commit/62fa42c5b45cc7a5ac4981d811ce5189f21a2e05))
+
+
+### Bug Fixes
+
+* handle 422 commitish, silence git stderr ([#223](https://github.com/ungoldman/gh-release/issues/223)) ([76f47a2](https://github.com/ungoldman/gh-release/commit/76f47a257e469c6164261583916b6a42fd85b268))
+
+
+### Miscellaneous Chores
+
+* drop support for Node versions &lt;20, update deps, patch sec vulns ([#196](https://github.com/ungoldman/gh-release/issues/196)) ([a4e7d5b](https://github.com/ungoldman/gh-release/commit/a4e7d5bb0b785521a81f3cb9a6a7165b3510f3c1))
+
+
+### Build System
+
+* convert to TypeScript and ESM ([#219](https://github.com/ungoldman/gh-release/issues/219)) ([928ea5f](https://github.com/ungoldman/gh-release/commit/928ea5f8837d2d935be81be3210cd91c2c9e2b5e))
+
+
+### Continuous Integration
+
+* drop node 14, 16, add 20 ([6c0e586](https://github.com/ungoldman/gh-release/commit/6c0e5860131451b4cf891242455004c9b8a009fe))
+
 ## [7.0.2](https://github.com/ungoldman/gh-release/compare/v7.0.1...v7.0.2) - 2022-01-20
 
 Maintenance update. Removes dependency `rimraf` in favor of builtin `fs` functionality.
