@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import { mkdtempSync, writeFileSync } from 'node:fs'
+import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { test } from 'node:test'
@@ -151,8 +151,59 @@ test('rejects a changelog out of sync with lerna.json', async () => {
   )
 })
 
-test('rejects a changelog with no versions', async () => {
-  await assert.rejects(getDefaults(fixture('no-versions'), false), /does not contain any versions/)
+test('rejects a changelog with no recognized version entries', async () => {
+  await assert.rejects(getDefaults(fixture('no-versions'), false), /no recognized version entries/)
+})
+
+test('wraps a present-but-unreadable changelog error', async () => {
+  const dir = mkdtempSync(join(tmpdir(), 'gh-release-'))
+  writeFileSync(
+    join(dir, 'package.json'),
+    JSON.stringify({ name: 'x', version: '1.0.0', repository: 'https://github.com/o/r.git' })
+  )
+  // a directory at the CHANGELOG.md path exists but cannot be read as a file
+  mkdirSync(join(dir, 'CHANGELOG.md'))
+  await assert.rejects(getDefaults(dir, false), /Could not read CHANGELOG.md: /)
+})
+
+test('releases without a CHANGELOG.md, from the package.json version', async () => {
+  const dir = mkdtempSync(join(tmpdir(), 'gh-release-'))
+  writeFileSync(
+    join(dir, 'package.json'),
+    JSON.stringify({ name: 'x', version: '2.3.4', repository: 'https://github.com/o/r.git' })
+  )
+  // no CHANGELOG.md written
+  const defaults = await getDefaults(dir, false)
+  assert.equal(defaults.body, '')
+  assert.equal(defaults.tag_name, 'v2.3.4')
+  assert.equal(defaults.name, 'v2.3.4')
+})
+
+test('rejects a missing CHANGELOG.md when package.json has no version', async () => {
+  const dir = mkdtempSync(join(tmpdir(), 'gh-release-'))
+  writeFileSync(
+    join(dir, 'package.json'),
+    JSON.stringify({ name: 'x', repository: 'https://github.com/o/r.git' })
+  )
+  await assert.rejects(getDefaults(dir, false), /package.json has no version to release/)
+})
+
+test('allows an empty release body', async () => {
+  const dir = mkdtempSync(join(tmpdir(), 'gh-release-'))
+  writeFileSync(
+    join(dir, 'package.json'),
+    JSON.stringify({ name: 'x', version: '1.0.0', repository: 'https://github.com/o/r.git' })
+  )
+  writeFileSync(join(dir, 'CHANGELOG.md'), '# Changelog\n\n## [1.0.0] - 2020-01-01\n')
+  const defaults = await getDefaults(dir, false)
+  assert.equal(defaults.body, '')
+  assert.equal(defaults.tag_name, 'v1.0.0')
+})
+
+test('parses an auto-changelog changelog (changelog-parser 4.1)', async () => {
+  const defaults = await getDefaults(fixture('auto-changelog'), false)
+  assert.equal(defaults.tag_name, 'v1.1.0')
+  assert.match(defaults.body, /add a format option/)
 })
 
 test('rejects a non-empty unreleased section', async () => {
@@ -228,6 +279,10 @@ test('throws on an unknown flag', () => {
   assert.throws(() => parseCliArgs(['--nope']))
 })
 
+test('parses the --generate-notes flag', () => {
+  assert.equal(parseCliArgs(['--generate-notes'])['generate-notes'], true)
+})
+
 test('exposes usage text and the package version', () => {
   assert.match(usage, /Usage: gh-release/)
   assert.match(version, /^\d+\.\d+\.\d+$/)
@@ -235,7 +290,8 @@ test('exposes usage text and the package version', () => {
 
 // --- validate (property) ---
 
-const required = ['auth', 'owner', 'repo', 'body', 'target_commitish', 'tag_name', 'name']
+// `body` is intentionally absent: an empty release body is allowed
+const required = ['auth', 'owner', 'repo', 'target_commitish', 'tag_name', 'name']
 
 test('validate reports exactly the missing required options', () => {
   fc.assert(

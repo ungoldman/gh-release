@@ -72,7 +72,7 @@ test('an unknown flag exits 1 with usage', async () => {
   assert.deepEqual(exits, [1])
 })
 
-test('missing package.json/CHANGELOG exits 1', async () => {
+test('missing package.json exits 1', async () => {
   const dir = mkdtempSync(join(tmpdir(), 'gh-release-empty-'))
   const { deps, out, exits } = makeDeps()
   await run(['-w', dir], deps)
@@ -213,6 +213,61 @@ test('a release error exits 1', async () => {
     assert.ok(errs.length > 0)
     assert.deepEqual(exits, [1])
   })
+})
+
+/** A package dir whose changelog entry has an empty body. */
+function makeEmptyBodyWorkdir(): string {
+  const dir = mkdtempSync(join(tmpdir(), 'gh-release-cli-'))
+  writeFileSync(
+    join(dir, 'package.json'),
+    JSON.stringify({ name: 'r', version: '1.0.0', repository: 'https://github.com/o/r.git' })
+  )
+  writeFileSync(join(dir, 'CHANGELOG.md'), '# Changelog\n\n## [1.0.0] - 2020-01-01\n')
+  return dir
+}
+
+test('warns but still releases when the body is empty', async () => {
+  const dir = makeEmptyBodyWorkdir()
+  await withServer({}, async (url) => {
+    const { deps, errs, exits } = makeDeps()
+    await run(['-w', dir, '-e', url, '--token', 'x', '-y'], deps)
+    assert.match(errs.join('\n'), /release body is empty/)
+    assert.deepEqual(exits, [0])
+  })
+})
+
+test('releases without a CHANGELOG.md, warning and using package.json', async () => {
+  const dir = mkdtempSync(join(tmpdir(), 'gh-release-cli-'))
+  writeFileSync(
+    join(dir, 'package.json'),
+    JSON.stringify({ name: 'r', version: '1.0.0', repository: 'https://github.com/o/r.git' })
+  )
+  // no CHANGELOG.md
+  await withServer({}, async (url) => {
+    const { deps, out, errs, exits } = makeDeps()
+    await run(['-w', dir, '-e', url, '--token', 'x', '-y'], deps)
+    assert.match(errs.join('\n'), /no CHANGELOG.md found/)
+    assert.match(out.join('\n'), /releases\/tag/)
+    assert.deepEqual(exits, [0])
+  })
+})
+
+test('--generate-notes requests generated notes and skips the empty-body warning', async () => {
+  const dir = makeEmptyBodyWorkdir()
+  const server = await startMockServer({})
+  try {
+    const { deps, errs, exits } = makeDeps()
+    await run(['-w', dir, '-e', server.url, '--token', 'x', '-y', '--generate-notes'], deps)
+    assert.deepEqual(exits, [0])
+    assert.doesNotMatch(errs.join('\n'), /release body is empty/)
+    const createReq = server.requests.find(
+      (r) => r.method === 'POST' && r.url.endsWith('/releases')
+    )
+    assert.ok(createReq)
+    assert.match(createReq.body, /"generate_release_notes":true/)
+  } finally {
+    await server.close()
+  }
 })
 
 test('uploads assets and reports progress', async () => {
