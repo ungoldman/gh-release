@@ -167,6 +167,18 @@ Git allows slashes in tag names, so a prefix like `service/env/` produces the ta
 
 To fill the body without a changelog, pass `--generate-notes` (CLI) or set `generate_release_notes: true` (Node). This enables GitHub's [automatically generated release notes](https://docs.github.com/en/repositories/releasing-projects-on-github/automatically-generated-release-notes), which GitHub builds server-side from the merged pull requests and commits since the previous release. The option name matches the [GitHub API field](https://docs.github.com/en/rest/releases/releases#create-a-release) it sets.
 
+## Proxy
+
+gh-release talks to GitHub through Node's built-in `fetch`, which honors the standard `HTTP_PROXY`, `HTTPS_PROXY`, and `NO_PROXY` environment variables once Node's proxy support is enabled. Turn it on with `NODE_USE_ENV_PROXY=1` (or run Node with `--use-env-proxy`):
+
+```
+NODE_USE_ENV_PROXY=1 HTTPS_PROXY=http://proxy.example.com:8080 gh-release
+```
+
+Node reads these at startup, so set them in the environment before gh-release runs: inline as above, or `export` them first. With the switch on, requests to GitHub route through the proxy; without it they go direct.
+
+No extra flags or dependencies are involved; the runtime does the proxying. This needs Node 22.21 or newer (or 24 and up). See [Node's enterprise network configuration guide](https://nodejs.org/learn/http/enterprise-network-configuration) for the full list of supported variables and `NO_PROXY` matching rules.
+
 ## Standards
 
 * `CHANGELOG.md`: any changelog format recognized by [changelog-parser](https://github.com/ungoldman/changelog-parser#supported-formats):
