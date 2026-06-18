@@ -1,10 +1,10 @@
 import assert from 'node:assert/strict'
-import { mkdtempSync, writeFileSync } from 'node:fs'
-import { tmpdir } from 'node:os'
+import { writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { test } from 'node:test'
 import Release, { ghRelease, type ReleaseOptions } from '../src/index.js'
 import { type MockConfig, startMockServer } from './helpers/mock-server.js'
+import { makeTmpDir } from './helpers/tmp.js'
 
 test('exposes the same function as the default and the ghRelease named export', () => {
   assert.equal(ghRelease, Release)
@@ -136,8 +136,8 @@ test('passes through a generic createRelease error', async () => {
   })
 })
 
-test('uploads string and object assets and relays their events', async () => {
-  const dir = mkdtempSync(join(tmpdir(), 'gh-release-'))
+test('uploads string and object assets and relays their events', async (t) => {
+  const dir = makeTmpDir(t)
   writeFileSync(join(dir, 'a.txt'), 'aaa')
   writeFileSync(join(dir, 'b.txt'), 'bbb')
   await withServer({}, async (url) => {
@@ -161,8 +161,8 @@ test('treats an empty assets array as no assets', async () => {
   })
 })
 
-test('errors when an asset file is missing', async () => {
-  const dir = mkdtempSync(join(tmpdir(), 'gh-release-'))
+test('errors when an asset file is missing', async (t) => {
+  const dir = makeTmpDir(t)
   await withServer({}, async (url) => {
     const { err } = await release(baseOptions(url, { workpath: dir, assets: ['missing.txt'] }))
     assert.ok(err instanceof Error)

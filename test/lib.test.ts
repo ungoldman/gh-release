@@ -1,19 +1,19 @@
 import assert from 'node:assert/strict'
-import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs'
-import { tmpdir } from 'node:os'
+import { mkdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { test } from 'node:test'
+import { type TestContext, test } from 'node:test'
 import fc from 'fast-check'
 import { type ReleaseOptions, validate } from '../src/index.js'
 import { parseCliArgs, usage, version } from '../src/lib/args.js'
 import { getDefaults, getTargetCommitish } from '../src/lib/get-defaults.js'
 import { preview } from '../src/lib/preview.js'
+import { makeTmpDir } from './helpers/tmp.js'
 
 const fixture = (name: string) => join(import.meta.dirname, 'fixtures', name)
 
 /** Write a temp package dir with a given `repository` value and a matching changelog. */
-function pkgDir(repository: unknown): string {
-  const dir = mkdtempSync(join(tmpdir(), 'gh-release-'))
+function pkgDir(t: TestContext, repository: unknown): string {
+  const dir = makeTmpDir(t)
   writeFileSync(
     join(dir, 'package.json'),
     JSON.stringify({ name: 'r', version: '1.0.0', repository })
@@ -43,27 +43,27 @@ test('reads an enterprise (non-github) repository host', async () => {
   assert.equal(defaults.repo, 'repo')
 })
 
-test('reads an scp-like git@host:owner/repo.git repository', async () => {
-  const defaults = await getDefaults(pkgDir('git@github.com:o/r.git'), false)
+test('reads an scp-like git@host:owner/repo.git repository', async (t) => {
+  const defaults = await getDefaults(pkgDir(t, 'git@github.com:o/r.git'), false)
   assert.equal(defaults.owner, 'o')
   assert.equal(defaults.repo, 'r')
 })
 
-test('reads a github:owner/repo shorthand repository', async () => {
-  const defaults = await getDefaults(pkgDir('github:o/r'), false)
+test('reads a github:owner/repo shorthand repository', async (t) => {
+  const defaults = await getDefaults(pkgDir(t, 'github:o/r'), false)
   assert.equal(defaults.owner, 'o')
   assert.equal(defaults.repo, 'r')
 })
 
-test('reads a bare owner/repo shorthand repository', async () => {
-  const defaults = await getDefaults(pkgDir('o/r'), false)
+test('reads a bare owner/repo shorthand repository', async (t) => {
+  const defaults = await getDefaults(pkgDir(t, 'o/r'), false)
   assert.equal(defaults.owner, 'o')
   assert.equal(defaults.repo, 'r')
 })
 
-test('rejects a malformed repository url', async () => {
+test('rejects a malformed repository url', async (t) => {
   await assert.rejects(
-    getDefaults(pkgDir('https://'), false),
+    getDefaults(pkgDir(t, 'https://'), false),
     /repository defined in your package.json is invalid/
   )
 })
@@ -85,15 +85,15 @@ test('rejects an invalid repository string', async () => {
   )
 })
 
-test('rejects a package.json with no repository field', async () => {
-  const dir = mkdtempSync(join(tmpdir(), 'gh-release-'))
+test('rejects a package.json with no repository field', async (t) => {
+  const dir = makeTmpDir(t)
   writeFileSync(join(dir, 'package.json'), JSON.stringify({ name: 'x', version: '1.0.0' }))
   writeFileSync(join(dir, 'CHANGELOG.md'), '## 1.0.0\n- a\n')
   await assert.rejects(getDefaults(dir, false), /must define a repository/)
 })
 
-test('rejects a repository object with no url', async () => {
-  const dir = mkdtempSync(join(tmpdir(), 'gh-release-'))
+test('rejects a repository object with no url', async (t) => {
+  const dir = makeTmpDir(t)
   writeFileSync(
     join(dir, 'package.json'),
     JSON.stringify({ name: 'x', version: '1.0.0', repository: { type: 'git' } })
@@ -112,8 +112,8 @@ test('rejects a non-github host when not enterprise', async () => {
   )
 })
 
-test('rejects a repository url missing the repo segment', async () => {
-  const dir = mkdtempSync(join(tmpdir(), 'gh-release-'))
+test('rejects a repository url missing the repo segment', async (t) => {
+  const dir = makeTmpDir(t)
   writeFileSync(
     join(dir, 'package.json'),
     JSON.stringify({ name: 'x', version: '1.0.0', repository: 'https://github.com/foo' })
@@ -125,8 +125,8 @@ test('rejects a repository url missing the repo segment', async () => {
   )
 })
 
-test('accepts a lerna.json version matching the changelog', async () => {
-  const dir = mkdtempSync(join(tmpdir(), 'gh-release-'))
+test('accepts a lerna.json version matching the changelog', async (t) => {
+  const dir = makeTmpDir(t)
   writeFileSync(
     join(dir, 'package.json'),
     JSON.stringify({ name: 'x', version: '9.9.9', repository: 'https://github.com/o/r.git' })
@@ -155,8 +155,8 @@ test('rejects a changelog with no recognized version entries', async () => {
   await assert.rejects(getDefaults(fixture('no-versions'), false), /no recognized version entries/)
 })
 
-test('wraps a present-but-unreadable changelog error', async () => {
-  const dir = mkdtempSync(join(tmpdir(), 'gh-release-'))
+test('wraps a present-but-unreadable changelog error', async (t) => {
+  const dir = makeTmpDir(t)
   writeFileSync(
     join(dir, 'package.json'),
     JSON.stringify({ name: 'x', version: '1.0.0', repository: 'https://github.com/o/r.git' })
@@ -166,8 +166,8 @@ test('wraps a present-but-unreadable changelog error', async () => {
   await assert.rejects(getDefaults(dir, false), /Could not read CHANGELOG.md: /)
 })
 
-test('releases without a CHANGELOG.md, from the package.json version', async () => {
-  const dir = mkdtempSync(join(tmpdir(), 'gh-release-'))
+test('releases without a CHANGELOG.md, from the package.json version', async (t) => {
+  const dir = makeTmpDir(t)
   writeFileSync(
     join(dir, 'package.json'),
     JSON.stringify({ name: 'x', version: '2.3.4', repository: 'https://github.com/o/r.git' })
@@ -179,8 +179,8 @@ test('releases without a CHANGELOG.md, from the package.json version', async () 
   assert.equal(defaults.name, 'v2.3.4')
 })
 
-test('rejects a missing CHANGELOG.md when package.json has no version', async () => {
-  const dir = mkdtempSync(join(tmpdir(), 'gh-release-'))
+test('rejects a missing CHANGELOG.md when package.json has no version', async (t) => {
+  const dir = makeTmpDir(t)
   writeFileSync(
     join(dir, 'package.json'),
     JSON.stringify({ name: 'x', repository: 'https://github.com/o/r.git' })
@@ -188,8 +188,8 @@ test('rejects a missing CHANGELOG.md when package.json has no version', async ()
   await assert.rejects(getDefaults(dir, false), /package.json has no version to release/)
 })
 
-test('allows an empty release body', async () => {
-  const dir = mkdtempSync(join(tmpdir(), 'gh-release-'))
+test('allows an empty release body', async (t) => {
+  const dir = makeTmpDir(t)
   writeFileSync(
     join(dir, 'package.json'),
     JSON.stringify({ name: 'x', version: '1.0.0', repository: 'https://github.com/o/r.git' })
@@ -221,8 +221,8 @@ test('getTargetCommitish returns the current HEAD', () => {
   assert.match(getTargetCommitish(), /^[0-9a-f]{7,40}$/)
 })
 
-test('getTargetCommitish falls back to master outside a git repo', () => {
-  const dir = mkdtempSync(join(tmpdir(), 'gh-release-nogit-'))
+test('getTargetCommitish falls back to master outside a git repo', (t) => {
+  const dir = makeTmpDir(t, 'gh-release-nogit-')
   const cwd = process.cwd()
   process.chdir(dir)
   try {

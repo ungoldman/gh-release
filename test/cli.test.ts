@@ -1,11 +1,11 @@
 import assert from 'node:assert/strict'
-import { mkdtempSync, writeFileSync } from 'node:fs'
-import { tmpdir } from 'node:os'
+import { writeFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { test } from 'node:test'
+import { type TestContext, test } from 'node:test'
 import { type CliDeps, isConfirmed, run } from '../src/cli.js'
 import Release from '../src/index.js'
 import { type MockConfig, startMockServer } from './helpers/mock-server.js'
+import { makeTmpDir } from './helpers/tmp.js'
 
 const fixture = (name: string) => join(import.meta.dirname, 'fixtures', name)
 
@@ -41,8 +41,8 @@ async function withServer(
 }
 
 /** A self-contained package directory the release flow can run against. */
-function makeWorkdir(): string {
-  const dir = mkdtempSync(join(tmpdir(), 'gh-release-cli-'))
+function makeWorkdir(t: TestContext): string {
+  const dir = makeTmpDir(t, 'gh-release-cli-')
   writeFileSync(
     join(dir, 'package.json'),
     JSON.stringify({ name: 'r', version: '1.0.0', repository: 'https://github.com/o/r.git' })
@@ -77,8 +77,8 @@ test('an unknown flag exits 1 with usage', async () => {
   assert.deepEqual(exits, [1])
 })
 
-test('missing package.json exits 1', async () => {
-  const dir = mkdtempSync(join(tmpdir(), 'gh-release-empty-'))
+test('missing package.json exits 1', async (t) => {
+  const dir = makeTmpDir(t, 'gh-release-empty-')
   const { deps, out, exits } = makeDeps()
   await run(['-w', dir], deps)
   assert.ok(out.join('\n').includes('Must be run in a directory'))
@@ -221,8 +221,8 @@ test('a release error exits 1', async () => {
 })
 
 /** A package dir whose changelog entry has an empty body. */
-function makeEmptyBodyWorkdir(): string {
-  const dir = mkdtempSync(join(tmpdir(), 'gh-release-cli-'))
+function makeEmptyBodyWorkdir(t: TestContext): string {
+  const dir = makeTmpDir(t, 'gh-release-cli-')
   writeFileSync(
     join(dir, 'package.json'),
     JSON.stringify({ name: 'r', version: '1.0.0', repository: 'https://github.com/o/r.git' })
@@ -231,8 +231,8 @@ function makeEmptyBodyWorkdir(): string {
   return dir
 }
 
-test('warns but still releases when the body is empty', async () => {
-  const dir = makeEmptyBodyWorkdir()
+test('warns but still releases when the body is empty', async (t) => {
+  const dir = makeEmptyBodyWorkdir(t)
   await withServer({}, async (url) => {
     const { deps, errs, exits } = makeDeps()
     await run(['-w', dir, '-e', url, '--token', 'x', '-y'], deps)
@@ -241,8 +241,8 @@ test('warns but still releases when the body is empty', async () => {
   })
 })
 
-test('releases without a CHANGELOG.md, warning and using package.json', async () => {
-  const dir = mkdtempSync(join(tmpdir(), 'gh-release-cli-'))
+test('releases without a CHANGELOG.md, warning and using package.json', async (t) => {
+  const dir = makeTmpDir(t, 'gh-release-cli-')
   writeFileSync(
     join(dir, 'package.json'),
     JSON.stringify({ name: 'r', version: '1.0.0', repository: 'https://github.com/o/r.git' })
@@ -257,8 +257,8 @@ test('releases without a CHANGELOG.md, warning and using package.json', async ()
   })
 })
 
-test('--generate-notes requests generated notes and skips the empty-body warning', async () => {
-  const dir = makeEmptyBodyWorkdir()
+test('--generate-notes requests generated notes and skips the empty-body warning', async (t) => {
+  const dir = makeEmptyBodyWorkdir(t)
   const server = await startMockServer({})
   try {
     const { deps, errs, exits } = makeDeps()
@@ -293,8 +293,8 @@ test('--tag-prefix changes the derived tag', async () => {
   }
 })
 
-test('uploads assets and reports progress', async () => {
-  const dir = makeWorkdir()
+test('uploads assets and reports progress', async (t) => {
+  const dir = makeWorkdir(t)
   writeFileSync(join(dir, 'a.txt'), 'aaa')
   await withServer({}, async (url) => {
     const { deps, out, progress, exits } = makeDeps()

@@ -1,9 +1,9 @@
 import assert from 'node:assert/strict'
 import { spawnSync } from 'node:child_process'
-import { mkdtempSync, writeFileSync } from 'node:fs'
-import { tmpdir } from 'node:os'
+import { writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { test } from 'node:test'
+import { makeTmpDir } from './helpers/tmp.js'
 
 const bin = join(import.meta.dirname, '..', 'dist', 'bin.js')
 
@@ -23,8 +23,8 @@ test('bin --version prints the version and exits 0', () => {
   assert.match(res.stdout.trim(), /^\d+\.\d+\.\d+$/)
 })
 
-test('bin exits 1 when no token is available', () => {
-  const dir = mkdtempSync(join(tmpdir(), 'gh-release-bin-'))
+test('bin exits 1 when no token is available', (t) => {
+  const dir = makeTmpDir(t, 'gh-release-bin-')
   writeFileSync(
     join(dir, 'package.json'),
     JSON.stringify({ name: 'r', version: '1.0.0', repository: 'https://github.com/o/r.git' })
