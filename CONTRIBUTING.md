@@ -22,6 +22,15 @@ This project welcomes any kind of contribution! Here are a few suggestions:
 - **Formatting**: help keep content easy to read with consistent formatting.
 - **Code**: help maintain and improve the project codebase.
 
+## Coding Guidelines
+
+- Commits should be atomic and adhere to [conventional commit](https://conventionalcommits.org) standards.
+- Commit messages should be short (`<topic>: <action>`, 50 char max), and commit bodies only included when necessary for complex changes (72 char max).
+- Breaking changes are discouraged, and require a `BREAKING CHANGE:` footer in the commit body explaining the change.
+- Types and interfaces should be inlined unless they're absolutely necessary for exporting or testing.
+- Avoid unnecessary code comments, and keep necessary ones trim.
+- All changes should maintain the test coverage gate (100%; the spawn-only `src/bin.ts` is excluded).
+
 ## Project Governance
 
 Individuals making significant and valuable contributions are given commit access to the project to contribute as they see fit. This project is more like an open wiki than a standard guarded open source project.
