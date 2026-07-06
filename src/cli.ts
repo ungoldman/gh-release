@@ -1,10 +1,10 @@
 import { existsSync } from 'node:fs'
 import { join } from 'node:path'
-import type Release from './index.js'
-import type { ReleaseOptions } from './index.js'
-import { parseCliArgs, usage, version } from './lib/args.js'
-import { getDefaults } from './lib/get-defaults.js'
-import { preview } from './lib/preview.js'
+import type Release from './index.ts'
+import type { ReleaseOptions } from './index.ts'
+import { parseCliArgs, usage, version } from './lib/args.ts'
+import { getDefaults } from './lib/get-defaults.ts'
+import { preview } from './lib/preview.ts'
 
 /** Injectable seams for {@link run}, so the CLI is testable without a real terminal. */
 export interface CliDeps {

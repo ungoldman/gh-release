@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 import { stdin, stdout } from 'node:process'
 import { createInterface } from 'node:readline/promises'
-import { type CliDeps, isConfirmed, run } from './cli.js'
-import Release from './index.js'
+import { type CliDeps, isConfirmed, run } from './cli.ts'
+import Release from './index.ts'
 
 const deps: CliDeps = {
   cwd: process.cwd(),

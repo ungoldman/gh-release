@@ -3,11 +3,11 @@ import { mkdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { type TestContext, test } from 'node:test'
 import fc from 'fast-check'
-import { type ReleaseOptions, validate } from '../src/index.js'
-import { parseCliArgs, usage, version } from '../src/lib/args.js'
-import { getDefaults, getTargetCommitish } from '../src/lib/get-defaults.js'
-import { preview } from '../src/lib/preview.js'
-import { makeTmpDir } from './helpers/tmp.js'
+import { type ReleaseOptions, validate } from '../src/index.ts'
+import { parseCliArgs, usage, version } from '../src/lib/args.ts'
+import { getDefaults, getTargetCommitish } from '../src/lib/get-defaults.ts'
+import { preview } from '../src/lib/preview.ts'
+import { makeTmpDir } from './helpers/tmp.ts'
 
 const fixture = (name: string) => join(import.meta.dirname, 'fixtures', name)
 

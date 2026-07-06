@@ -29,7 +29,6 @@
     "@biomejs/biome": "^2.5.0",
     "@types/node": "^22.19.21",
     "fast-check": "^4.8.0",
-    "tsx": "^4.22.4",
     "typescript": "^6.0.3"
   },
   "engines": {
@@ -61,12 +60,12 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "coverage": "npm run build && node --test --import=tsx --experimental-test-coverage --test-coverage-exclude=\"test/**\" --test-coverage-exclude=\"dist/**\" --test-coverage-exclude=\"src/bin.ts\" --test-coverage-lines=100 --test-coverage-branches=100 --test-coverage-functions=100 test/*.test.ts",
+    "coverage": "npm run build && node --test --experimental-test-coverage --test-coverage-exclude=\"test/**\" --test-coverage-exclude=\"dist/**\" --test-coverage-exclude=\"src/bin.ts\" --test-coverage-lines=100 --test-coverage-branches=100 --test-coverage-functions=100 test/*.test.ts",
     "format": "biome check --write .",
     "lint": "biome check .",
     "prebuild": "rm -rf dist",
     "prepublishOnly": "npm run build",
-    "test": "npm run lint && npm run typecheck && npm run build && node --test --import=tsx test/*.test.ts",
+    "test": "npm run lint && npm run typecheck && npm run build && node --test test/*.test.ts",
     "typecheck": "tsc"
   },
   "sideEffects": false,
