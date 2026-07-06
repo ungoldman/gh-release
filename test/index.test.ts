@@ -2,9 +2,9 @@ import assert from 'node:assert/strict'
 import { writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { test } from 'node:test'
-import Release, { ghRelease, type ReleaseOptions } from '../src/index.js'
-import { type MockConfig, startMockServer } from './helpers/mock-server.js'
-import { makeTmpDir } from './helpers/tmp.js'
+import Release, { ghRelease, type ReleaseOptions } from '../src/index.ts'
+import { type MockConfig, startMockServer } from './helpers/mock-server.ts'
+import { makeTmpDir } from './helpers/tmp.ts'
 
 test('exposes the same function as the default and the ghRelease named export', () => {
   assert.equal(ghRelease, Release)

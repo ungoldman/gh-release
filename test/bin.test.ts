@@ -3,7 +3,7 @@ import { spawnSync } from 'node:child_process'
 import { writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { test } from 'node:test'
-import { makeTmpDir } from './helpers/tmp.js'
+import { makeTmpDir } from './helpers/tmp.ts'
 
 const bin = join(import.meta.dirname, '..', 'dist', 'bin.js')
 

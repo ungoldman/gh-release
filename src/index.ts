@@ -2,7 +2,7 @@ import { EventEmitter } from 'node:events'
 import { join } from 'node:path'
 import { Octokit } from '@octokit/rest'
 import uploadAssets from 'gh-release-assets'
-import { getDefaults } from './lib/get-defaults.js'
+import { getDefaults } from './lib/get-defaults.ts'
 
 /** Token-based authentication. */
 export interface Auth {

@@ -2,10 +2,10 @@ import assert from 'node:assert/strict'
 import { writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { type TestContext, test } from 'node:test'
-import { type CliDeps, isConfirmed, run } from '../src/cli.js'
-import Release from '../src/index.js'
-import { type MockConfig, startMockServer } from './helpers/mock-server.js'
-import { makeTmpDir } from './helpers/tmp.js'
+import { type CliDeps, isConfirmed, run } from '../src/cli.ts'
+import Release from '../src/index.ts'
+import { type MockConfig, startMockServer } from './helpers/mock-server.ts'
+import { makeTmpDir } from './helpers/tmp.ts'
 
 const fixture = (name: string) => join(import.meta.dirname, 'fixtures', name)
 
