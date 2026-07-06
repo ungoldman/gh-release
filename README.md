@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./rocket.png" width="120" height="120" alt="rocket">
+<img src="./logo.png" width="120" height="120" alt="rocket">
 
 # gh-release
 
@@ -214,4 +214,4 @@ Please read the [change log](CHANGELOG.md) for a human-readable history of chang
 
 [ISC](LICENSE.md)
 
-Rocket image is from [emojipedia](https://emojipedia.org/rocket/).
+The logo is the rocket emoji, rendered with [emoji2png](https://github.com/ungoldman/emoji2png).
