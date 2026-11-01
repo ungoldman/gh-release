@@ -287,7 +287,7 @@ test('--tag-prefix changes the derived tag', async () => {
     const createReq = server.requests.find(
       (r) => r.method === 'POST' && r.url.endsWith('/releases')
     )
-    assert.ok(createReq && createReq.body.includes('"tag_name":"0.0.0"'))
+    assert.ok(createReq?.body.includes('"tag_name":"0.0.0"'))
   } finally {
     await server.close()
   }
